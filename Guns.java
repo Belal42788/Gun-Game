@@ -13,9 +13,10 @@ public class Guns implements GLEventListener, KeyListener {
   int Max_X = 50;
   int Max_Y = 50;
 
-
+  int Delay =1;
   //Moving Objects
   int[][] Bullets = new int[Max_X][Max_Y];
+  int[][] Enemies = new int[Max_X][Max_Y];
   int soldierX = 2;
   int soldierY = 25;
 
@@ -32,13 +33,19 @@ public class Guns implements GLEventListener, KeyListener {
     GL gl = glAutoDrawable.getGL();
     gl.glClear(GL.GL_COLOR_BUFFER_BIT);
 
-    //Draw
+    //ٍSoldier
     TO_Draw_Soldier(gl);
-    TO_Draw_Bullets(gl);
 
-    //Move and disappear
+    //Bullet
+    TO_Draw_Bullets(gl);
     TO_Move_Bullets();
     TO_Disappear_Bullets();
+
+    //Enemies
+    TO_Delay_Enemies();
+    TO_Draw_Enemies(gl);
+    TO_Move_Enemies();
+    TO_Disappear_Enemies();
 
 
   }
@@ -100,7 +107,52 @@ public class Guns implements GLEventListener, KeyListener {
   public void TO_Fire() {
     Bullets[soldierX][soldierY] = 1;
   }
-
+  /////////////////////////////////////////////////////////////////////////////////////
+  //Enemies
+  public void TO_Delay_Enemies(){
+    if (Delay++ %16==0) {
+      TO_Generate_Enemies();
+    }
+    if(Delay ==1000) Delay =1;
+  }
+  void TO_Generate_Enemies() {
+    int x = 49;
+    int y = (int) (Math.random() * (Max_Y-1));
+    Enemies[x][y] = 1;
+  }
+  void TO_Draw_One_Enemy(GL gl, int x, int y) {
+    gl.glPointSize(30.0f);
+    gl.glColor3f(0.0f, 1.0f, 0.0f);
+    gl.glBegin(GL.GL_POINTS);
+    gl.glVertex2i(X(x), Y(y));
+    gl.glEnd();
+  }
+  public void TO_Draw_Enemies(GL gl){
+    for (int i = 0; i < Max_X; i++) {
+      for (int j = 0; j < Max_Y; j++) {
+        if (Enemies[i][j] == 1) {
+          TO_Draw_One_Enemy(gl, i, j);
+        }
+      }
+    }
+  }
+  public void TO_Move_Enemies(){
+    for (int i = 1; i < Max_X; i++) {
+      for (int j = 0; j < Max_Y; j++) {
+        if (Enemies[i][j] == 1) {
+          Enemies[i][j] = 0;
+          Enemies[i - 1][j] = 1;
+        }
+      }
+    }
+  }
+  public void TO_Disappear_Enemies(){
+    for (int j = 0; j < Max_Y; j++) {
+      if (Enemies[0][j] == 1) {
+        Enemies[0][j] = 0;
+      }
+    }
+  }
   /////////////////////////////////////////////////////////////////////////////////////
   int X(int x) { return x * Max_Screen_X / Max_X; }
   int Y(int y) { return y * Max_Screen_Y / Max_Y; }
