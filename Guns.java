@@ -1,6 +1,3 @@
-package src.Textures.Example1;
-
-
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
