@@ -1,15 +1,19 @@
+package guns_proj;
 
+import Textures.TextureReader;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
+import javax.media.opengl.glu.GLU;
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
+import java.io.IOException;
 
-public class Guns implements GLEventListener, KeyListener {
+public class Guns implements GLEventListener, KeyListener, MouseListener, MouseMotionListener {
   //Screen Dimensions  and  picture Dimensions
   int Min_Screen_X = 0;
+
   int Max_Screen_X = 700;
   int Min_Screen_Y = 0;
   int Max_Screen_Y = 700;
@@ -31,21 +35,90 @@ public class Guns implements GLEventListener, KeyListener {
   int hearts2 =5;
 
   boolean Multi=false;
+  static String pages = "home";
+  int slodier1index = 0;
+  int slodier2index = 0;
+  int monsterindex = 0;
+
+  String textureNames[] = {"HOME\\Monster(Home).png"   ,"Page 2(Single vs MULTI)\\Monster(Single vs Multi).png","INSTRUCTIONS\\Monster(instructions).png","OPTIONS\\OPTIONS.png","CONTACT_US\\CONTACT_US.png","LEVELS\\Monster(levels).png",
+          "Background game\\background.png",
+  "MAN\\Man1_right.png","MAN\\Man2_right.png","MAN\\Man3_right.png","MAN\\Man4_right.png","B1.png",
+  "RedMan\\RedMan1_right-1.png","RedMan\\RedMan2_right-1.png","RedMan\\RedMan3_right-1.png","RedMan\\RedMan4_right-1.png","Bullet.png",
+  "Running Monster\\0_Golem_Running_001-1.png","Running Monster\\0_Golem_Running_002-1.png","Running Monster\\0_Golem_Running_003-1.png",
+  "Running Monster\\0_Golem_Running_004-1.png","Running Monster\\0_Golem_Running_005-1.png","Running Monster\\0_Golem_Running_006-1.png"
+  };
+  TextureReader.Texture texture[] = new TextureReader.Texture[textureNames.length];
+  int textures[] = new int[textureNames.length];
+
   @Override
   public void init(GLAutoDrawable glAutoDrawable) {
     GL gl = glAutoDrawable.getGL();
-    gl.glMatrixMode(GL.GL_PROJECTION);
-    gl.glLoadIdentity();
-    gl.glOrtho(Min_Screen_X, Max_Screen_X, Min_Screen_Y, Max_Screen_Y, -1.0, 1.0);
-    gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+
+//    gl.glMatrixMode(GL.GL_PROJECTION);
+//    gl.glLoadIdentity();
+//    gl.glOrtho(Min_Screen_X, Max_Screen_X, Min_Screen_Y, Max_Screen_Y, -1.0, 1.0);
+//    gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+    gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);    //This Will Clear The Background Color To Black
+
+    gl.glEnable(GL.GL_TEXTURE_2D);  // Enable Texture Mapping
+    gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
+    gl.glGenTextures(textureNames.length, textures, 0);
+
+    for (int i = 0; i < textureNames.length; i++) {
+      try {
+        texture[i] = TextureReader.readTexture("MONSTER_GAME\\"+ textureNames[i], true);
+        gl.glBindTexture(GL.GL_TEXTURE_2D, textures[i]);
+
+//                mipmapsFromPNG(gl, new GLU(), texture[i]);
+        new GLU().gluBuild2DMipmaps(
+                GL.GL_TEXTURE_2D,
+                GL.GL_RGBA, // Internal Texel Format,
+                texture[i].getWidth(), texture[i].getHeight(),
+                GL.GL_RGBA, // External format from image,
+                GL.GL_UNSIGNED_BYTE,
+                texture[i].getPixels() // Imagedata
+        );
+      } catch (IOException e) {
+        System.out.println(e);
+        e.printStackTrace();
+      }
+    }
+
   }
   @Override
   public void display(GLAutoDrawable glAutoDrawable) {
     GL gl = glAutoDrawable.getGL();
     gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+    gl.glLoadIdentity();
 
+//PAGES
+  if (pages=="home"){
+    DrawBackground(0,gl);
+
+  }
+    else if (pages=="play"){
+      DrawBackground(1,gl);
+
+    }
+  else if (pages=="instrctions"){
+    DrawBackground(2,gl);
+
+  } else if (pages=="OPTIONS"){
+    DrawBackground(3,gl);
+
+  }   else if (pages=="CONTACT_US"){
+    DrawBackground(4,gl);
+
+  }
+  else if (pages=="SINGLE"){
+    DrawBackground(5,gl);
+
+  }else if (pages=="EASY"){
+    DrawBackground(5,gl);
     //ٍSoldier1
-    TO_Draw_Soldier1(gl);
+    TO_Draw_Soldier1(gl,3);
 
     //Bullet1
     TO_Draw_Bullets1(gl);
@@ -62,28 +135,177 @@ public class Guns implements GLEventListener, KeyListener {
     Handle_Bullet_Collision1();
     Handle_Soldier_Collision1();
 
-    if(Multi){
-      //ٍSoldier2
-      TO_Draw_Soldier2(gl);
+  }
+  else if (pages=="MEDIUM"){
+    DrawBackground(8,gl);
+    //ٍSoldier1
+    TO_Draw_Soldier1(gl,3);
 
-      //Bullet2
-      TO_Draw_Bullets2(gl);
-      TO_Move_Bullets2();
-      TO_Disappear_Bullets2();
+    //Bullet1
+    TO_Draw_Bullets1(gl);
+    TO_Move_Bullets1();
+    TO_Disappear_Bullets1();
 
-      //Handling Collisions2
-      Handle_Bullet_Collision2();
-      Handle_Soldier_Collision2();
-    }
+    //Enemies
+    TO_Delay_Enemies();
+    TO_Draw_Enemies(gl);
+    TO_Move_Enemies();
+    TO_Disappear_Enemies();
+
+    //Handling Collisions1
+    Handle_Bullet_Collision1();
+    Handle_Soldier_Collision1();
+
+  }
+  else if (pages=="HARD"){
+    DrawBackground(5,gl);
+    //ٍSoldier1
+    TO_Draw_Soldier1(gl,3);
+
+    //Bullet1
+    TO_Draw_Bullets1(gl);
+    TO_Move_Bullets1();
+    TO_Disappear_Bullets1();
+
+    //Enemies
+    TO_Delay_Enemies();
+    TO_Draw_Enemies(gl);
+    TO_Move_Enemies();
+    TO_Disappear_Enemies();
+
+    //Handling Collisions1
+    Handle_Bullet_Collision1();
+    Handle_Soldier_Collision1();
+
+  }
+  else if(pages=="Multi"){
+    //ٍSoldier1
+    TO_Draw_Soldier1(gl,4);
+
+    //Bullet1
+    TO_Draw_Bullets1(gl);
+    TO_Move_Bullets1();
+    TO_Disappear_Bullets1();
+
+    //Enemies
+    TO_Delay_Enemies();
+    TO_Draw_Enemies(gl);
+    TO_Move_Enemies();
+    TO_Disappear_Enemies();
+
+    //Handling Collisions1
+    Handle_Bullet_Collision1();
+    Handle_Soldier_Collision1();
+
+    //ٍSoldier2
+    TO_Draw_Soldier2(gl,4);
+
+    //Bullet2
+    TO_Draw_Bullets2(gl);
+    TO_Move_Bullets2();
+    TO_Disappear_Bullets2();
+
+    //Handling Collisions2
+    Handle_Bullet_Collision2();
+    Handle_Soldier_Collision2();
+  }
+
+//    //Animationindex
+//    slodier1index = 1 + slodier1index % 4;
+//    slodier2index = 6 + slodier2index % 4;
+//
+//    monsterindex++;
+//    monsterindex = 11 + monsterindex % 6;
+//    //Background
+//    DrawBackground(0,gl);
+//
+//    //ٍSoldier1
+//    TO_Draw_Soldier1(gl,slodier1index);
+//
+//    //Bullet1
+//    TO_Draw_Bullets1(gl);
+//    TO_Move_Bullets1();
+//    TO_Disappear_Bullets1();
+//
+//    //Enemies
+//    TO_Delay_Enemies();
+//    TO_Draw_Enemies(gl);
+//    TO_Move_Enemies();
+//    TO_Disappear_Enemies();
+//
+//    //Handling Collisions1
+//    Handle_Bullet_Collision1();
+//    Handle_Soldier_Collision1();
+//
+//    if(Multi){
+//      //ٍSoldier2
+//      TO_Draw_Soldier2(gl,slodier2index);
+//
+//      //Bullet2
+//      TO_Draw_Bullets2(gl);
+//      TO_Move_Bullets2();
+//      TO_Disappear_Bullets2();
+//
+//      //Handling Collisions2
+//      Handle_Bullet_Collision2();
+//      Handle_Soldier_Collision2();
+//    }
   }
   ////////////////////////////////////////////////////////////////////////
-  //Soldier
-  void TO_Draw_Soldier1(GL gl) {
-    gl.glPointSize(20.0f);
-    gl.glColor3f(1.0f, 0.0f, 1.0f);
-    gl.glBegin(GL.GL_POINTS);
-    gl.glVertex2i(X(soldier1X), Y(soldier1Y));
+  //Background
+  public void DrawBackground(int index,GL gl) {
+    gl.glEnable(GL.GL_BLEND);
+    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);	// Turn Blending On
+
+    gl.glPushMatrix();
+    gl.glBegin(GL.GL_QUADS);
+    // Front Face
+    gl.glTexCoord2f(0.0f, 0.0f);
+    gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+    gl.glTexCoord2f(1.0f, 0.0f);
+    gl.glVertex3f(1.0f, -1.0f, -1.0f);
+    gl.glTexCoord2f(1.0f, 1.0f);
+    gl.glVertex3f(1.0f, 1.0f, -1.0f);
+    gl.glTexCoord2f(0.0f, 1.0f);
+    gl.glVertex3f(-1.0f, 1.0f, -1.0f);
     gl.glEnd();
+    gl.glPopMatrix();
+
+    gl.glDisable(GL.GL_BLEND);
+  }
+
+  ////////////////////////////////////////////////////////////////////////
+  //Soldier
+  void TO_Draw_Soldier1(GL gl,int index) {
+//    gl.glPointSize(20.0f);
+//    gl.glColor3f(1.0f, 0.0f, 1.0f);
+//    gl.glBegin(GL.GL_POINTS);
+//    gl.glVertex2i(X(soldier1X), Y(soldier1Y));
+//    gl.glEnd();
+
+    gl.glEnable(GL.GL_BLEND);
+    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);	// Turn Blending On
+
+    gl.glPushMatrix();
+
+    gl.glTranslated(soldier1X * 13 / (Max_Screen_X / 2.0) -0.95 , soldier1Y * 13/ (Max_Screen_Y / 2.0) -0.95 , 0);
+
+    gl.glScaled(0.1, 0.1 , 1);
+    //System.out.println(x +" " + y);
+    gl.glBegin(GL.GL_QUADS);
+    // Front Face
+    gl.glTexCoord2f(0.0f, 0.0f);
+    gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+    gl.glTexCoord2f(1.0f, 0.0f);
+    gl.glVertex3f(1.0f, -1.0f, -1.0f);
+    gl.glTexCoord2f(1.0f, 1.0f);
+    gl.glVertex3f(1.0f, 1.0f, -1.0f);
+    gl.glTexCoord2f(0.0f, 1.0f);
+    gl.glVertex3f(-1.0f, 1.0f, -1.0f);
+    gl.glEnd();
+    gl.glPopMatrix();
+
+    gl.glDisable(GL.GL_BLEND);
   }
 
   public void TO_Move_Soldier1(int Key) {
@@ -100,12 +322,36 @@ public class Guns implements GLEventListener, KeyListener {
 
   ////////////////////////////////////////////////////////////////////////
   //Soldier
-  void TO_Draw_Soldier2(GL gl) {
-    gl.glPointSize(20.0f);
-    gl.glColor3f(1.0f, 0.0f, 1.0f);
-    gl.glBegin(GL.GL_POINTS);
-    gl.glVertex2i(X(soldier2X), Y(soldier2Y));
+  void TO_Draw_Soldier2(GL gl,int index) {
+//    gl.glPointSize(20.0f);
+//    gl.glColor3f(1.0f, 0.0f, 1.0f);
+//    gl.glBegin(GL.GL_POINTS);
+//    gl.glVertex2i(X(soldier2X), Y(soldier2Y));
+//    gl.glEnd();
+
+    gl.glEnable(GL.GL_BLEND);
+    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);	// Turn Blending On
+
+    gl.glPushMatrix();
+
+    gl.glTranslated(soldier1X * 13 / (Max_Screen_X / 2.0) -0.95 , soldier1Y * 13/ (Max_Screen_Y / 2.0) -0.8 , 0);
+
+    gl.glScaled(0.1, 0.1 , 1);
+    //System.out.println(x +" " + y);
+    gl.glBegin(GL.GL_QUADS);
+    // Front Face
+    gl.glTexCoord2f(0.0f, 0.0f);
+    gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+    gl.glTexCoord2f(1.0f, 0.0f);
+    gl.glVertex3f(1.0f, -1.0f, -1.0f);
+    gl.glTexCoord2f(1.0f, 1.0f);
+    gl.glVertex3f(1.0f, 1.0f, -1.0f);
+    gl.glTexCoord2f(0.0f, 1.0f);
+    gl.glVertex3f(-1.0f, 1.0f, -1.0f);
     gl.glEnd();
+    gl.glPopMatrix();
+
+    gl.glDisable(GL.GL_BLEND);
   }
   public void TO_Move_Soldier2(int Key) {
     if (Key == KeyEvent.VK_W&&(soldier2Y < Max_Y -1)) {
@@ -121,11 +367,46 @@ public class Guns implements GLEventListener, KeyListener {
   ///////////////////////////////////////////////////////////////////////
   //Bullets1
   void TO_Draw_One_Bullet1(GL gl, int x, int y) {
-    gl.glPointSize(10.0f);
-    gl.glColor3f(0.0f, 0.0f, 1.0f);
-    gl.glBegin(GL.GL_POINTS);
-    gl.glVertex2i(X(x), Y(y));
+//    gl.glPointSize(10.0f);
+//    gl.glColor3f(0.0f, 0.0f, 1.0f);
+//    gl.glBegin(GL.GL_POINTS);
+//    gl.glVertex2i(X(x), Y(y));
+//    gl.glEnd();
+
+    gl.glEnable(GL.GL_BLEND);
+
+    // index هنا كل مرة بيعرض صورة مختلفة للطلقة او الشكل اللي انا محدده على حسب ال
+    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[5]);	// Turn Blending On
+
+    gl.glPushMatrix();
+
+    gl.glTranslated(X(x)  / (Max_Screen_X / 2.0) -0.85 , Y(y) / (Max_Screen_Y / 2.0) -1.02 , 0);
+    gl.glScaled(0.01 , 0.01 , 1);
+
+    //لو عازز تطبع المكان اللي واقف فيه الشكل بتاعك او الرصاصة
+    //System.out.println(PositionX +" " + y);
+
+    //QUADSابدأ ارسملي مربع او
+    gl.glBegin(GL.GL_QUADS);
+    // Front Face
+    //هنا بربط الرصاصة بالمربع اللي انا حاطط فيه العسكري
+    //كل جانب او side في الرصاصة ب side في المربع
+    gl.glTexCoord2f(0.0f, 0.0f);
+    gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+
+    gl.glTexCoord2f(1.0f, 0.0f);
+    gl.glVertex3f(1.0f, -1.0f, -1.0f);
+
+    gl.glTexCoord2f(1.0f, 1.0f);
+    gl.glVertex3f(1.0f, 1.0f, -1.0f);
+
+    gl.glTexCoord2f(0.0f, 1.0f);
+    gl.glVertex3f(-1.0f, 1.0f, -1.0f);
+
     gl.glEnd();
+    gl.glPopMatrix();
+
+    gl.glDisable(GL.GL_BLEND);
   }
   public void TO_Draw_Bullets1(GL gl){
     for (int i = 0; i < Max_X; i++) {
@@ -159,11 +440,45 @@ public class Guns implements GLEventListener, KeyListener {
   ///////////////////////////////////////////////////////////////////////
   //Bullets2
   void TO_Draw_One_Bullet2(GL gl, int x, int y) {
-    gl.glPointSize(10.0f);
-    gl.glColor3f(0.0f, 0.0f, 1.0f);
-    gl.glBegin(GL.GL_POINTS);
-    gl.glVertex2i(X(x), Y(y));
+//    gl.glPointSize(10.0f);
+//    gl.glColor3f(0.0f, 0.0f, 1.0f);
+//    gl.glBegin(GL.GL_POINTS);
+//    gl.glVertex2i(X(x), Y(y));
+//    gl.glEnd();
+    gl.glEnable(GL.GL_BLEND);
+
+    // index هنا كل مرة بيعرض صورة مختلفة للطلقة او الشكل اللي انا محدده على حسب ال
+    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[10]);	// Turn Blending On
+
+    gl.glPushMatrix();
+
+    gl.glTranslated(X(x)  / (Max_Screen_X / 2.0) -0.85 , Y(y) / (Max_Screen_Y / 2.0) -1.02 , 0);
+    gl.glScaled(0.01 , 0.01 , 1);
+
+    //لو عازز تطبع المكان اللي واقف فيه الشكل بتاعك او الرصاصة
+    //System.out.println(PositionX +" " + y);
+
+    //QUADSابدأ ارسملي مربع او
+    gl.glBegin(GL.GL_QUADS);
+    // Front Face
+    //هنا بربط الرصاصة بالمربع اللي انا حاطط فيه العسكري
+    //كل جانب او side في الرصاصة ب side في المربع
+    gl.glTexCoord2f(0.0f, 0.0f);
+    gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+
+    gl.glTexCoord2f(1.0f, 0.0f);
+    gl.glVertex3f(1.0f, -1.0f, -1.0f);
+
+    gl.glTexCoord2f(1.0f, 1.0f);
+    gl.glVertex3f(1.0f, 1.0f, -1.0f);
+
+    gl.glTexCoord2f(0.0f, 1.0f);
+    gl.glVertex3f(-1.0f, 1.0f, -1.0f);
+
     gl.glEnd();
+    gl.glPopMatrix();
+
+    gl.glDisable(GL.GL_BLEND);
   }
   public void TO_Draw_Bullets2(GL gl){
     for (int i = 0; i < Max_X; i++) {
@@ -207,18 +522,41 @@ public class Guns implements GLEventListener, KeyListener {
     int y = (int) (Math.random() * (Max_Y-1));
     Enemies[x][y] = 1;
   }
-  void TO_Draw_One_Enemy(GL gl, int x, int y) {
-    gl.glPointSize(30.0f);
-    gl.glColor3f(0.0f, 1.0f, 0.0f);
-    gl.glBegin(GL.GL_POINTS);
-    gl.glVertex2i(X(x), Y(y));
+  void TO_Draw_One_Enemy(GL gl, int x, int y, int index) {
+//    gl.glPointSize(30.0f);
+//    gl.glColor3f(0.0f, 1.0f, 0.0f);
+//    gl.glBegin(GL.GL_POINTS);
+//    gl.glVertex2i(X(x), Y(y));
+//    gl.glEnd();
+
+    gl.glEnable(GL.GL_BLEND);
+    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);	// Turn Blending On
+
+    gl.glPushMatrix();
+
+    gl.glTranslated(x * 13 / (Max_Screen_X / 2.0) -0.9 , y * 13/ (Max_Screen_Y / 2.0) -0.9 , 0);
+    gl.glScaled(0.15, 0.15 , 1);
+
+    gl.glBegin(GL.GL_QUADS);
+    // Front Face
+    gl.glTexCoord2f(0.0f, 0.0f);
+    gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+    gl.glTexCoord2f(1.0f, 0.0f);
+    gl.glVertex3f(1.0f, -1.0f, -1.0f);
+    gl.glTexCoord2f(1.0f, 1.0f);
+    gl.glVertex3f(1.0f, 1.0f, -1.0f);
+    gl.glTexCoord2f(0.0f, 1.0f);
+    gl.glVertex3f(-1.0f, 1.0f, -1.0f);
     gl.glEnd();
+    gl.glPopMatrix();
+
+    gl.glDisable(GL.GL_BLEND);
   }
   public void TO_Draw_Enemies(GL gl){
     for (int i = 0; i < Max_X; i++) {
       for (int j = 0; j < Max_Y; j++) {
         if (Enemies[i][j] == 1) {
-          TO_Draw_One_Enemy(gl, i, j);
+          TO_Draw_One_Enemy(gl, i, j,monsterindex);
         }
       }
     }
@@ -321,12 +659,16 @@ public class Guns implements GLEventListener, KeyListener {
   public void keyPressed(KeyEvent e) {
     if (e.getKeyCode() == KeyEvent.VK_UP) {
       TO_Move_Soldier1(KeyEvent.VK_UP);
+      slodier1index++;
     } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
       TO_Move_Soldier1(KeyEvent.VK_DOWN);
+      slodier1index++;
     } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
       TO_Move_Soldier1(KeyEvent.VK_RIGHT);
+      slodier1index++;
     } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
       TO_Move_Soldier1(KeyEvent.VK_LEFT);
+      slodier1index++;
     } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
       TO_Fire1();
     }
@@ -334,16 +676,119 @@ public class Guns implements GLEventListener, KeyListener {
 
     if (e.getKeyCode() == KeyEvent.VK_W) {
       TO_Move_Soldier2(KeyEvent.VK_W);
+      slodier2index++;
     }else if (e.getKeyCode() == KeyEvent.VK_S) {
       TO_Move_Soldier2(KeyEvent.VK_S);
+      slodier2index++;
     }else if (e.getKeyCode() == KeyEvent.VK_D) {
       TO_Move_Soldier2(KeyEvent.VK_D);
+      slodier2index++;
     }else if (e.getKeyCode() == KeyEvent.VK_A) {
       TO_Move_Soldier2(KeyEvent.VK_A);
+      slodier2index++;
     }else if (e.getKeyCode() == KeyEvent.VK_X) {
       TO_Fire2();
     }
   }
   @Override
   public void keyReleased(KeyEvent e) {}
+
+  @Override
+  public void mouseClicked(MouseEvent e) {
+    switch (pages) {
+      case "home":
+        if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 242) {
+          pages = "play";
+
+        } else if (e.getX() > 260 && e.getX() < 436 && e.getY() > 340 && e.getY() < 375) {
+          pages = "instrctions";
+
+        } else if (e.getX() > 260 && e.getX() < 436 && e.getY() > 275 && e.getY() < 317) {
+          pages = "OPTIONS";
+
+        } else if (e.getX() > 260 && e.getX() < 436 && e.getY() > 400 && e.getY() < 423) {
+          System.exit(0);
+        }
+        break;
+
+      case "play":
+        if (e.getX() > 260 && e.getX() < 436 && e.getY() > 390 && e.getY() < 425) {//back from play
+          pages = "home";
+        }
+        if (e.getX() > 260 && e.getX() < 436 && e.getY() > 206 && e.getY() < 246) {
+          pages = "SINGLE";
+        }
+        if (e.getX() > 260 && e.getX() < 436 && e.getY() > 300 && e.getY() < 342) {
+          pages = "Multi";
+        }
+        break;
+
+      case "instrctions":
+        if (e.getX() > 260 && e.getX() < 436 && e.getY() > 444 && e.getY() < 485) {//back from play
+          pages = "home";
+        }
+        break;
+
+      case "OPTIONS":
+        if (e.getX() > 277 && e.getX() < 421 && e.getY() > 350 && e.getY() < 382) {
+          pages = "CONTACT_US";
+        }
+        if (e.getX() > 276 && e.getX() < 420 && e.getY() > 446 && e.getY() < 484) {
+          pages = "home";
+        }
+        break;
+
+      case "SINGLE":
+        if (e.getX() > 260 && e.getX() < 436 && e.getY() > 403 && e.getY() < 441) {
+          pages = "play";
+        }
+        if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 243) {
+          pages = "EASY";
+        }
+        if (e.getX() > 260 && e.getX() < 436 && e.getY() > 272 && e.getY() < 311) {
+          pages = "MEDIUM";}
+        if (e.getX() > 260 && e.getX() < 436 && e.getY() > 330 && e.getY() < 375) {
+          pages = "HARD";
+        }
+        break;
+
+      case "CONTACT_US":
+        if (e.getX() > 260 && e.getX() < 436 && e.getY() > 446 && e.getY() < 484) {
+          pages = "OPTIONS";
+        }
+        break;
+    }
+
+  }
+
+  @Override
+  public void mousePressed(MouseEvent e) {
+
+
+  }
+
+  @Override
+  public void mouseReleased(MouseEvent e) {
+
+  }
+
+  @Override
+  public void mouseEntered(MouseEvent e) {
+
+  }
+
+  @Override
+  public void mouseExited(MouseEvent e) {
+
+  }
+
+  @Override
+  public void mouseDragged(MouseEvent e) {
+
+  }
+
+  @Override
+  public void mouseMoved(MouseEvent e) {
+
+  }
 }
