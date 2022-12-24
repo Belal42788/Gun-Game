@@ -1,6 +1,7 @@
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -20,6 +21,7 @@ public class Guns implements GLEventListener, KeyListener {
   int soldierX = 2;
   int soldierY = 25;
 
+  int hearts=5;
   @Override
   public void init(GLAutoDrawable glAutoDrawable) {
     GL gl = glAutoDrawable.getGL();
@@ -48,6 +50,9 @@ public class Guns implements GLEventListener, KeyListener {
     TO_Disappear_Enemies();
 
 
+    //Handling Collisions
+    Handle_Bullet_Collision();
+    Handle_Soldier_Collision();
   }
   ////////////////////////////////////////////////////////////////////////
   //Soldier
@@ -150,6 +155,41 @@ public class Guns implements GLEventListener, KeyListener {
     for (int j = 0; j < Max_Y; j++) {
       if (Enemies[0][j] == 1) {
         Enemies[0][j] = 0;
+      }
+    }
+  }
+  /////////////////////////////////////////////////////////////////////////////////////
+  void Handle_Bullet_Collision() {
+    for (int i = 3; i < Max_X -3; i++) {
+      for (int j = 3; j < Max_Y -3; j++) {
+        if ((Bullets[i][j] == 1 )&& ((Enemies[i+1][j] == 1)||(Enemies[i+1][j-1] == 1)||(Enemies[i+1][j+1] == 1)|| (Enemies[i+1][j-2] == 1)||(Enemies[i+1][j+2] == 1)|| (Enemies[i+1][j-3] == 1)||(Enemies[i+1][j+3] == 1))) {
+          Bullets[i][j] = 0;
+          Enemies[i+1][j] = 0;
+          Enemies[i+1][j-1] = 0;
+          Enemies[i+1][j-2] = 0;
+          Enemies[i+1][j+1] = 0;
+          Enemies[i+1][j+2] = 0;
+          Enemies[i+1][j-3] = 0;
+          Enemies[i+1][j+3] = 0;
+          break;
+        }
+      }
+    }
+  }
+
+  void Handle_Soldier_Collision() {
+    for (int i = 0; i < Max_X; i++) {
+      for (int j = 0; j < Max_Y; j++) {
+        if (Enemies[i][j] == 1 && (i == soldierX ||i == soldierX -1||i == soldierX -2||i == soldierX +1||i == soldierX +2) && (j == soldierY ||j == soldierY -1||j == soldierY -2||j == soldierY +1||j == soldierY +2)) {
+          if (hearts == 0) {
+            System.out.println("GameOver");
+            JOptionPane.showMessageDialog(null, "GameOver", "GameOver", JOptionPane.WARNING_MESSAGE);
+            System.exit(0);
+          } else{
+            Enemies[i][j] = 0;
+            System.out.println(--hearts);
+          }
+        }
       }
     }
   }
