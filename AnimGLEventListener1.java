@@ -4,14 +4,14 @@ import java.io.IOException;
 import javax.media.opengl.*;
 import javax.media.opengl.glu.GLU;
 
-public class AnimGLEventListener1 extends src.Textures.AnimListener implements MouseMotionListener, MouseListener{
+public class AnimGLEventListener1 extends Textures.AnimListener implements MouseMotionListener, MouseListener{
 
 
     GL gl;
     static String pages = "home";
 
     String textureNames[] = {"C:\\MyFiles\\college\\comp304\\Project CS304\\CS304Proj\\MONSTER_GAME\\Background game\\background.png","C:\\MyFiles\\college\\comp304\\Project CS304\\CS304Proj\\MONSTER_GAME\\Background game\\background.png","C:\\MyFiles\\college\\comp304\\Project CS304\\CS304Proj\\MONSTER_GAME\\Background game\\background.png"};
-    src.Textures.TextureReader.Texture texture[] = new src.Textures.TextureReader.Texture[textureNames.length];
+    Textures.TextureReader.Texture texture[] = new Textures.TextureReader.Texture[textureNames.length];
     int textures[] = new int[textureNames.length];
 
     @Override
@@ -26,7 +26,7 @@ public class AnimGLEventListener1 extends src.Textures.AnimListener implements M
 
         for (int i = 0; i < textureNames.length; i++) {
             try {
-                texture[i] = src.Textures.TextureReader.readTexture(  textureNames[i], true);
+                texture[i] = Textures.TextureReader.readTexture(  textureNames[i], true);
                 gl.glBindTexture(GL.GL_TEXTURE_2D, textures[i]);
 
 //                mipmapsFromPNG(gl, new GLU(), texture[i]);

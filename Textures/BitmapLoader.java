@@ -1,4 +1,4 @@
-package src.Textures;
+package Textures;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
@@ -18,7 +18,7 @@ public class BitmapLoader {
         BufferedImage image;
         InputStream input = null;
         try {
-            input = ResourceRetriever.getResourceAsStream(file);
+            input = Textures.ResourceRetriever.getResourceAsStream(file);
 
             int bitmapFileHeaderLength = 14;
             int bitmapInfoHeaderLength = 40;

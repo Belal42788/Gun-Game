@@ -1,5 +1,5 @@
 
-package src.Textures;
+package Textures;
 
 import javax.media.opengl.GLEventListener;
 import java.awt.event.KeyListener;
