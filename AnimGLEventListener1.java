@@ -1,20 +1,17 @@
-package Textures.Example1;
 
-import Textures.AnimListener;
-import Textures.TextureReader;
 import java.awt.event.*;
 import java.io.IOException;
 import javax.media.opengl.*;
 import javax.media.opengl.glu.GLU;
 
-public class AnimGLEventListener1 extends AnimListener implements MouseMotionListener, MouseListener{
+public class AnimGLEventListener1 extends src.Textures.AnimListener implements MouseMotionListener, MouseListener{
 
 
     GL gl;
     static String pages = "home";
 
-    String textureNames[] = {"Monster(Home).png", "Monster2.png", "instructions.png"};
-    TextureReader.Texture texture[] = new TextureReader.Texture[textureNames.length];
+    String textureNames[] = {"C:\\MyFiles\\college\\comp304\\Project CS304\\CS304Proj\\MONSTER_GAME\\Background game\\background.png","C:\\MyFiles\\college\\comp304\\Project CS304\\CS304Proj\\MONSTER_GAME\\Background game\\background.png","C:\\MyFiles\\college\\comp304\\Project CS304\\CS304Proj\\MONSTER_GAME\\Background game\\background.png"};
+    src.Textures.TextureReader.Texture texture[] = new src.Textures.TextureReader.Texture[textureNames.length];
     int textures[] = new int[textureNames.length];
 
     @Override
@@ -29,7 +26,7 @@ public class AnimGLEventListener1 extends AnimListener implements MouseMotionLis
 
         for (int i = 0; i < textureNames.length; i++) {
             try {
-                texture[i] = TextureReader.readTexture(assetsFolderName + "//" + textureNames[i], true);
+                texture[i] = src.Textures.TextureReader.readTexture(  textureNames[i], true);
                 gl.glBindTexture(GL.GL_TEXTURE_2D, textures[i]);
 
 //                mipmapsFromPNG(gl, new GLU(), texture[i]);
@@ -116,7 +113,7 @@ public class AnimGLEventListener1 extends AnimListener implements MouseMotionLis
     }
 
     public static void main(String[] args) {
-        new Anim(new AnimGLEventListener1());
+        new GunGame();
 
     }
 
