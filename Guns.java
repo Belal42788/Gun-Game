@@ -2,6 +2,8 @@ package guns_proj;
 
 import Textures.TextureReader;
 
+import Textures.TextureReader;
+
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
@@ -35,13 +37,21 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   int hearts2 =5;
 
   boolean Multi=false;
+<<<<<<< HEAD
   static String pages = "home";
+=======
+
+>>>>>>> 0883cbf1ded53fb6cb465e4c760e4068c9c8f6fc
   int slodier1index = 0;
   int slodier2index = 0;
   int monsterindex = 0;
 
+<<<<<<< HEAD
   String textureNames[] = {"HOME\\Monster(Home).png"   ,"Page 2(Single vs MULTI)\\Monster(Single vs Multi).png","INSTRUCTIONS\\Monster(instructions).png","OPTIONS\\OPTIONS.png","CONTACT_US\\CONTACT_US.png","LEVELS\\Monster(levels).png",
           "Background game\\background.png",
+=======
+  String textureNames[] = {"Background game\\background.png",
+>>>>>>> 0883cbf1ded53fb6cb465e4c760e4068c9c8f6fc
   "MAN\\Man1_right.png","MAN\\Man2_right.png","MAN\\Man3_right.png","MAN\\Man4_right.png","B1.png",
   "RedMan\\RedMan1_right-1.png","RedMan\\RedMan2_right-1.png","RedMan\\RedMan3_right-1.png","RedMan\\RedMan4_right-1.png","Bullet.png",
   "Running Monster\\0_Golem_Running_001-1.png","Running Monster\\0_Golem_Running_002-1.png","Running Monster\\0_Golem_Running_003-1.png",
@@ -92,6 +102,18 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
     GL gl = glAutoDrawable.getGL();
     gl.glClear(GL.GL_COLOR_BUFFER_BIT);
     gl.glLoadIdentity();
+<<<<<<< HEAD
+=======
+
+    //Animationindex
+    slodier1index = 1 + slodier1index % 4;
+    slodier2index = 6 + slodier2index % 4;
+
+    monsterindex++;
+    monsterindex = 11 + monsterindex % 6;
+    //Background
+    DrawBackground(0,gl);
+>>>>>>> 0883cbf1ded53fb6cb465e4c760e4068c9c8f6fc
 
 //PAGES
   if (pages=="home"){
@@ -118,7 +140,11 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   }else if (pages=="EASY"){
     DrawBackground(5,gl);
     //ٍSoldier1
+<<<<<<< HEAD
     TO_Draw_Soldier1(gl,3);
+=======
+    TO_Draw_Soldier1(gl,slodier1index);
+>>>>>>> 0883cbf1ded53fb6cb465e4c760e4068c9c8f6fc
 
     //Bullet1
     TO_Draw_Bullets1(gl);
@@ -135,11 +161,17 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
     Handle_Bullet_Collision1();
     Handle_Soldier_Collision1();
 
+<<<<<<< HEAD
   }
   else if (pages=="MEDIUM"){
     DrawBackground(8,gl);
     //ٍSoldier1
     TO_Draw_Soldier1(gl,3);
+=======
+    if(Multi){
+      //ٍSoldier2
+      TO_Draw_Soldier2(gl,slodier2index);
+>>>>>>> 0883cbf1ded53fb6cb465e4c760e4068c9c8f6fc
 
     //Bullet1
     TO_Draw_Bullets1(gl);
@@ -695,6 +727,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
 
   @Override
   public void mouseClicked(MouseEvent e) {
+<<<<<<< HEAD
     switch (pages) {
       case "home":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 242) {
@@ -758,13 +791,18 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
         }
         break;
     }
+=======
+>>>>>>> 0883cbf1ded53fb6cb465e4c760e4068c9c8f6fc
 
   }
 
   @Override
   public void mousePressed(MouseEvent e) {
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0883cbf1ded53fb6cb465e4c760e4068c9c8f6fc
   }
 
   @Override
