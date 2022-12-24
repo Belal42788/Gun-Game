@@ -1,4 +1,4 @@
-package src.Textures.Example1;
+
 
 import com.sun.opengl.util.Animator;
 import com.sun.opengl.util.FPSAnimator;
