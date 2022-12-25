@@ -60,7 +60,10 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
           //Enemies
           "Running Monster\\0_Golem_Running_001-1.png","Running Monster\\0_Golem_Running_002-1.png","Running Monster\\0_Golem_Running_003-1.png",  //  18
           "Running Monster\\0_Golem_Running_004-1.png","Running Monster\\0_Golem_Running_005-1.png","Running Monster\\0_Golem_Running_006-1.png"  //22
-          ,"Running Monster\\0_Golem_Running_007-1.png","Running Monster\\0_Golem_Running_007-1.png"//24
+          ,"Running Monster\\0_Golem_Running_007-1.png","Running Monster\\0_Golem_Running_007-1.png",//24
+
+          //pause
+          "PAUSE.png"//25
   };
   TextureReader.Texture texture[] = new TextureReader.Texture[textureNames.length];
   int textures[] = new int[textureNames.length];
@@ -290,6 +293,8 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       Handle_Bullet_Collision2();
       Handle_Soldier_Collision2();
         }
+
+
   }
   ////////////////////////////////////////////////////////////////////////
   //Background
@@ -578,6 +583,8 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
           if (hearts1-1 == 0) {
             System.out.println("GameOver For player 1");
             JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
+            hearts1=5;
+            hearts2=5;
             pages="home";
           } else{
             Enemies[i][j] = 0;
@@ -613,6 +620,8 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
           if (hearts2-1 == 0) {
             System.out.println("GameOver For player 2");
             JOptionPane.showMessageDialog(null, "GameOver For player 2.", "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
+            hearts1=5;
+            hearts2=5;
             pages="home";
           } else{
             Enemies[i][j] = 0;
@@ -665,6 +674,9 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       slodier2index++;
     }else if (e.getKeyCode() == KeyEvent.VK_X) {
       TO_Fire2();
+    }
+    if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+      pages = "PAUSE";
     }
   }
   @Override
