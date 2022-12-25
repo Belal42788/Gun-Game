@@ -9,6 +9,8 @@ import java.awt.event.*;
 import java.io.IOException;
 
 public class Guns implements GLEventListener, KeyListener, MouseListener, MouseMotionListener {
+
+  boolean sound = true;
   //Screen Dimensions  and  picture Dimensions
   int Max_Screen_X = 700;
   int Max_Screen_Y = 700;
@@ -40,6 +42,8 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   int slodier1index = 0;
   int slodier2index = 0;
   int monsterindex = 0;
+  Soundd sou =new Soundd();
+  Soundd so =new Soundd();
 
   String textureNames[] = {
           //Pages
@@ -94,6 +98,11 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
         e.printStackTrace();
       }
     }
+
+if(sound) {   playmusic(0);
+              playmusic(3);
+}
+
   }
   @Override
   public void display(GLAutoDrawable glAutoDrawable) {
@@ -587,6 +596,8 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
         if (Enemies[i][j] == 1 && (i == soldier1X ||i == soldier1X -1||i == soldier1X -2||i == soldier1X +1||i == soldier1X +2) && (j == soldier1Y ||j == soldier1Y -1||j == soldier1Y -2||j == soldier1Y -3||j == soldier1Y -4||j == soldier1Y -5||j == soldier1Y +1||j == soldier1Y +2)) {
           if (hearts1-1 == 0) {
             System.out.println("GameOver For player 1");
+            playSE(6);
+
             JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
 
             pages="home";
@@ -623,6 +634,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
         if (Enemies[i][j] == 1 && (i == soldier2X ||i == soldier2X -1||i == soldier2X -2||i == soldier2X +1||i == soldier2X +2) && (j == soldier2Y ||j == soldier2Y -1||j == soldier2Y -2||j == soldier2Y -3||j == soldier2Y -4||j == soldier2Y -5||j == soldier2Y +1||j == soldier2Y +2)) {
           if (hearts2-1 == 0) {
             System.out.println("GameOver For player 2");
+            playSE(6);
             JOptionPane.showMessageDialog(null, "GameOver For player 2.", "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
 
             pages="home";
@@ -660,6 +672,12 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       slodier1index++;
     } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
       TO_Fire1();
+      playSE(1);
+      if(sound)
+        playSE(1);
+      else
+        stoppmusic();
+
     }
 
 
@@ -677,8 +695,18 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       slodier2index++;
     }else if (e.getKeyCode() == KeyEvent.VK_X) {
       TO_Fire2();
+      playSE(1);
+      if(sound)
+        playSE(1);
+      else
+        stoppmusic();
+
     }
     if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+<<<<<<< HEAD
+      pages = "PAUSE";
+
+=======
       if( pages == "EASY SINGLE"){
         pagesBack = "EASY SINGLE";
         pages = "PAUSE";
@@ -712,6 +740,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
           pages = "HARD DOUBLE";
         }
       }
+>>>>>>> c9a890d4a433eedcee575ee3262d395a2b50bff3
     }
   }
   @Override
@@ -723,14 +752,15 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       case "home":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 242) {
           pages = "play";
-
+          playSE(5);
         } else if (e.getX() > 260 && e.getX() < 436 && e.getY() > 340 && e.getY() < 375) {
           pages = "instrctions";
-
+          playSE(5);
         } else if (e.getX() > 260 && e.getX() < 436 && e.getY() > 275 && e.getY() < 317) {
           pages = "OPTIONS";
-
+          playSE(5);
         } else if (e.getX() > 260 && e.getX() < 436 && e.getY() > 400 && e.getY() < 423) {
+          playSE(5);
           System.exit(0);
         }
         break;
@@ -738,61 +768,82 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       case "play":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 390 && e.getY() < 425) {//back from play
           pages = "home";
+          playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 206 && e.getY() < 246) {
           pages = "SINGLE";
+          playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 300 && e.getY() < 342) {
           pages = "DOUBLE";
+          playSE(5);
         }
         break;
 
       case "instrctions":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 444 && e.getY() < 485) {//back from play
           pages = "home";
+          playSE(5);
         }
         break;
 
       case "OPTIONS":
         if (e.getX() > 277 && e.getX() < 421 && e.getY() > 350 && e.getY() < 382) {
           pages = "CONTACT_US";
+          playSE(5);
         }
         if (e.getX() > 276 && e.getX() < 420 && e.getY() > 446 && e.getY() < 484) {
           pages = "home";
+          playSE(5);
         }
         break;
 
       case "SINGLE":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 403 && e.getY() < 441) {
           pages = "play";
+          playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 243) {
+          playmusic(2);
           pages = "EASY SINGLE";
+          playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 272 && e.getY() < 311) {
+          playmusic(2);
           pages = "MEDIUM SINGLE";
+          playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 330 && e.getY() < 375) {
+          playmusic(2);
           pages = "HARD SINGLE";
+          playSE(5);
         }
         break;
       case "DOUBLE":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 403 && e.getY() < 441) {
           pages = "play";
+          playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 243) {
+          playmusic(2);
           pages = "EASY DOUBLE";
+          playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 272 && e.getY() < 311) {
+          playmusic(2);
           pages = "MEDIUM DOUBLE";
+          playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 330 && e.getY() < 375) {
+          playmusic(2);
           pages = "HARD DOUBLE";
+          playSE(5);
         }
         break;
       case "CONTACT_US":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 446 && e.getY() < 484) {
           pages = "OPTIONS";
+          playSE(5);
         }
         break;
     }
@@ -826,4 +877,25 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   public void mouseMoved(MouseEvent e) {
 
   }
+  public void playmusic(int i){
+
+    sou.StFile(i);
+    sou.play();
+    sou.loop();
+  }
+  public void stopmusic(){
+
+    sou.stop();
+  }
+  public void playSE(int i){
+
+    so.StFile(i);
+    so.play();
+
+  }
+  public void stoppmusic(){
+
+    so.stop();
+  }
+
 }
