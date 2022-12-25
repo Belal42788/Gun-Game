@@ -1,5 +1,5 @@
 
-package guns_proj;
+
 
 
 import java.io.File;
@@ -23,7 +23,8 @@ public Soundd(){
     soundURL[3]=getClass().getResource("/sound/Backk3.wav");
     soundURL[4]=getClass().getResource("/sound/Backk4.wav");
     soundURL[5]=getClass().getResource("/sound/cuttree.wav");
-
+    soundURL[6]=getClass().getResource("/sound/gameover.wav");
+    soundURL[7]=getClass().getResource("/sound/xxx.wav");
 }
 public void StFile(int i){
   
