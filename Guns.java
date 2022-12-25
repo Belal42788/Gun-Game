@@ -36,6 +36,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
 
   //Pages
   static String pages = "home";
+  static String pagesBack = "home";
 
   //Textures indexes
   int slodier1index = 0;
@@ -301,7 +302,11 @@ if(sound) {   playmusic(0);
       //Handling Collisions2
       Handle_Bullet_Collision2();
       Handle_Soldier_Collision2();
-        }
+        } else if(pages == "PAUSE"){
+      DrawBackground(24, gl);
+
+
+    }
 
 
   }
@@ -594,8 +599,7 @@ if(sound) {   playmusic(0);
             playSE(6);
 
             JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
-            hearts1=5;
-            hearts2=5;
+
             pages="home";
           } else{
             Enemies[i][j] = 0;
@@ -632,8 +636,7 @@ if(sound) {   playmusic(0);
             System.out.println("GameOver For player 2");
             playSE(6);
             JOptionPane.showMessageDialog(null, "GameOver For player 2.", "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
-            hearts1=5;
-            hearts2=5;
+            
             pages="home";
           } else{
             Enemies[i][j] = 0;
@@ -700,8 +703,44 @@ if(sound) {   playmusic(0);
 
     }
     if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+<<<<<<< HEAD
       pages = "PAUSE";
 
+=======
+      if( pages == "EASY SINGLE"){
+        pagesBack = "EASY SINGLE";
+        pages = "PAUSE";
+      } else if( pages == "MEDIUM SINGLE"){
+        pagesBack = "MEDIUM SINGLE";
+        pages = "PAUSE";
+      }else if( pages == "HARD SINGLE"){
+        pagesBack = "HARD SINGLE";
+        pages = "PAUSE";
+      }else if( pages == "EASY DOUBLE"){
+        pagesBack = "EASY DOUBLE";
+        pages = "PAUSE";
+      } else if( pages == "MEDIUM DOUBLE"){
+        pagesBack = "MEDIUM DOUBLE";
+        pages = "PAUSE";
+      }else if( pages == "HARD DOUBLE"){
+        pagesBack = "HARD DOUBLE";
+        pages = "PAUSE";
+      } else if(pages == "PAUSE"){
+        if( pagesBack == "EASY SINGLE"){
+          pages = "EASY SINGLE";
+        } else if( pagesBack == "MEDIUM SINGLE"){
+          pages = "MEDIUM SINGLE";
+        }else if( pagesBack == "HARD SINGLE"){
+          pages = "HARD SINGLE";
+        }else if( pagesBack == "EASY DOUBLE"){
+          pages = "EASY DOUBLE";
+        } else if( pagesBack == "MEDIUM DOUBLE"){
+          pages = "MEDIUM DOUBLE";
+        }else if( pagesBack == "HARD DOUBLE"){
+          pages = "HARD DOUBLE";
+        }
+      }
+>>>>>>> c9a890d4a433eedcee575ee3262d395a2b50bff3
     }
   }
   @Override
