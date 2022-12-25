@@ -16,6 +16,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   int Max_Screen_Y = 700;
   int Max_X = 50;
   int Max_Y = 50;
+  static String name , name1 ;
 
   int Delay =1;
   //Moving Objects
@@ -595,11 +596,8 @@ if(sound)    playmusic(0);
       for (int j = 0; j < Max_Y; j++) {
         if (Enemies[i][j] == 1 && (i == soldier1X ||i == soldier1X -1||i == soldier1X -2||i == soldier1X +1||i == soldier1X +2) && (j == soldier1Y ||j == soldier1Y -1||j == soldier1Y -2||j == soldier1Y -3||j == soldier1Y -4||j == soldier1Y -5||j == soldier1Y +1||j == soldier1Y +2)) {
           if (hearts1-1 == 0) {
-            System.out.println("GameOver For player 1");
-            if (sound) playSE(6);
-
-            JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
-
+            //System.out.println("GameOver For player 1");
+            JOptionPane.showMessageDialog(null, "              GameOver \n"+ "Name: "+name+ "   \n", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
             pages="home";
           } else{
             Enemies[i][j] = 0;
@@ -633,11 +631,9 @@ if(sound)    playmusic(0);
       for (int j = 0; j < Max_Y; j++) {
         if (Enemies[i][j] == 1 && (i == soldier2X ||i == soldier2X -1||i == soldier2X -2||i == soldier2X +1||i == soldier2X +2) && (j == soldier2Y ||j == soldier2Y -1||j == soldier2Y -2||j == soldier2Y -3||j == soldier2Y -4||j == soldier2Y -5||j == soldier2Y +1||j == soldier2Y +2)) {
           if (hearts2-1 == 0) {
+            // System.out.println("GameOver For player 2");
+            JOptionPane.showMessageDialog(null, "     GameOver For player 2    \n"+"Name2: "+name1+ "   \n" , "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
 
-            System.out.println("GameOver For player 2");
-            if (sound) playSE(6);
-            JOptionPane.showMessageDialog(null, "GameOver For player 2.", "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
-            
             pages="home";
           } else{
             Enemies[i][j] = 0;
@@ -766,10 +762,13 @@ if(sound)    playmusic(0);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 206 && e.getY() < 246) {
           pages = "SINGLE";
+          name =JOptionPane.showInputDialog(null,"Enter Name");
           if (sound)  playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 300 && e.getY() < 342) {
           pages = "DOUBLE";
+          name =JOptionPane.showInputDialog(null,"user Name 1");
+          name1 =JOptionPane.showInputDialog(null,"User Name 2");
           if (sound) playSE(5);
         }
         break;
