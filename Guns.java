@@ -99,9 +99,9 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       }
     }
 
-if(sound) {   playmusic(0);
-              playmusic(3);
-}
+if(sound)    playmusic(0);
+
+
 
   }
   @Override
@@ -596,7 +596,7 @@ if(sound) {   playmusic(0);
         if (Enemies[i][j] == 1 && (i == soldier1X ||i == soldier1X -1||i == soldier1X -2||i == soldier1X +1||i == soldier1X +2) && (j == soldier1Y ||j == soldier1Y -1||j == soldier1Y -2||j == soldier1Y -3||j == soldier1Y -4||j == soldier1Y -5||j == soldier1Y +1||j == soldier1Y +2)) {
           if (hearts1-1 == 0) {
             System.out.println("GameOver For player 1");
-            playSE(6);
+            if (sound) playSE(6);
 
             JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
 
@@ -633,8 +633,9 @@ if(sound) {   playmusic(0);
       for (int j = 0; j < Max_Y; j++) {
         if (Enemies[i][j] == 1 && (i == soldier2X ||i == soldier2X -1||i == soldier2X -2||i == soldier2X +1||i == soldier2X +2) && (j == soldier2Y ||j == soldier2Y -1||j == soldier2Y -2||j == soldier2Y -3||j == soldier2Y -4||j == soldier2Y -5||j == soldier2Y +1||j == soldier2Y +2)) {
           if (hearts2-1 == 0) {
+
             System.out.println("GameOver For player 2");
-            playSE(6);
+            if (sound) playSE(6);
             JOptionPane.showMessageDialog(null, "GameOver For player 2.", "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
             
             pages="home";
@@ -672,7 +673,6 @@ if(sound) {   playmusic(0);
       slodier1index++;
     } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
       TO_Fire1();
-      playSE(1);
       if(sound)
         playSE(1);
       else
@@ -695,7 +695,6 @@ if(sound) {   playmusic(0);
       slodier2index++;
     }else if (e.getKeyCode() == KeyEvent.VK_X) {
       TO_Fire2();
-      playSE(1);
       if(sound)
         playSE(1);
       else
@@ -703,10 +702,10 @@ if(sound) {   playmusic(0);
 
     }
     if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-<<<<<<< HEAD
+
       pages = "PAUSE";
 
-=======
+
       if( pages == "EASY SINGLE"){
         pagesBack = "EASY SINGLE";
         pages = "PAUSE";
@@ -740,7 +739,6 @@ if(sound) {   playmusic(0);
           pages = "HARD DOUBLE";
         }
       }
->>>>>>> c9a890d4a433eedcee575ee3262d395a2b50bff3
     }
   }
   @Override
@@ -752,15 +750,15 @@ if(sound) {   playmusic(0);
       case "home":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 242) {
           pages = "play";
-          playSE(5);
+          if (sound) playSE(5);
         } else if (e.getX() > 260 && e.getX() < 436 && e.getY() > 340 && e.getY() < 375) {
           pages = "instrctions";
-          playSE(5);
+          if (sound) playSE(5);
         } else if (e.getX() > 260 && e.getX() < 436 && e.getY() > 275 && e.getY() < 317) {
           pages = "OPTIONS";
-          playSE(5);
+          if (sound) playSE(5);
         } else if (e.getX() > 260 && e.getX() < 436 && e.getY() > 400 && e.getY() < 423) {
-          playSE(5);
+          if (sound) playSE(5);
           System.exit(0);
         }
         break;
@@ -768,82 +766,93 @@ if(sound) {   playmusic(0);
       case "play":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 390 && e.getY() < 425) {//back from play
           pages = "home";
-          playSE(5);
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 206 && e.getY() < 246) {
           pages = "SINGLE";
-          playSE(5);
+          if (sound)  playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 300 && e.getY() < 342) {
           pages = "DOUBLE";
-          playSE(5);
+          if (sound) playSE(5);
         }
         break;
 
       case "instrctions":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 444 && e.getY() < 485) {//back from play
           pages = "home";
-          playSE(5);
+          if (sound) playSE(5);
         }
         break;
 
       case "OPTIONS":
         if (e.getX() > 277 && e.getX() < 421 && e.getY() > 350 && e.getY() < 382) {
           pages = "CONTACT_US";
-          playSE(5);
+          if (sound) playSE(5);
         }
         if (e.getX() > 276 && e.getX() < 420 && e.getY() > 446 && e.getY() < 484) {
           pages = "home";
-          playSE(5);
+          if (sound) playSE(5);
+        }
+        if (e.getX() > 299 && e.getX() < 335 && e.getY() > 284 && e.getY() < 316) {
+          if (sound == false) {
+            playmusic(0);
+            sound = true;
+          }
+        }
+        if (e.getX() > 364&& e.getX() < 393 && e.getY() > 286 && e.getY() < 316) {
+          stopmusic();
+          sound = false;
+
         }
         break;
 
       case "SINGLE":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 403 && e.getY() < 441) {
           pages = "play";
-          playSE(5);
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 243) {
-          playmusic(2);
+          if (sound) playmusic(2);
           pages = "EASY SINGLE";
-          playSE(5);
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 272 && e.getY() < 311) {
-          playmusic(2);
+          if (sound) playmusic(2);
           pages = "MEDIUM SINGLE";
-          playSE(5);
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 330 && e.getY() < 375) {
-          playmusic(2);
+          if (sound) playmusic(2);
           pages = "HARD SINGLE";
-          playSE(5);
+          if (sound) playSE(5);
         }
         break;
       case "DOUBLE":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 403 && e.getY() < 441) {
           pages = "play";
-          playSE(5);
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 243) {
-          playmusic(2);
+          if (sound) playmusic(2);
           pages = "EASY DOUBLE";
-          playSE(5);
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 272 && e.getY() < 311) {
-          playmusic(2);
+          if (sound) playmusic(2);
           pages = "MEDIUM DOUBLE";
-          playSE(5);
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 330 && e.getY() < 375) {
-          playmusic(2);
+          if (sound) playmusic(2);
           pages = "HARD DOUBLE";
-          playSE(5);
+          if (sound) playSE(5);
         }
         break;
       case "CONTACT_US":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 446 && e.getY() < 484) {
           pages = "OPTIONS";
-          playSE(5);
+          if (sound) playSE(5);
         }
         break;
     }
