@@ -126,7 +126,7 @@ if(sound)    playmusic(0);
     } else if (pages == "instrctions") {
       DrawBackground(2, gl);
 
-    } else if (pages == "OPTIONS") {//مش موجودة
+    } else if (pages == "OPTIONS") {
       DrawBackground(3, gl);
 
     } else if (pages == "CONTACT_US") {
@@ -702,10 +702,6 @@ if(sound)    playmusic(0);
 
     }
     if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-
-      pages = "PAUSE";
-
-
       if( pages == "EASY SINGLE"){
         pagesBack = "EASY SINGLE";
         pages = "PAUSE";
