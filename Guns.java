@@ -588,8 +588,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
           if (hearts1-1 == 0) {
             System.out.println("GameOver For player 1");
             JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
-            hearts1=5;
-            hearts2=5;
+
             pages="home";
           } else{
             Enemies[i][j] = 0;
@@ -625,8 +624,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
           if (hearts2-1 == 0) {
             System.out.println("GameOver For player 2");
             JOptionPane.showMessageDialog(null, "GameOver For player 2.", "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
-            hearts1=5;
-            hearts2=5;
+            
             pages="home";
           } else{
             Enemies[i][j] = 0;
