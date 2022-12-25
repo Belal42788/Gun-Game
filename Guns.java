@@ -10,10 +10,7 @@ import java.io.IOException;
 
 public class Guns implements GLEventListener, KeyListener, MouseListener, MouseMotionListener {
   //Screen Dimensions  and  picture Dimensions
-  int Min_Screen_X = 0;
-
   int Max_Screen_X = 700;
-  int Min_Screen_Y = 0;
   int Max_Screen_Y = 700;
   int Max_X = 50;
   int Max_Y = 50;
@@ -23,27 +20,44 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   int[][] Bullets1 = new int[Max_X][Max_Y];
   int[][] Bullets2 = new int[Max_X][Max_Y];
   int[][] Enemies = new int[Max_X][Max_Y];
+
+  //Soldiers
   int soldier1X = 2;
   int soldier1Y = 20;
-
   int soldier2X=2;
   int soldier2Y=40;
+
+
   //Lives
   int hearts1 =5;
   int hearts2 =5;
 
-  boolean Multi=false;
+  //Pages
   static String pages = "home";
+
+  //Textures indexes
   int slodier1index = 0;
   int slodier2index = 0;
   int monsterindex = 0;
 
   String textureNames[] = {
-"HOME\\Monster(Home).png","Page 2(Single vs MULTI)\\Monster(Single vs Multi).png","INSTRUCTIONS\\Monster(instructions).png","OPTIONS\\OPTIONS.png ", "CONTACT_US\\CONTACT_US.png","LEVELS\\Monster(levels).png",  //  5
+          //Pages
+          "HOME\\Monster(Home).png","Page 2(Single vs MULTI)\\Monster(Single vs Multi).png","INSTRUCTIONS\\Monster(instructions).png","OPTIONS\\OPTIONS.png ",// 3
+          "CONTACT_US\\CONTACT_US.png","LEVELS\\Monster(levels).png",  //  5
+
+          //Background game
           "Background game\\background.png",  // 6
+
+          //Bullet
           "Bullet.png",//7
+
+          //Soldier 1
           "MAN\\Man1_right.png","MAN\\Man2_right.png","MAN\\Man3_right.png","MAN\\Man4_right.png",//  11
+
+          //Soldier2
           "RedMan\\RedMan1_right-1.png","RedMan\\RedMan2_right-1.png","RedMan\\RedMan3_right-1.png","RedMan\\RedMan4_right-1.png",// 15
+
+          //Enemies
           "Running Monster\\0_Golem_Running_001-1.png","Running Monster\\0_Golem_Running_002-1.png","Running Monster\\0_Golem_Running_003-1.png",  //  18
           "Running Monster\\0_Golem_Running_004-1.png","Running Monster\\0_Golem_Running_005-1.png","Running Monster\\0_Golem_Running_006-1.png"  //22
           ,"Running Monster\\0_Golem_Running_007-1.png","Running Monster\\0_Golem_Running_007-1.png"//24
@@ -54,16 +68,8 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   @Override
   public void init(GLAutoDrawable glAutoDrawable) {
     GL gl = glAutoDrawable.getGL();
-
-
-//    gl.glMatrixMode(GL.GL_PROJECTION);
-//    gl.glLoadIdentity();
-//    gl.glOrtho(Min_Screen_X, Max_Screen_X, Min_Screen_Y, Max_Screen_Y, -1.0, 1.0);
-//    gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-
-    gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);    //This Will Clear The Background Color To Black
-
-    gl.glEnable(GL.GL_TEXTURE_2D);  // Enable Texture Mapping
+    gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    gl.glEnable(GL.GL_TEXTURE_2D);
     gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
     gl.glGenTextures(textureNames.length, textures, 0);
 
@@ -71,22 +77,19 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       try {
         texture[i] = TextureReader.readTexture("MONSTER_GAME\\"+ textureNames[i], true);
         gl.glBindTexture(GL.GL_TEXTURE_2D, textures[i]);
-
-//                mipmapsFromPNG(gl, new GLU(), texture[i]);
         new GLU().gluBuild2DMipmaps(
                 GL.GL_TEXTURE_2D,
-                GL.GL_RGBA, // Internal Texel Format,
+                GL.GL_RGBA,
                 texture[i].getWidth(), texture[i].getHeight(),
-                GL.GL_RGBA, // External format from image,
+                GL.GL_RGBA,
                 GL.GL_UNSIGNED_BYTE,
-                texture[i].getPixels() // Imagedata
+                texture[i].getPixels()
         );
       } catch (IOException e) {
         System.out.println(e);
         e.printStackTrace();
       }
     }
-
   }
   @Override
   public void display(GLAutoDrawable glAutoDrawable) {
@@ -97,13 +100,10 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
     //Animationindex
     slodier1index =8+slodier1index % 4;
     slodier2index = 12 + slodier2index % 4;
-
     monsterindex++;
     monsterindex = 16 + monsterindex % 8;
-    //Background
-    DrawBackground(0, gl);
 
-//PAGES
+    //PAGES
     if (pages == "home") {
       DrawBackground(0, gl);
 
@@ -123,7 +123,9 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       DrawBackground(5, gl);
 
     } else if (pages == "EASY SINGLE") {
+      //Background
       DrawBackground(6, gl);
+
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
 
@@ -143,7 +145,9 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       Handle_Soldier_Collision1();
 
     } else if (pages == "MEDIUM SINGLE") {
+      //Background
       DrawBackground(6, gl);
+
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
 
@@ -163,7 +167,9 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
         Handle_Soldier_Collision1();
 
       } else if (pages == "HARD SINGLE") {
+      //Background
         DrawBackground(6, gl);
+
         //ٍSoldier1
         TO_Draw_Soldier1(gl, slodier1index);
 
@@ -186,7 +192,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
         DrawBackground(5, gl);
 
       } else if (pages == "EASY DOUBLE") {
-
+        //Background
       DrawBackground(6, gl);
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
@@ -219,6 +225,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       Handle_Soldier_Collision2();
 
       } else if (pages == "MEDIUM DOUBLE") {
+      //Background
       DrawBackground(6, gl);
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
@@ -251,6 +258,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       Handle_Soldier_Collision2();
 
         } else if (pages == "HARD DOUBLE") {
+      //Background
       DrawBackground(6, gl);
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
@@ -281,50 +289,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       //Handling Collisions2
       Handle_Bullet_Collision2();
       Handle_Soldier_Collision2();
-
         }
-
-//    //Animationindex
-//    slodier1index = 1 + slodier1index % 4;
-//    slodier2index = 6 + slodier2index % 4;
-//
-//    monsterindex++;
-//    monsterindex = 11 + monsterindex % 6;
-//    //Background
-//    DrawBackground(0,gl);
-//
-//    //ٍSoldier1
-//    TO_Draw_Soldier1(gl,slodier1index);
-//
-//    //Bullet1
-//    TO_Draw_Bullets1(gl);
-//    TO_Move_Bullets1();
-//    TO_Disappear_Bullets1();
-//
-//    //Enemies
-//    TO_Delay_Enemies();
-//    TO_Draw_Enemies(gl);
-//    TO_Move_Enemies();
-//    TO_Disappear_Enemies();
-//
-//    //Handling Collisions1
-//    Handle_Bullet_Collision1();
-//    Handle_Soldier_Collision1();
-//
-//    if(Multi){
-//      //ٍSoldier2
-//      TO_Draw_Soldier2(gl,slodier2index);
-//
-//      //Bullet2
-//      TO_Draw_Bullets2(gl);
-//      TO_Move_Bullets2();
-//      TO_Disappear_Bullets2();
-//
-//      //Handling Collisions2
-//      Handle_Bullet_Collision2();
-//      Handle_Soldier_Collision2();
-//    }
-
   }
   ////////////////////////////////////////////////////////////////////////
   //Background
@@ -351,23 +316,13 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   ////////////////////////////////////////////////////////////////////////
   //Soldier
   void TO_Draw_Soldier1(GL gl,int index) {
-//    gl.glPointSize(20.0f);
-//    gl.glColor3f(1.0f, 0.0f, 1.0f);
-//    gl.glBegin(GL.GL_POINTS);
-//    gl.glVertex2i(X(soldier1X), Y(soldier1Y));
-//    gl.glEnd();
-
     gl.glEnable(GL.GL_BLEND);
-    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);	// Turn Blending On
-
+    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);
     gl.glPushMatrix();
-
     gl.glTranslated(soldier1X * 13 / (Max_Screen_X / 2.0) -0.95 , soldier1Y * 13/ (Max_Screen_Y / 2.0) -0.95 , 0);
-
     gl.glScaled(0.1, 0.1 , 1);
-    //System.out.println(x +" " + y);
     gl.glBegin(GL.GL_QUADS);
-    // Front Face
+
     gl.glTexCoord2f(0.0f, 0.0f);
     gl.glVertex3f(-1.0f, -1.0f, -1.0f);
     gl.glTexCoord2f(1.0f, 0.0f);
@@ -397,23 +352,13 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   ////////////////////////////////////////////////////////////////////////
   //Soldier
   void TO_Draw_Soldier2(GL gl,int index) {
-//    gl.glPointSize(20.0f);
-//    gl.glColor3f(1.0f, 0.0f, 1.0f);
-//    gl.glBegin(GL.GL_POINTS);
-//    gl.glVertex2i(X(soldier2X), Y(soldier2Y));
-//    gl.glEnd();
-
     gl.glEnable(GL.GL_BLEND);
-    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);	// Turn Blending On
-
+    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);
     gl.glPushMatrix();
-
     gl.glTranslated(soldier2X * 13 / (Max_Screen_X / 2.0) -0.95 , soldier2Y * 13/ (Max_Screen_Y / 2.0) -0.8 , 0);
-
     gl.glScaled(0.1, 0.1 , 1);
-    //System.out.println(x +" " + y);
     gl.glBegin(GL.GL_QUADS);
-    // Front Face
+
     gl.glTexCoord2f(0.0f, 0.0f);
     gl.glVertex3f(-1.0f, -1.0f, -1.0f);
     gl.glTexCoord2f(1.0f, 0.0f);
@@ -441,45 +386,24 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   ///////////////////////////////////////////////////////////////////////
   //Bullets1
   void TO_Draw_One_Bullet1(GL gl, int x, int y) {
-//    gl.glPointSize(10.0f);
-//    gl.glColor3f(0.0f, 0.0f, 1.0f);
-//    gl.glBegin(GL.GL_POINTS);
-//    gl.glVertex2i(X(x), Y(y));
-//    gl.glEnd();
-
     gl.glEnable(GL.GL_BLEND);
-
-    // index هنا كل مرة بيعرض صورة مختلفة للطلقة او الشكل اللي انا محدده على حسب ال
-    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[7]);	// Turn Blending On
-
+    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[7]);
     gl.glPushMatrix();
-
     gl.glTranslated(X(x)  / (Max_Screen_X / 2.0) -0.85 , Y(y) / (Max_Screen_Y / 2.0) -1.03 , 0);
     gl.glScaled(0.02 , 0.02 , 1);
-
-    //لو عازز تطبع المكان اللي واقف فيه الشكل بتاعك او الرصاصة
-    //System.out.println(PositionX +" " + y);
-
-    //QUADSابدأ ارسملي مربع او
     gl.glBegin(GL.GL_QUADS);
-    // Front Face
-    //هنا بربط الرصاصة بالمربع اللي انا حاطط فيه العسكري
-    //كل جانب او side في الرصاصة ب side في المربع
+
     gl.glTexCoord2f(0.0f, 0.0f);
     gl.glVertex3f(-1.0f, -1.0f, -1.0f);
-
     gl.glTexCoord2f(1.0f, 0.0f);
     gl.glVertex3f(1.0f, -1.0f, -1.0f);
-
     gl.glTexCoord2f(1.0f, 1.0f);
     gl.glVertex3f(1.0f, 1.0f, -1.0f);
-
     gl.glTexCoord2f(0.0f, 1.0f);
     gl.glVertex3f(-1.0f, 1.0f, -1.0f);
 
     gl.glEnd();
     gl.glPopMatrix();
-
     gl.glDisable(GL.GL_BLEND);
   }
   public void TO_Draw_Bullets1(GL gl){
@@ -514,41 +438,20 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   ///////////////////////////////////////////////////////////////////////
   //Bullets2
   void TO_Draw_One_Bullet2(GL gl, int x, int y) {
-//    gl.glPointSize(10.0f);
-//    gl.glColor3f(0.0f, 0.0f, 1.0f);
-//    gl.glBegin(GL.GL_POINTS);
-//    gl.glVertex2i(X(x), Y(y));
-//    gl.glEnd();
     gl.glEnable(GL.GL_BLEND);
-
-    // index هنا كل مرة بيعرض صورة مختلفة للطلقة او الشكل اللي انا محدده على حسب ال
-    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[7]);	// Turn Blending On
-
+    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[7]);
     gl.glPushMatrix();
-
     gl.glTranslated(X(x)  / (Max_Screen_X / 2.0) -0.85 , Y(y) / (Max_Screen_Y / 2.0) -0.93 , 0);
     gl.glScaled(0.02 , 0.02 , 1);
-
-    //لو عازز تطبع المكان اللي واقف فيه الشكل بتاعك او الرصاصة
-    //System.out.println(PositionX +" " + y);
-
-    //QUADSابدأ ارسملي مربع او
     gl.glBegin(GL.GL_QUADS);
-    // Front Face
-    //هنا بربط الرصاصة بالمربع اللي انا حاطط فيه العسكري
-    //كل جانب او side في الرصاصة ب side في المربع
     gl.glTexCoord2f(0.0f, 0.0f);
     gl.glVertex3f(-1.0f, -1.0f, -1.0f);
-
     gl.glTexCoord2f(1.0f, 0.0f);
     gl.glVertex3f(1.0f, -1.0f, -1.0f);
-
     gl.glTexCoord2f(1.0f, 1.0f);
     gl.glVertex3f(1.0f, 1.0f, -1.0f);
-
     gl.glTexCoord2f(0.0f, 1.0f);
     gl.glVertex3f(-1.0f, 1.0f, -1.0f);
-
     gl.glEnd();
     gl.glPopMatrix();
 
@@ -591,28 +494,21 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
     }
     if(Delay ==1000) Delay =1;
   }
+
   void TO_Generate_Enemies() {
     int x = 49;
     int y = (int) (Math.random() * (Max_Y-1));
     Enemies[x][y] = 1;
   }
+
   void TO_Draw_One_Enemy(GL gl, int x, int y, int index) {
-//    gl.glPointSize(30.0f);
-//    gl.glColor3f(0.0f, 1.0f, 0.0f);
-//    gl.glBegin(GL.GL_POINTS);
-//    gl.glVertex2i(X(x), Y(y));
-//    gl.glEnd();
-
     gl.glEnable(GL.GL_BLEND);
-    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);	// Turn Blending On
-
+    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);
     gl.glPushMatrix();
-
     gl.glTranslated(x * 13 / (Max_Screen_X / 2.0) -0.9 , y * 13/ (Max_Screen_Y / 2.0) -0.9 , 0);
     gl.glScaled(0.15, 0.15 , 1);
-
     gl.glBegin(GL.GL_QUADS);
-    // Front Face
+
     gl.glTexCoord2f(0.0f, 0.0f);
     gl.glVertex3f(-1.0f, -1.0f, -1.0f);
     gl.glTexCoord2f(1.0f, 0.0f);
@@ -626,6 +522,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
 
     gl.glDisable(GL.GL_BLEND);
   }
+
   public void TO_Draw_Enemies(GL gl){
     for (int i = 0; i < Max_X; i++) {
       for (int j = 0; j < Max_Y; j++) {
@@ -635,6 +532,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       }
     }
   }
+
   public void TO_Move_Enemies(){
     for (int i = 1; i < Max_X; i++) {
       for (int j = 0; j < Max_Y; j++) {
@@ -645,6 +543,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       }
     }
   }
+
   public void TO_Disappear_Enemies(){
     for (int j = 0; j < Max_Y; j++) {
       if (Enemies[0][j] == 1) {
@@ -655,15 +554,17 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   /////////////////////////////////////////////////////////////////////////////////////
   //collision1
   void Handle_Bullet_Collision1() {
-    for (int i = 3; i < Max_X -3; i++) {
+    for (int i = 0; i < Max_X -1; i++) {
       for (int j = 3; j < Max_Y -3; j++) {
         if ((Bullets1[i][j] == 1 )&& ((Enemies[i+1][j] == 1)||(Enemies[i+1][j-1] == 1)||(Enemies[i+1][j+1] == 1)|| (Enemies[i+1][j-2] == 1)||(Enemies[i+1][j+2] == 1)|| (Enemies[i+1][j-3] == 1)||(Enemies[i+1][j+3] == 1))) {
           Bullets1[i][j] = 0;
           Enemies[i+1][j] = 0;
           Enemies[i+1][j-1] = 0;
           Enemies[i+1][j-2] = 0;
+          Enemies[i+1][j-3] = 0;
           Enemies[i+1][j+1] = 0;
           Enemies[i+1][j+2] = 0;
+          Enemies[i+1][j+3] = 0;
           break;
         }
       }
@@ -674,10 +575,10 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
     for (int i = 0; i < Max_X; i++) {
       for (int j = 0; j < Max_Y; j++) {
         if (Enemies[i][j] == 1 && (i == soldier1X ||i == soldier1X -1||i == soldier1X -2||i == soldier1X +1||i == soldier1X +2) && (j == soldier1Y ||j == soldier1Y -1||j == soldier1Y -2||j == soldier1Y -3||j == soldier1Y -4||j == soldier1Y -5||j == soldier1Y +1||j == soldier1Y +2)) {
-          if (hearts1 == 0) {
+          if (hearts1-1 == 0) {
             System.out.println("GameOver For player 1");
             JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
-            System.exit(0);
+            pages="home";
           } else{
             Enemies[i][j] = 0;
             System.out.println(--hearts1);
@@ -688,15 +589,17 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   }/////////////////////////////////////////////////////////////////////////////////////
   //collision2
   void Handle_Bullet_Collision2() {
-    for (int i = 3; i < Max_X -3; i++) {
+    for (int i = 0; i < Max_X -1; i++) {
       for (int j = 3; j < Max_Y -3; j++) {
         if ((Bullets2[i][j] == 1 )&& ((Enemies[i+1][j] == 1)||(Enemies[i+1][j-1] == 1)||(Enemies[i+1][j+1] == 1)|| (Enemies[i+1][j-2] == 1)||(Enemies[i+1][j+2] == 1)|| (Enemies[i+1][j-3] == 1)||(Enemies[i+1][j+3] == 1))) {
-          Bullets2[i][j] = 0;
+          Bullets1[i][j] = 0;
           Enemies[i+1][j] = 0;
           Enemies[i+1][j-1] = 0;
           Enemies[i+1][j-2] = 0;
+          Enemies[i+1][j-3] = 0;
           Enemies[i+1][j+1] = 0;
           Enemies[i+1][j+2] = 0;
+          Enemies[i+1][j+3] = 0;
           break;
         }
       }
@@ -707,10 +610,10 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
     for (int i = 0; i < Max_X; i++) {
       for (int j = 0; j < Max_Y; j++) {
         if (Enemies[i][j] == 1 && (i == soldier2X ||i == soldier2X -1||i == soldier2X -2||i == soldier2X +1||i == soldier2X +2) && (j == soldier2Y ||j == soldier2Y -1||j == soldier2Y -2||j == soldier2Y -3||j == soldier2Y -4||j == soldier2Y -5||j == soldier2Y +1||j == soldier2Y +2)) {
-          if (hearts2 == 0) {
+          if (hearts2-1 == 0) {
             System.out.println("GameOver For player 2");
             JOptionPane.showMessageDialog(null, "GameOver For player 2.", "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
-            System.exit(0);
+            pages="home";
           } else{
             Enemies[i][j] = 0;
             System.out.println(--hearts2);
