@@ -34,6 +34,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
 
   //Pages
   static String pages = "home";
+  static String pagesBack = "home";
 
   //Textures indexes
   int slodier1index = 0;
@@ -292,7 +293,11 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       //Handling Collisions2
       Handle_Bullet_Collision2();
       Handle_Soldier_Collision2();
-        }
+        } else if(pages == "PAUSE"){
+      DrawBackground(24, gl);
+
+
+    }
 
 
   }
@@ -676,7 +681,39 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       TO_Fire2();
     }
     if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-      pages = "PAUSE";
+      if( pages == "EASY SINGLE"){
+        pagesBack = "EASY SINGLE";
+        pages = "PAUSE";
+      } else if( pages == "MEDIUM SINGLE"){
+        pagesBack = "MEDIUM SINGLE";
+        pages = "PAUSE";
+      }else if( pages == "HARD SINGLE"){
+        pagesBack = "HARD SINGLE";
+        pages = "PAUSE";
+      }else if( pages == "EASY DOUBLE"){
+        pagesBack = "EASY DOUBLE";
+        pages = "PAUSE";
+      } else if( pages == "MEDIUM DOUBLE"){
+        pagesBack = "MEDIUM DOUBLE";
+        pages = "PAUSE";
+      }else if( pages == "HARD DOUBLE"){
+        pagesBack = "HARD DOUBLE";
+        pages = "PAUSE";
+      } else if(pages == "PAUSE"){
+        if( pagesBack == "EASY SINGLE"){
+          pages = "EASY SINGLE";
+        } else if( pagesBack == "MEDIUM SINGLE"){
+          pages = "MEDIUM SINGLE";
+        }else if( pagesBack == "HARD SINGLE"){
+          pages = "HARD SINGLE";
+        }else if( pagesBack == "EASY DOUBLE"){
+          pages = "EASY DOUBLE";
+        } else if( pagesBack == "MEDIUM DOUBLE"){
+          pages = "MEDIUM DOUBLE";
+        }else if( pagesBack == "HARD DOUBLE"){
+          pages = "HARD DOUBLE";
+        }
+      }
     }
   }
   @Override
