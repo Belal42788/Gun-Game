@@ -1,10 +1,13 @@
 
 import Textures.TextureReader;
+import com.sun.opengl.util.j2d.TextRenderer;
+
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
@@ -17,6 +20,10 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   int Max_X = 50;
   int Max_Y = 50;
   static String name , name1 ;
+
+  TextRenderer ren = new TextRenderer(new Font("Rockwell Extra Bold", Font.BOLD, 25));
+  static int t  , k ;
+
 
   int Delay =1;
   //Moving Objects
@@ -137,6 +144,11 @@ if(sound)    playmusic(0);
       DrawBackground(5, gl);
 
     } else if (pages == "EASY SINGLE") {
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
       //Background
       DrawBackground(6, gl);
 
@@ -157,8 +169,15 @@ if(sound)    playmusic(0);
       //Handling Collisions1
       Handle_Bullet_Collision1();
       Handle_Soldier_Collision1();
+      //time
+      drawtime();
 
     } else if (pages == "MEDIUM SINGLE") {
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
       //Background
       DrawBackground(6, gl);
 
@@ -179,8 +198,15 @@ if(sound)    playmusic(0);
         //Handling Collisions1
         Handle_Bullet_Collision1();
         Handle_Soldier_Collision1();
+      //time
+      drawtime();
 
       } else if (pages == "HARD SINGLE") {
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
       //Background
         DrawBackground(6, gl);
 
@@ -201,11 +227,18 @@ if(sound)    playmusic(0);
         //Handling Collisions1
         Handle_Bullet_Collision1();
         Handle_Soldier_Collision1();
+      //time
+      drawtime();
 
       } else if (pages == "DOUBLE") {
         DrawBackground(5, gl);
 
       } else if (pages == "EASY DOUBLE") {
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
         //Background
       DrawBackground(6, gl);
       //ٍSoldier1
@@ -237,8 +270,15 @@ if(sound)    playmusic(0);
       //Handling Collisions2
       Handle_Bullet_Collision2();
       Handle_Soldier_Collision2();
+      //time
+      drawtime();
 
       } else if (pages == "MEDIUM DOUBLE") {
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
       //Background
       DrawBackground(6, gl);
       //ٍSoldier1
@@ -270,8 +310,18 @@ if(sound)    playmusic(0);
       //Handling Collisions2
       Handle_Bullet_Collision2();
       Handle_Soldier_Collision2();
+      //time
+      drawtime();
 
         } else if (pages == "HARD DOUBLE") {
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
+
+      //time
+      drawtime();
       //Background
       DrawBackground(6, gl);
       //ٍSoldier1
@@ -599,6 +649,7 @@ if(sound)    playmusic(0);
             //System.out.println("GameOver For player 1");
             JOptionPane.showMessageDialog(null, "              GameOver \n"+ "Name: "+name+ "   \n", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
             pages="home";
+            t=0;
           } else{
             Enemies[i][j] = 0;
             System.out.println(--hearts1);
@@ -635,6 +686,7 @@ if(sound)    playmusic(0);
             JOptionPane.showMessageDialog(null, "     GameOver For player 2    \n"+"Name2: "+name1+ "   \n" , "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
 
             pages="home";
+            t=0;
           } else{
             Enemies[i][j] = 0;
             System.out.println(--hearts2);
@@ -900,6 +952,13 @@ if(sound)    playmusic(0);
   public void stoppmusic(){
 
     so.stop();
+  }
+  public void drawtime() {
+    ren.beginRendering(700, 700);
+    ren.setColor(Color.BLUE);
+    ren.draw ("" + t , 439, 635);
+    ren.setColor(Color.WHITE);
+    ren.endRendering();
   }
 
 }
