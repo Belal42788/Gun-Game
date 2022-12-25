@@ -1,9 +1,5 @@
-package guns_proj;
 
 import Textures.TextureReader;
-
-import Textures.TextureReader;
-
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
@@ -37,25 +33,20 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   int hearts2 =5;
 
   boolean Multi=false;
-<<<<<<< HEAD
   static String pages = "home";
-=======
-
->>>>>>> 0883cbf1ded53fb6cb465e4c760e4068c9c8f6fc
   int slodier1index = 0;
   int slodier2index = 0;
   int monsterindex = 0;
 
-<<<<<<< HEAD
-  String textureNames[] = {"HOME\\Monster(Home).png"   ,"Page 2(Single vs MULTI)\\Monster(Single vs Multi).png","INSTRUCTIONS\\Monster(instructions).png","OPTIONS\\OPTIONS.png","CONTACT_US\\CONTACT_US.png","LEVELS\\Monster(levels).png",
-          "Background game\\background.png",
-=======
-  String textureNames[] = {"Background game\\background.png",
->>>>>>> 0883cbf1ded53fb6cb465e4c760e4068c9c8f6fc
-  "MAN\\Man1_right.png","MAN\\Man2_right.png","MAN\\Man3_right.png","MAN\\Man4_right.png","B1.png",
-  "RedMan\\RedMan1_right-1.png","RedMan\\RedMan2_right-1.png","RedMan\\RedMan3_right-1.png","RedMan\\RedMan4_right-1.png","Bullet.png",
-  "Running Monster\\0_Golem_Running_001-1.png","Running Monster\\0_Golem_Running_002-1.png","Running Monster\\0_Golem_Running_003-1.png",
-  "Running Monster\\0_Golem_Running_004-1.png","Running Monster\\0_Golem_Running_005-1.png","Running Monster\\0_Golem_Running_006-1.png"
+  String textureNames[] = {
+"HOME\\Monster(Home).png","Page 2(Single vs MULTI)\\Monster(Single vs Multi).png","INSTRUCTIONS\\Monster(instructions).png","OPTIONS\\OPTIONS.png ", "CONTACT_US\\CONTACT_US.png","LEVELS\\Monster(levels).png",  //  5
+          "Background game\\background.png",  // 6
+          "Bullet.png",//7
+          "MAN\\Man1_right.png","MAN\\Man2_right.png","MAN\\Man3_right.png","MAN\\Man4_right.png",//  11
+          "RedMan\\RedMan1_right-1.png","RedMan\\RedMan2_right-1.png","RedMan\\RedMan3_right-1.png","RedMan\\RedMan4_right-1.png",// 15
+          "Running Monster\\0_Golem_Running_001-1.png","Running Monster\\0_Golem_Running_002-1.png","Running Monster\\0_Golem_Running_003-1.png",  //  18
+          "Running Monster\\0_Golem_Running_004-1.png","Running Monster\\0_Golem_Running_005-1.png","Running Monster\\0_Golem_Running_006-1.png"  //22
+          ,"Running Monster\\0_Golem_Running_007-1.png","Running Monster\\0_Golem_Running_007-1.png"//24
   };
   TextureReader.Texture texture[] = new TextureReader.Texture[textureNames.length];
   int textures[] = new int[textureNames.length];
@@ -102,145 +93,196 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
     GL gl = glAutoDrawable.getGL();
     gl.glClear(GL.GL_COLOR_BUFFER_BIT);
     gl.glLoadIdentity();
-<<<<<<< HEAD
-=======
 
     //Animationindex
-    slodier1index = 1 + slodier1index % 4;
-    slodier2index = 6 + slodier2index % 4;
+    slodier1index =8+slodier1index % 4;
+    slodier2index = 12 + slodier2index % 4;
 
     monsterindex++;
-    monsterindex = 11 + monsterindex % 6;
+    monsterindex = 16 + monsterindex % 8;
     //Background
-    DrawBackground(0,gl);
->>>>>>> 0883cbf1ded53fb6cb465e4c760e4068c9c8f6fc
+    DrawBackground(0, gl);
 
 //PAGES
-  if (pages=="home"){
-    DrawBackground(0,gl);
+    if (pages == "home") {
+      DrawBackground(0, gl);
 
-  }
-    else if (pages=="play"){
-      DrawBackground(1,gl);
+    } else if (pages == "play") {
+      DrawBackground(1, gl);
 
-    }
-  else if (pages=="instrctions"){
-    DrawBackground(2,gl);
+    } else if (pages == "instrctions") {
+      DrawBackground(2, gl);
 
-  } else if (pages=="OPTIONS"){
-    DrawBackground(3,gl);
+    } else if (pages == "OPTIONS") {//مش موجودة
+      DrawBackground(3, gl);
 
-  }   else if (pages=="CONTACT_US"){
-    DrawBackground(4,gl);
+    } else if (pages == "CONTACT_US") {
+      DrawBackground(4, gl);
 
-  }
-  else if (pages=="SINGLE"){
-    DrawBackground(5,gl);
+    } else if (pages == "SINGLE") {
+      DrawBackground(5, gl);
 
-  }else if (pages=="EASY"){
-    DrawBackground(5,gl);
-    //ٍSoldier1
-<<<<<<< HEAD
-    TO_Draw_Soldier1(gl,3);
-=======
-    TO_Draw_Soldier1(gl,slodier1index);
->>>>>>> 0883cbf1ded53fb6cb465e4c760e4068c9c8f6fc
+    } else if (pages == "EASY SINGLE") {
+      DrawBackground(6, gl);
+      //ٍSoldier1
+      TO_Draw_Soldier1(gl, slodier1index);
 
-    //Bullet1
-    TO_Draw_Bullets1(gl);
-    TO_Move_Bullets1();
-    TO_Disappear_Bullets1();
+      //Bullet1
+      TO_Draw_Bullets1(gl);
+      TO_Move_Bullets1();
+      TO_Disappear_Bullets1();
 
-    //Enemies
-    TO_Delay_Enemies();
-    TO_Draw_Enemies(gl);
-    TO_Move_Enemies();
-    TO_Disappear_Enemies();
+      //Enemies
+      TO_Delay_Enemies();
+      TO_Draw_Enemies(gl);
+      TO_Move_Enemies();
+      TO_Disappear_Enemies();
 
-    //Handling Collisions1
-    Handle_Bullet_Collision1();
-    Handle_Soldier_Collision1();
+      //Handling Collisions1
+      Handle_Bullet_Collision1();
+      Handle_Soldier_Collision1();
 
-<<<<<<< HEAD
-  }
-  else if (pages=="MEDIUM"){
-    DrawBackground(8,gl);
-    //ٍSoldier1
-    TO_Draw_Soldier1(gl,3);
-=======
-    if(Multi){
+    } else if (pages == "MEDIUM SINGLE") {
+      DrawBackground(6, gl);
+      //ٍSoldier1
+      TO_Draw_Soldier1(gl, slodier1index);
+
+        //Bullet1
+        TO_Draw_Bullets1(gl);
+        TO_Move_Bullets1();
+        TO_Disappear_Bullets1();
+
+        //Enemies
+        TO_Delay_Enemies();
+        TO_Draw_Enemies(gl);
+        TO_Move_Enemies();
+        TO_Disappear_Enemies();
+
+        //Handling Collisions1
+        Handle_Bullet_Collision1();
+        Handle_Soldier_Collision1();
+
+      } else if (pages == "HARD SINGLE") {
+        DrawBackground(6, gl);
+        //ٍSoldier1
+        TO_Draw_Soldier1(gl, slodier1index);
+
+        //Bullet1
+        TO_Draw_Bullets1(gl);
+        TO_Move_Bullets1();
+        TO_Disappear_Bullets1();
+
+        //Enemies
+        TO_Delay_Enemies();
+        TO_Draw_Enemies(gl);
+        TO_Move_Enemies();
+        TO_Disappear_Enemies();
+
+        //Handling Collisions1
+        Handle_Bullet_Collision1();
+        Handle_Soldier_Collision1();
+
+      } else if (pages == "DOUBLE") {
+        DrawBackground(5, gl);
+
+      } else if (pages == "EASY DOUBLE") {
+
+      DrawBackground(6, gl);
+      //ٍSoldier1
+      TO_Draw_Soldier1(gl, slodier1index);
+
+      //Bullet1
+      TO_Draw_Bullets1(gl);
+      TO_Move_Bullets1();
+      TO_Disappear_Bullets1();
+
+      //Enemies
+      TO_Delay_Enemies();
+      TO_Draw_Enemies(gl);
+      TO_Move_Enemies();
+      TO_Disappear_Enemies();
+
+      //Handling Collisions1
+      Handle_Bullet_Collision1();
+      Handle_Soldier_Collision1();
+
       //ٍSoldier2
-      TO_Draw_Soldier2(gl,slodier2index);
->>>>>>> 0883cbf1ded53fb6cb465e4c760e4068c9c8f6fc
+      TO_Draw_Soldier2(gl, slodier2index);
 
-    //Bullet1
-    TO_Draw_Bullets1(gl);
-    TO_Move_Bullets1();
-    TO_Disappear_Bullets1();
+      //Bullet2
+      TO_Draw_Bullets2(gl);
+      TO_Move_Bullets2();
+      TO_Disappear_Bullets2();
 
-    //Enemies
-    TO_Delay_Enemies();
-    TO_Draw_Enemies(gl);
-    TO_Move_Enemies();
-    TO_Disappear_Enemies();
+      //Handling Collisions2
+      Handle_Bullet_Collision2();
+      Handle_Soldier_Collision2();
 
-    //Handling Collisions1
-    Handle_Bullet_Collision1();
-    Handle_Soldier_Collision1();
+      } else if (pages == "MEDIUM DOUBLE") {
+      DrawBackground(6, gl);
+      //ٍSoldier1
+      TO_Draw_Soldier1(gl, slodier1index);
 
-  }
-  else if (pages=="HARD"){
-    DrawBackground(5,gl);
-    //ٍSoldier1
-    TO_Draw_Soldier1(gl,3);
+      //Bullet1
+      TO_Draw_Bullets1(gl);
+      TO_Move_Bullets1();
+      TO_Disappear_Bullets1();
 
-    //Bullet1
-    TO_Draw_Bullets1(gl);
-    TO_Move_Bullets1();
-    TO_Disappear_Bullets1();
+      //Enemies
+      TO_Delay_Enemies();
+      TO_Draw_Enemies(gl);
+      TO_Move_Enemies();
+      TO_Disappear_Enemies();
 
-    //Enemies
-    TO_Delay_Enemies();
-    TO_Draw_Enemies(gl);
-    TO_Move_Enemies();
-    TO_Disappear_Enemies();
+      //Handling Collisions1
+      Handle_Bullet_Collision1();
+      Handle_Soldier_Collision1();
 
-    //Handling Collisions1
-    Handle_Bullet_Collision1();
-    Handle_Soldier_Collision1();
+      //ٍSoldier2
+      TO_Draw_Soldier2(gl, slodier2index);
 
-  }
-  else if(pages=="Multi"){
-    //ٍSoldier1
-    TO_Draw_Soldier1(gl,4);
+      //Bullet2
+      TO_Draw_Bullets2(gl);
+      TO_Move_Bullets2();
+      TO_Disappear_Bullets2();
 
-    //Bullet1
-    TO_Draw_Bullets1(gl);
-    TO_Move_Bullets1();
-    TO_Disappear_Bullets1();
+      //Handling Collisions2
+      Handle_Bullet_Collision2();
+      Handle_Soldier_Collision2();
 
-    //Enemies
-    TO_Delay_Enemies();
-    TO_Draw_Enemies(gl);
-    TO_Move_Enemies();
-    TO_Disappear_Enemies();
+        } else if (pages == "HARD DOUBLE") {
+      DrawBackground(6, gl);
+      //ٍSoldier1
+      TO_Draw_Soldier1(gl, slodier1index);
 
-    //Handling Collisions1
-    Handle_Bullet_Collision1();
-    Handle_Soldier_Collision1();
+      //Bullet1
+      TO_Draw_Bullets1(gl);
+      TO_Move_Bullets1();
+      TO_Disappear_Bullets1();
 
-    //ٍSoldier2
-    TO_Draw_Soldier2(gl,4);
+      //Enemies
+      TO_Delay_Enemies();
+      TO_Draw_Enemies(gl);
+      TO_Move_Enemies();
+      TO_Disappear_Enemies();
 
-    //Bullet2
-    TO_Draw_Bullets2(gl);
-    TO_Move_Bullets2();
-    TO_Disappear_Bullets2();
+      //Handling Collisions1
+      Handle_Bullet_Collision1();
+      Handle_Soldier_Collision1();
 
-    //Handling Collisions2
-    Handle_Bullet_Collision2();
-    Handle_Soldier_Collision2();
-  }
+      //ٍSoldier2
+      TO_Draw_Soldier2(gl, slodier2index);
+
+      //Bullet2
+      TO_Draw_Bullets2(gl);
+      TO_Move_Bullets2();
+      TO_Disappear_Bullets2();
+
+      //Handling Collisions2
+      Handle_Bullet_Collision2();
+      Handle_Soldier_Collision2();
+
+        }
 
 //    //Animationindex
 //    slodier1index = 1 + slodier1index % 4;
@@ -282,16 +324,16 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
 //      Handle_Bullet_Collision2();
 //      Handle_Soldier_Collision2();
 //    }
+
   }
   ////////////////////////////////////////////////////////////////////////
   //Background
   public void DrawBackground(int index,GL gl) {
     gl.glEnable(GL.GL_BLEND);
-    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);	// Turn Blending On
+    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);
 
     gl.glPushMatrix();
     gl.glBegin(GL.GL_QUADS);
-    // Front Face
     gl.glTexCoord2f(0.0f, 0.0f);
     gl.glVertex3f(-1.0f, -1.0f, -1.0f);
     gl.glTexCoord2f(1.0f, 0.0f);
@@ -366,7 +408,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
 
     gl.glPushMatrix();
 
-    gl.glTranslated(soldier1X * 13 / (Max_Screen_X / 2.0) -0.95 , soldier1Y * 13/ (Max_Screen_Y / 2.0) -0.8 , 0);
+    gl.glTranslated(soldier2X * 13 / (Max_Screen_X / 2.0) -0.95 , soldier2Y * 13/ (Max_Screen_Y / 2.0) -0.8 , 0);
 
     gl.glScaled(0.1, 0.1 , 1);
     //System.out.println(x +" " + y);
@@ -408,12 +450,12 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
     gl.glEnable(GL.GL_BLEND);
 
     // index هنا كل مرة بيعرض صورة مختلفة للطلقة او الشكل اللي انا محدده على حسب ال
-    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[5]);	// Turn Blending On
+    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[7]);	// Turn Blending On
 
     gl.glPushMatrix();
 
-    gl.glTranslated(X(x)  / (Max_Screen_X / 2.0) -0.85 , Y(y) / (Max_Screen_Y / 2.0) -1.02 , 0);
-    gl.glScaled(0.01 , 0.01 , 1);
+    gl.glTranslated(X(x)  / (Max_Screen_X / 2.0) -0.85 , Y(y) / (Max_Screen_Y / 2.0) -1.03 , 0);
+    gl.glScaled(0.02 , 0.02 , 1);
 
     //لو عازز تطبع المكان اللي واقف فيه الشكل بتاعك او الرصاصة
     //System.out.println(PositionX +" " + y);
@@ -480,12 +522,12 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
     gl.glEnable(GL.GL_BLEND);
 
     // index هنا كل مرة بيعرض صورة مختلفة للطلقة او الشكل اللي انا محدده على حسب ال
-    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[10]);	// Turn Blending On
+    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[7]);	// Turn Blending On
 
     gl.glPushMatrix();
 
-    gl.glTranslated(X(x)  / (Max_Screen_X / 2.0) -0.85 , Y(y) / (Max_Screen_Y / 2.0) -1.02 , 0);
-    gl.glScaled(0.01 , 0.01 , 1);
+    gl.glTranslated(X(x)  / (Max_Screen_X / 2.0) -0.85 , Y(y) / (Max_Screen_Y / 2.0) -0.93 , 0);
+    gl.glScaled(0.02 , 0.02 , 1);
 
     //لو عازز تطبع المكان اللي واقف فيه الشكل بتاعك او الرصاصة
     //System.out.println(PositionX +" " + y);
@@ -631,7 +673,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   void Handle_Soldier_Collision1() {
     for (int i = 0; i < Max_X; i++) {
       for (int j = 0; j < Max_Y; j++) {
-        if (Enemies[i][j] == 1 && (i == soldier1X ||i == soldier1X -1||i == soldier1X -2||i == soldier1X +1||i == soldier1X +2) && (j == soldier1Y ||j == soldier1Y -1||j == soldier1Y -2||j == soldier1Y +1||j == soldier1Y +2)) {
+        if (Enemies[i][j] == 1 && (i == soldier1X ||i == soldier1X -1||i == soldier1X -2||i == soldier1X +1||i == soldier1X +2) && (j == soldier1Y ||j == soldier1Y -1||j == soldier1Y -2||j == soldier1Y -3||j == soldier1Y -4||j == soldier1Y -5||j == soldier1Y +1||j == soldier1Y +2)) {
           if (hearts1 == 0) {
             System.out.println("GameOver For player 1");
             JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
@@ -664,7 +706,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   void Handle_Soldier_Collision2() {
     for (int i = 0; i < Max_X; i++) {
       for (int j = 0; j < Max_Y; j++) {
-        if (Enemies[i][j] == 1 && (i == soldier2X ||i == soldier2X -1||i == soldier2X -2||i == soldier2X +1||i == soldier2X +2) && (j == soldier2Y ||j == soldier2Y -1||j == soldier2Y -2||j == soldier2Y +1||j == soldier2Y +2)) {
+        if (Enemies[i][j] == 1 && (i == soldier2X ||i == soldier2X -1||i == soldier2X -2||i == soldier2X +1||i == soldier2X +2) && (j == soldier2Y ||j == soldier2Y -1||j == soldier2Y -2||j == soldier2Y -3||j == soldier2Y -4||j == soldier2Y -5||j == soldier2Y +1||j == soldier2Y +2)) {
           if (hearts2 == 0) {
             System.out.println("GameOver For player 2");
             JOptionPane.showMessageDialog(null, "GameOver For player 2.", "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
@@ -727,7 +769,6 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
 
   @Override
   public void mouseClicked(MouseEvent e) {
-<<<<<<< HEAD
     switch (pages) {
       case "home":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 242) {
@@ -752,7 +793,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
           pages = "SINGLE";
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 300 && e.getY() < 342) {
-          pages = "Multi";
+          pages = "DOUBLE";
         }
         break;
 
@@ -776,33 +817,39 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
           pages = "play";
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 243) {
-          pages = "EASY";
+          pages = "EASY SINGLE";
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 272 && e.getY() < 311) {
-          pages = "MEDIUM";}
+          pages = "MEDIUM SINGLE";
+        }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 330 && e.getY() < 375) {
-          pages = "HARD";
+          pages = "HARD SINGLE";
         }
         break;
-
+      case "DOUBLE":
+        if (e.getX() > 260 && e.getX() < 436 && e.getY() > 403 && e.getY() < 441) {
+          pages = "play";
+        }
+        if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 243) {
+          pages = "EASY DOUBLE";
+        }
+        if (e.getX() > 260 && e.getX() < 436 && e.getY() > 272 && e.getY() < 311) {
+          pages = "MEDIUM DOUBLE";
+        }
+        if (e.getX() > 260 && e.getX() < 436 && e.getY() > 330 && e.getY() < 375) {
+          pages = "HARD DOUBLE";
+        }
+        break;
       case "CONTACT_US":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 446 && e.getY() < 484) {
           pages = "OPTIONS";
         }
         break;
     }
-=======
->>>>>>> 0883cbf1ded53fb6cb465e4c760e4068c9c8f6fc
-
   }
 
   @Override
   public void mousePressed(MouseEvent e) {
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 0883cbf1ded53fb6cb465e4c760e4068c9c8f6fc
   }
 
   @Override

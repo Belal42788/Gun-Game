@@ -1,5 +1,4 @@
 
-package guns_proj;
 import com.sun.opengl.util.Animator;
 import com.sun.opengl.util.FPSAnimator;
 import javax.media.opengl.GLCanvas;

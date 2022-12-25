@@ -1,4 +1,4 @@
-package src.Textures;
+package Textures;
 
 import com.sun.opengl.util.BufferUtil;
 import javax.imageio.ImageIO;
@@ -22,7 +22,7 @@ public class TextureReader {
     public static Texture readTexture(String filename, boolean storeAlphaChannel) throws IOException {
         BufferedImage bufferedImage;
         if (filename.endsWith(".bmp")) {
-            bufferedImage = BitmapLoader.loadBitmap(filename);
+            bufferedImage = Textures.BitmapLoader.loadBitmap(filename);
         } else {
             bufferedImage = readImage(filename);
         }
@@ -30,7 +30,7 @@ public class TextureReader {
     }
 
     private static BufferedImage readImage(String resourceName) throws IOException {
-        return ImageIO.read(ResourceRetriever.getResourceAsStream(resourceName));
+        return ImageIO.read(Textures.ResourceRetriever.getResourceAsStream(resourceName));
     }
 
     private static Texture readPixels(BufferedImage img, boolean storeAlphaChannel) {
