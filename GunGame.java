@@ -30,5 +30,6 @@ public class GunGame extends JFrame {
     setVisible(true);
     setFocusable(true);
     glcanvas.requestFocus();
+
   }
 }

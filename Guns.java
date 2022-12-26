@@ -125,8 +125,6 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
 
 if(sound)    playmusic(0);
 
-
-
   }
   @Override
   public void display(GLAutoDrawable glAutoDrawable) {
@@ -223,6 +221,7 @@ if(sound)    playmusic(0);
         Handle_Soldier_Collision1();
       //time
       drawtime();
+
 
       } else if (pages == "HARD SINGLE") {
       k++;
@@ -729,6 +728,7 @@ if(sound)    playmusic(0);
       for (int j = 0; j < Max_Y; j++) {
         if (Enemies[i][j] == 1 && (i == soldier1X ||i == soldier1X -1||i == soldier1X -2||i == soldier1X +1||i == soldier1X +2) && (j == soldier1Y ||j == soldier1Y -1||j == soldier1Y -2||j == soldier1Y -3||j == soldier1Y -4||j == soldier1Y -5||j == soldier1Y +1||j == soldier1Y +2)) {
           if (hearts1-1 == 0) {
+            if (sound)stopmusic();
             System.out.println("GameOver For player 1");
             JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
             Bullets1 = new int[Max_X][Max_Y];
@@ -780,6 +780,7 @@ if(sound)    playmusic(0);
       for (int j = 0; j < Max_Y; j++) {
         if (Enemies[i][j] == 1 && (i == soldier2X ||i == soldier2X -1||i == soldier2X -2||i == soldier2X +1||i == soldier2X +2) && (j == soldier2Y ||j == soldier2Y -1||j == soldier2Y -2||j == soldier2Y -3||j == soldier2Y -4||j == soldier2Y -5||j == soldier2Y +1||j == soldier2Y +2)) {
           if (hearts2-1 == 0) {
+            if (sound)stopmusic();
             System.out.println("GameOver For player 2");
             JOptionPane.showMessageDialog(null, "GameOver For player 2.", "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
             Bullets1 = new int[Max_X][Max_Y];
@@ -1070,6 +1071,7 @@ if(sound)    playmusic(0);
   public void stopmusic(){
 
     sou.stop();
+    stoppmusic();
   }
   public void playSE(int i){
 
@@ -1080,6 +1082,7 @@ if(sound)    playmusic(0);
   public void stoppmusic(){
 
     so.stop();
+
   }
   public void drawtime() {
     ren.beginRendering(700, 700);
