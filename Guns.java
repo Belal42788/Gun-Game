@@ -435,9 +435,9 @@ if(sound)    playmusic(0);
   }
 
   public void TO_Move_Soldier1(int Key) {
-    if (Key == KeyEvent.VK_UP&&(soldier1Y < Max_Y -1)) {
+    if (Key == KeyEvent.VK_UP&&(soldier1Y < Max_Y -8)) {
       soldier1Y++;
-    } else if (Key == KeyEvent.VK_DOWN&&(soldier1Y > 1) ){
+    } else if (Key == KeyEvent.VK_DOWN&&(soldier1Y > 6) ){
       soldier1Y--;
     } else if (Key == KeyEvent.VK_RIGHT&&(soldier1X < Max_X -1)) {
       soldier1X++;
@@ -470,9 +470,9 @@ if(sound)    playmusic(0);
     gl.glDisable(GL.GL_BLEND);
   }
   public void TO_Move_Soldier2(int Key) {
-    if (Key == KeyEvent.VK_W&&(soldier2Y < Max_Y -1)) {
+    if (Key == KeyEvent.VK_W&&(soldier2Y < Max_Y -8)) {
       soldier2Y++;
-    } else if (Key == KeyEvent.VK_S&&(soldier2Y > 1) ){
+    } else if (Key == KeyEvent.VK_S&&(soldier2Y > 6) ){
       soldier2Y--;
     } else if (Key == KeyEvent.VK_D&&(soldier2X < Max_X -1)) {
       soldier2X++;
@@ -594,7 +594,7 @@ if(sound)    playmusic(0);
 
   void TO_Generate_Enemies() {
     int x = 49;
-    int y = (int) (Math.random() * (Max_Y-1));
+    int y = 6+ (int) (Math.random() * (Max_Y-13));
     Enemies[x][y] = 1;
   }
 
