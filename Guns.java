@@ -703,10 +703,8 @@ if(sound) {   playmusic(0);
 
     }
     if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-<<<<<<< HEAD
       pages = "PAUSE";
 
-=======
       if( pages == "EASY SINGLE"){
         pagesBack = "EASY SINGLE";
         pages = "PAUSE";
@@ -740,7 +738,6 @@ if(sound) {   playmusic(0);
           pages = "HARD DOUBLE";
         }
       }
->>>>>>> c9a890d4a433eedcee575ee3262d395a2b50bff3
     }
   }
   @Override
