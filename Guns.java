@@ -21,8 +21,8 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   int Max_Y = 50;
   //int x =10 ;
   //boolean xm = false;
-  int m;
-  String score , score2;
+  int m,cont ,cont2;
+  String score = "0" , score2="0";
   TextRenderer ren = new TextRenderer(new Font("Rockwell Extra Bold", Font.BOLD, 25));
 
 
@@ -166,6 +166,7 @@ else stopmusic();
       //Background
       DrawBackground(6, gl);
       m=16;
+      drawscore();
 
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
@@ -199,6 +200,7 @@ else stopmusic();
       }
       //Background
       DrawBackground(6, gl);
+      drawscore();
 
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
@@ -232,7 +234,7 @@ else stopmusic();
       }
       //Background
         DrawBackground(6, gl);
-        m=8;
+        m=6;
 
         //ٍSoldier1
         TO_Draw_Soldier1(gl, slodier1index);
@@ -241,12 +243,13 @@ else stopmusic();
         TO_Draw_Bullets1(gl);
         TO_Move_Bullets1();
         TO_Disappear_Bullets1();
+        drawscore();
 
         //Enemies
         TO_Delay_Enemies();
         TO_Draw_Enemies(gl);
-        TO_Move_EnemiesHard();
-        TO_Disappear_EnemiesHard();
+        TO_Move_EnemiesMadium();
+        TO_Disappear_EnemiesMadium();
 
         //Handling Collisions1
         Handle_Bullet_Collision1();
@@ -268,6 +271,8 @@ else stopmusic();
       DrawBackground(6, gl);
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
+      drawscore();
+      drawscore2();
 
       //Bullet1
       TO_Draw_Bullets1(gl);
@@ -310,6 +315,8 @@ else stopmusic();
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
       m=8;
+      drawscore2();
+      drawscore();
 
       //Bullet1
       TO_Draw_Bullets1(gl);
@@ -342,7 +349,7 @@ else stopmusic();
       drawlifes();
       drawlifes2();
         } else if (pages == "HARD DOUBLE") {
-      m=8;
+      m=6;
       k++;
       if (k > 10) {
         k = 0 ;
@@ -352,10 +359,13 @@ else stopmusic();
 
 
 
+
       //Background
       DrawBackground(6, gl);
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
+      drawscore2();
+      drawscore();
 
       //Bullet1
       TO_Draw_Bullets1(gl);
@@ -365,8 +375,8 @@ else stopmusic();
       //Enemies
       TO_Delay_Enemies();
       TO_Draw_Enemies(gl);
-      TO_Move_EnemiesHard();
-      TO_Disappear_EnemiesHard();
+      TO_Move_EnemiesMadium();
+      TO_Disappear_EnemiesMadium();
 
       //Handling Collisions1
       Handle_Bullet_Collision1();
@@ -728,6 +738,8 @@ else stopmusic();
           Enemies[i+1][j+1] = 0;
           Enemies[i+1][j+2] = 0;
           Enemies[i+1][j+3] = 0;
+          cont++;
+          score=cont+"";
           break;
         }
       }
@@ -757,9 +769,13 @@ else stopmusic();
             hearts2=5;
             t=0;
 
-            //System.out.println("GameOver For player 1");
-            JOptionPane.showMessageDialog(null, "              GameOver \n"+ "Name: "+name+ "   \n", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
 
+            score2=cont2+"";
+            //System.out.println("GameOver For player 1");
+            JOptionPane.showMessageDialog(null, "              GameOver \n"+ "Name: "+name+ "   \n"+"YOur Score is :"+cont+"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
+            cont=0;
+            score=cont+"";
+            cont2=0;
             pages="home";
             t=0;
           } else{
@@ -783,6 +799,9 @@ else stopmusic();
           Enemies[i+1][j+1] = 0;
           Enemies[i+1][j+2] = 0;
           Enemies[i+1][j+3] = 0;
+          cont2++;
+          score2=cont2+"";
+
           break;
         }
       }
@@ -812,10 +831,15 @@ else stopmusic();
             hearts2=5;
             t=0;
 
+
+
             // System.out.println("GameOver For player 2");
-            JOptionPane.showMessageDialog(null, "     GameOver For player 2    \n"+"Name2: "+name1+ "   \n" , "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "     GameOver For player 2    \n"+"Name2: "+name1+ "   \n"+"YOur Score is :"+  cont2+"" , "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
             pages="home";
             t=0;
+            cont2=0;
+
+            score2=cont2+"";
           } else{
             Enemies[i][j] = 0;
             System.out.println(--hearts2);
@@ -824,7 +848,9 @@ else stopmusic();
       }
     }
 
+
   }
+
   /////////////////////////////////////////////////////////////////////////////////////
   int X(int x) { return x * Max_Screen_X / Max_X; }
   int Y(int y) { return y * Max_Screen_Y / Max_Y; }
