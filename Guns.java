@@ -1,10 +1,13 @@
 
 import Textures.TextureReader;
+import com.sun.opengl.util.j2d.TextRenderer;
+
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
@@ -16,6 +19,27 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   int Max_Screen_Y = 700;
   int Max_X = 50;
   int Max_Y = 50;
+  //int x =10 ;
+  //boolean xm = false;
+  int m;
+  String score , score2;
+  TextRenderer ren = new TextRenderer(new Font("Rockwell Extra Bold", Font.BOLD, 25));
+
+
+
+
+//  public void setX(int x) {
+//    this.x = x;
+//  }
+//
+//  public int getX() {
+//    return x;
+//  }
+  static String name , name1 ;
+
+  //TextRenderer ren = new TextRenderer(new Font("Rockwell Extra Bold", Font.BOLD, 25));
+  static int t  , k ;
+
 
   int Delay =1;
   //Moving Objects
@@ -99,9 +123,9 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       }
     }
 
-if(sound) {   playmusic(0);
-              playmusic(3);
-}
+if(sound)    playmusic(0);
+
+
 
   }
   @Override
@@ -126,7 +150,7 @@ if(sound) {   playmusic(0);
     } else if (pages == "instrctions") {
       DrawBackground(2, gl);
 
-    } else if (pages == "OPTIONS") {//مش موجودة
+    } else if (pages == "OPTIONS") {
       DrawBackground(3, gl);
 
     } else if (pages == "CONTACT_US") {
@@ -136,8 +160,14 @@ if(sound) {   playmusic(0);
       DrawBackground(5, gl);
 
     } else if (pages == "EASY SINGLE") {
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
       //Background
       DrawBackground(6, gl);
+      m=16;
 
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
@@ -153,35 +183,56 @@ if(sound) {   playmusic(0);
       TO_Move_Enemies();
       TO_Disappear_Enemies();
 
+
       //Handling Collisions1
       Handle_Bullet_Collision1();
       Handle_Soldier_Collision1();
+      //time
+      drawtime();
+
+
 
     } else if (pages == "MEDIUM SINGLE") {
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
       //Background
       DrawBackground(6, gl);
 
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
+      m=8;
 
         //Bullet1
         TO_Draw_Bullets1(gl);
         TO_Move_Bullets1();
         TO_Disappear_Bullets1();
 
+
+
         //Enemies
         TO_Delay_Enemies();
         TO_Draw_Enemies(gl);
-        TO_Move_Enemies();
-        TO_Disappear_Enemies();
+        TO_Move_EnemiesMadium();
+        TO_Disappear_EnemiesMadium();
 
         //Handling Collisions1
         Handle_Bullet_Collision1();
         Handle_Soldier_Collision1();
+      //time
+      drawtime();
 
       } else if (pages == "HARD SINGLE") {
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
       //Background
         DrawBackground(6, gl);
+        m=8;
 
         //ٍSoldier1
         TO_Draw_Soldier1(gl, slodier1index);
@@ -194,18 +245,26 @@ if(sound) {   playmusic(0);
         //Enemies
         TO_Delay_Enemies();
         TO_Draw_Enemies(gl);
-        TO_Move_Enemies();
-        TO_Disappear_Enemies();
+        TO_Move_EnemiesHard();
+        TO_Disappear_EnemiesHard();
 
         //Handling Collisions1
         Handle_Bullet_Collision1();
         Handle_Soldier_Collision1();
+      //time
+      drawtime();
 
       } else if (pages == "DOUBLE") {
         DrawBackground(5, gl);
 
       } else if (pages == "EASY DOUBLE") {
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
         //Background
+      m=16;
       DrawBackground(6, gl);
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
@@ -236,12 +295,20 @@ if(sound) {   playmusic(0);
       //Handling Collisions2
       Handle_Bullet_Collision2();
       Handle_Soldier_Collision2();
+      //time
+      drawtime();
 
       } else if (pages == "MEDIUM DOUBLE") {
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
       //Background
       DrawBackground(6, gl);
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
+      m=8;
 
       //Bullet1
       TO_Draw_Bullets1(gl);
@@ -251,8 +318,8 @@ if(sound) {   playmusic(0);
       //Enemies
       TO_Delay_Enemies();
       TO_Draw_Enemies(gl);
-      TO_Move_Enemies();
-      TO_Disappear_Enemies();
+      TO_Move_EnemiesMadium();
+      TO_Disappear_EnemiesMadium();
 
       //Handling Collisions1
       Handle_Bullet_Collision1();
@@ -269,8 +336,19 @@ if(sound) {   playmusic(0);
       //Handling Collisions2
       Handle_Bullet_Collision2();
       Handle_Soldier_Collision2();
+      //time
+      drawtime();
 
         } else if (pages == "HARD DOUBLE") {
+      m=8;
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
+
+      //time
+      drawtime();
       //Background
       DrawBackground(6, gl);
       //ٍSoldier1
@@ -284,8 +362,8 @@ if(sound) {   playmusic(0);
       //Enemies
       TO_Delay_Enemies();
       TO_Draw_Enemies(gl);
-      TO_Move_Enemies();
-      TO_Disappear_Enemies();
+      TO_Move_EnemiesHard();
+      TO_Disappear_EnemiesHard();
 
       //Handling Collisions1
       Handle_Bullet_Collision1();
@@ -508,7 +586,7 @@ if(sound) {   playmusic(0);
   /////////////////////////////////////////////////////////////////////////////////////
   //Enemies
   public void TO_Delay_Enemies(){
-    if (Delay++ %16==0) {
+    if (Delay++ %m==0) {
       TO_Generate_Enemies();
     }
     if(Delay ==1000) Delay =1;
@@ -525,6 +603,7 @@ if(sound) {   playmusic(0);
     gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);
     gl.glPushMatrix();
     gl.glTranslated(x * 13 / (Max_Screen_X / 2.0) -0.9 , y * 13/ (Max_Screen_Y / 2.0) -0.9 , 0);
+
     gl.glScaled(0.15, 0.15 , 1);
     gl.glBegin(GL.GL_QUADS);
 
@@ -547,6 +626,7 @@ if(sound) {   playmusic(0);
       for (int j = 0; j < Max_Y; j++) {
         if (Enemies[i][j] == 1) {
           TO_Draw_One_Enemy(gl, i, j,monsterindex);
+
         }
       }
     }
@@ -564,12 +644,66 @@ if(sound) {   playmusic(0);
   }
 
   public void TO_Disappear_Enemies(){
-    for (int j = 0; j < Max_Y; j++) {
+    for (int j = 1; j < Max_Y; j++) {
       if (Enemies[0][j] == 1) {
         Enemies[0][j] = 0;
+
+      }
+
+    }
+  }
+  public void TO_Move_EnemiesMadium(){
+    for (int i = 2; i < Max_X; i++) {
+      for (int j = 0; j < Max_Y; j++) {
+        if (Enemies[i][j] == 1) {
+          Enemies[i][j] = 0;
+          Enemies[i - 2][j] = 1;
+        }
       }
     }
   }
+
+  public void TO_Disappear_EnemiesMadium(){
+    for (int j = 0; j < Max_Y; j++) {
+      if (Enemies[0][j] == 1) {
+        Enemies[0][j] = 0;}
+        if (Enemies[1][j] == 1) {
+          Enemies[1][j] = 0;}
+
+
+      }
+
+    }
+
+
+    public void TO_Move_EnemiesHard(){
+      for (int i = 3; i < Max_X; i++) {
+        for (int j = 0; j < Max_Y; j++) {
+          if (Enemies[i][j] == 1) {
+            Enemies[i][j] = 0;
+            Enemies[i - 3][j] = 1;
+          }
+        }
+      }
+    }
+
+    public void TO_Disappear_EnemiesHard() {
+      for (int j = 0; j < Max_Y; j++) {
+        if (Enemies[0][j] == 1) {
+          Enemies[0][j] = 0;}
+          if (Enemies[1][j] == 1) {
+            Enemies[1][j] = 0;}
+            if (Enemies[2][j] == 1) {
+              Enemies[2][j] = 0;
+
+            }
+
+
+          }
+
+
+        }
+
   /////////////////////////////////////////////////////////////////////////////////////
   //collision1
   void Handle_Bullet_Collision1() {
@@ -596,11 +730,24 @@ if(sound) {   playmusic(0);
         if (Enemies[i][j] == 1 && (i == soldier1X ||i == soldier1X -1||i == soldier1X -2||i == soldier1X +1||i == soldier1X +2) && (j == soldier1Y ||j == soldier1Y -1||j == soldier1Y -2||j == soldier1Y -3||j == soldier1Y -4||j == soldier1Y -5||j == soldier1Y +1||j == soldier1Y +2)) {
           if (hearts1-1 == 0) {
             System.out.println("GameOver For player 1");
-            playSE(6);
-
             JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
+            Bullets1 = new int[Max_X][Max_Y];
+            Bullets2 = new int[Max_X][Max_Y];
+            Enemies = new int[Max_X][Max_Y];
+
+            //Soldiers
+            soldier1X = 2;
+            soldier1Y = 20;
+            soldier2X=2;
+            soldier2Y=40;
+            hearts1=5;
+            hearts2=5;
+
+            //System.out.println("GameOver For player 1");
+            JOptionPane.showMessageDialog(null, "              GameOver \n"+ "Name: "+name+ "   \n", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
 
             pages="home";
+            t=0;
           } else{
             Enemies[i][j] = 0;
             System.out.println(--hearts1);
@@ -634,10 +781,22 @@ if(sound) {   playmusic(0);
         if (Enemies[i][j] == 1 && (i == soldier2X ||i == soldier2X -1||i == soldier2X -2||i == soldier2X +1||i == soldier2X +2) && (j == soldier2Y ||j == soldier2Y -1||j == soldier2Y -2||j == soldier2Y -3||j == soldier2Y -4||j == soldier2Y -5||j == soldier2Y +1||j == soldier2Y +2)) {
           if (hearts2-1 == 0) {
             System.out.println("GameOver For player 2");
-            playSE(6);
             JOptionPane.showMessageDialog(null, "GameOver For player 2.", "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
+            Bullets1 = new int[Max_X][Max_Y];
+            Bullets2 = new int[Max_X][Max_Y];
+            Enemies = new int[Max_X][Max_Y];
 
+            //Soldiers
+            soldier1X = 2;
+            soldier1Y = 20;
+            soldier2X=2;
+            soldier2Y=40;
+            hearts1=5;
+            hearts2=5;
+            // System.out.println("GameOver For player 2");
+            JOptionPane.showMessageDialog(null, "     GameOver For player 2    \n"+"Name2: "+name1+ "   \n" , "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
             pages="home";
+            t=0;
           } else{
             Enemies[i][j] = 0;
             System.out.println(--hearts2);
@@ -645,6 +804,7 @@ if(sound) {   playmusic(0);
         }
       }
     }
+
   }
   /////////////////////////////////////////////////////////////////////////////////////
   int X(int x) { return x * Max_Screen_X / Max_X; }
@@ -672,7 +832,6 @@ if(sound) {   playmusic(0);
       slodier1index++;
     } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
       TO_Fire1();
-      playSE(1);
       if(sound)
         playSE(1);
       else
@@ -695,7 +854,6 @@ if(sound) {   playmusic(0);
       slodier2index++;
     }else if (e.getKeyCode() == KeyEvent.VK_X) {
       TO_Fire2();
-      playSE(1);
       if(sound)
         playSE(1);
       else
@@ -749,15 +907,15 @@ if(sound) {   playmusic(0);
       case "home":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 242) {
           pages = "play";
-          playSE(5);
+          if (sound) playSE(5);
         } else if (e.getX() > 260 && e.getX() < 436 && e.getY() > 340 && e.getY() < 375) {
           pages = "instrctions";
-          playSE(5);
+          if (sound) playSE(5);
         } else if (e.getX() > 260 && e.getX() < 436 && e.getY() > 275 && e.getY() < 317) {
           pages = "OPTIONS";
-          playSE(5);
+          if (sound) playSE(5);
         } else if (e.getX() > 260 && e.getX() < 436 && e.getY() > 400 && e.getY() < 423) {
-          playSE(5);
+          if (sound) playSE(5);
           System.exit(0);
         }
         break;
@@ -765,85 +923,114 @@ if(sound) {   playmusic(0);
       case "play":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 390 && e.getY() < 425) {//back from play
           pages = "home";
-          playSE(5);
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 206 && e.getY() < 246) {
           pages = "SINGLE";
-          playSE(5);
+          name =JOptionPane.showInputDialog(null,"Enter Name");
+          if (sound)  playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 300 && e.getY() < 342) {
           pages = "DOUBLE";
-          playSE(5);
+          name =JOptionPane.showInputDialog(null,"user Name 1");
+          name1 =JOptionPane.showInputDialog(null,"User Name 2");
+          if (sound) playSE(5);
         }
         break;
 
       case "instrctions":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 444 && e.getY() < 485) {//back from play
           pages = "home";
-          playSE(5);
+          if (sound) playSE(5);
         }
         break;
 
       case "OPTIONS":
         if (e.getX() > 277 && e.getX() < 421 && e.getY() > 350 && e.getY() < 382) {
           pages = "CONTACT_US";
-          playSE(5);
+          if (sound) playSE(5);
         }
         if (e.getX() > 276 && e.getX() < 420 && e.getY() > 446 && e.getY() < 484) {
           pages = "home";
-          playSE(5);
+          if (sound) playSE(5);
+        }
+        if (e.getX() > 299 && e.getX() < 335 && e.getY() > 284 && e.getY() < 316) {
+          if (sound == false) {
+            playmusic(0);
+            sound = true;
+          }
+        }
+        if (e.getX() > 364&& e.getX() < 393 && e.getY() > 286 && e.getY() < 316) {
+          stopmusic();
+          sound = false;
+
         }
         break;
 
       case "SINGLE":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 403 && e.getY() < 441) {
           pages = "play";
-          playSE(5);
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 243) {
-          playmusic(2);
+          if (sound) playmusic(2);
           pages = "EASY SINGLE";
-          playSE(5);
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 272 && e.getY() < 311) {
-          playmusic(2);
+          if (sound) playmusic(2);
           pages = "MEDIUM SINGLE";
-          playSE(5);
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 330 && e.getY() < 375) {
-          playmusic(2);
+          if (sound) playmusic(2);
           pages = "HARD SINGLE";
-          playSE(5);
+          if (sound) playSE(5);
         }
         break;
       case "DOUBLE":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 403 && e.getY() < 441) {
           pages = "play";
-          playSE(5);
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 243) {
-          playmusic(2);
+          if (sound) playmusic(2);
           pages = "EASY DOUBLE";
-          playSE(5);
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 272 && e.getY() < 311) {
-          playmusic(2);
+          if (sound) playmusic(2);
           pages = "MEDIUM DOUBLE";
-          playSE(5);
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 330 && e.getY() < 375) {
-          playmusic(2);
+          if (sound) playmusic(2);
           pages = "HARD DOUBLE";
-          playSE(5);
+          if (sound) playSE(5);
         }
         break;
       case "CONTACT_US":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 446 && e.getY() < 484) {
           pages = "OPTIONS";
-          playSE(5);
+          if (sound) playSE(5);
         }
         break;
     }
+  }
+  //score
+  public void drawscore2() {
+    ren.beginRendering(700, 700);
+    ren.setColor(Color.RED);
+    ren.draw("" + score2 , 285 , 600 );
+    ren.setColor(Color.WHITE);
+    ren.endRendering();
+  }
+  public void drawscore() {
+    ren.beginRendering(700, 700);
+    ren.setColor(Color.BLUE);
+    ren.draw("" + score , 285 , 638 );
+    ren.setColor(Color.WHITE);
+    ren.endRendering();
   }
 
   @Override
@@ -893,6 +1080,13 @@ if(sound) {   playmusic(0);
   public void stoppmusic(){
 
     so.stop();
+  }
+  public void drawtime() {
+    ren.beginRendering(700, 700);
+    ren.setColor(Color.BLUE);
+    ren.draw ("" + t , 439, 635);
+    ren.setColor(Color.WHITE);
+    ren.endRendering();
   }
 
 }
