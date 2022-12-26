@@ -12,11 +12,14 @@ import java.awt.event.*;
 import java.io.IOException;
 
 public class Guns implements GLEventListener, KeyListener, MouseListener, MouseMotionListener {
+
+  boolean sound = true;
   //Screen Dimensions  and  picture Dimensions
   int Max_Screen_X = 700;
   int Max_Screen_Y = 700;
   int Max_X = 50;
   int Max_Y = 50;
+<<<<<<< HEAD
   //int x =10 ;
   //boolean xm = false;
   int m;
@@ -33,6 +36,13 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
 //  public int getX() {
 //    return x;
 //  }
+=======
+  static String name , name1 ;
+
+  TextRenderer ren = new TextRenderer(new Font("Rockwell Extra Bold", Font.BOLD, 25));
+  static int t  , k ;
+
+>>>>>>> 7b6aa7696b33a494ffb443c512ade9fbec508c05
 
   int Delay =1;
   //Moving Objects
@@ -59,6 +69,8 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   int slodier1index = 0;
   int slodier2index = 0;
   int monsterindex = 0;
+  Soundd sou =new Soundd();
+  Soundd so =new Soundd();
 
   String textureNames[] = {
           //Pages
@@ -113,6 +125,11 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
         e.printStackTrace();
       }
     }
+
+if(sound)    playmusic(0);
+
+
+
   }
   @Override
   public void display(GLAutoDrawable glAutoDrawable) {
@@ -136,7 +153,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
     } else if (pages == "instrctions") {
       DrawBackground(2, gl);
 
-    } else if (pages == "OPTIONS") {//مش موجودة
+    } else if (pages == "OPTIONS") {
       DrawBackground(3, gl);
 
     } else if (pages == "CONTACT_US") {
@@ -146,6 +163,11 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       DrawBackground(5, gl);
 
     } else if (pages == "EASY SINGLE") {
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
       //Background
       DrawBackground(6, gl);
       m=16;
@@ -168,10 +190,17 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       //Handling Collisions1
       Handle_Bullet_Collision1();
       Handle_Soldier_Collision1();
+      //time
+      drawtime();
 
 
 
     } else if (pages == "MEDIUM SINGLE") {
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
       //Background
       DrawBackground(6, gl);
 
@@ -195,8 +224,15 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
         //Handling Collisions1
         Handle_Bullet_Collision1();
         Handle_Soldier_Collision1();
+      //time
+      drawtime();
 
       } else if (pages == "HARD SINGLE") {
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
       //Background
         DrawBackground(6, gl);
         m=8;
@@ -218,11 +254,18 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
         //Handling Collisions1
         Handle_Bullet_Collision1();
         Handle_Soldier_Collision1();
+      //time
+      drawtime();
 
       } else if (pages == "DOUBLE") {
         DrawBackground(5, gl);
 
       } else if (pages == "EASY DOUBLE") {
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
         //Background
       m=16;
       DrawBackground(6, gl);
@@ -255,8 +298,15 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       //Handling Collisions2
       Handle_Bullet_Collision2();
       Handle_Soldier_Collision2();
+      //time
+      drawtime();
 
       } else if (pages == "MEDIUM DOUBLE") {
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
       //Background
       DrawBackground(6, gl);
       //ٍSoldier1
@@ -289,9 +339,22 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       //Handling Collisions2
       Handle_Bullet_Collision2();
       Handle_Soldier_Collision2();
+      //time
+      drawtime();
 
         } else if (pages == "HARD DOUBLE") {
+<<<<<<< HEAD
       m=8;
+=======
+      k++;
+      if (k > 10) {
+        k = 0 ;
+        t++;
+      }
+
+      //time
+      drawtime();
+>>>>>>> 7b6aa7696b33a494ffb443c512ade9fbec508c05
       //Background
       DrawBackground(6, gl);
       //ٍSoldier1
@@ -672,6 +735,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       for (int j = 0; j < Max_Y; j++) {
         if (Enemies[i][j] == 1 && (i == soldier1X ||i == soldier1X -1||i == soldier1X -2||i == soldier1X +1||i == soldier1X +2) && (j == soldier1Y ||j == soldier1Y -1||j == soldier1Y -2||j == soldier1Y -3||j == soldier1Y -4||j == soldier1Y -5||j == soldier1Y +1||j == soldier1Y +2)) {
           if (hearts1-1 == 0) {
+<<<<<<< HEAD
             System.out.println("GameOver For player 1");
             JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
             Bullets1 = new int[Max_X][Max_Y];
@@ -686,7 +750,12 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
             hearts1=5;
             hearts2=5;
 
+=======
+            //System.out.println("GameOver For player 1");
+            JOptionPane.showMessageDialog(null, "              GameOver \n"+ "Name: "+name+ "   \n", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
+>>>>>>> 7b6aa7696b33a494ffb443c512ade9fbec508c05
             pages="home";
+            t=0;
           } else{
             Enemies[i][j] = 0;
             System.out.println(--hearts1);
@@ -719,6 +788,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       for (int j = 0; j < Max_Y; j++) {
         if (Enemies[i][j] == 1 && (i == soldier2X ||i == soldier2X -1||i == soldier2X -2||i == soldier2X +1||i == soldier2X +2) && (j == soldier2Y ||j == soldier2Y -1||j == soldier2Y -2||j == soldier2Y -3||j == soldier2Y -4||j == soldier2Y -5||j == soldier2Y +1||j == soldier2Y +2)) {
           if (hearts2-1 == 0) {
+<<<<<<< HEAD
             System.out.println("GameOver For player 2");
             JOptionPane.showMessageDialog(null, "GameOver For player 2.", "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
             Bullets1 = new int[Max_X][Max_Y];
@@ -732,7 +802,13 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
             soldier2Y=40;
             hearts1=5;
             hearts2=5;
+=======
+            // System.out.println("GameOver For player 2");
+            JOptionPane.showMessageDialog(null, "     GameOver For player 2    \n"+"Name2: "+name1+ "   \n" , "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
+
+>>>>>>> 7b6aa7696b33a494ffb443c512ade9fbec508c05
             pages="home";
+            t=0;
           } else{
             Enemies[i][j] = 0;
             System.out.println(--hearts2);
@@ -768,6 +844,11 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       slodier1index++;
     } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
       TO_Fire1();
+      if(sound)
+        playSE(1);
+      else
+        stoppmusic();
+
     }
 
 
@@ -785,6 +866,11 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       slodier2index++;
     }else if (e.getKeyCode() == KeyEvent.VK_X) {
       TO_Fire2();
+      if(sound)
+        playSE(1);
+      else
+        stoppmusic();
+
     }
     if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
       if( pages == "EASY SINGLE"){
@@ -831,14 +917,15 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       case "home":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 242) {
           pages = "play";
-
+          if (sound) playSE(5);
         } else if (e.getX() > 260 && e.getX() < 436 && e.getY() > 340 && e.getY() < 375) {
           pages = "instrctions";
-
+          if (sound) playSE(5);
         } else if (e.getX() > 260 && e.getX() < 436 && e.getY() > 275 && e.getY() < 317) {
           pages = "OPTIONS";
-
+          if (sound) playSE(5);
         } else if (e.getX() > 260 && e.getX() < 436 && e.getY() > 400 && e.getY() < 423) {
+          if (sound) playSE(5);
           System.exit(0);
         }
         break;
@@ -846,61 +933,96 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       case "play":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 390 && e.getY() < 425) {//back from play
           pages = "home";
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 206 && e.getY() < 246) {
           pages = "SINGLE";
+          name =JOptionPane.showInputDialog(null,"Enter Name");
+          if (sound)  playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 300 && e.getY() < 342) {
           pages = "DOUBLE";
+          name =JOptionPane.showInputDialog(null,"user Name 1");
+          name1 =JOptionPane.showInputDialog(null,"User Name 2");
+          if (sound) playSE(5);
         }
         break;
 
       case "instrctions":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 444 && e.getY() < 485) {//back from play
           pages = "home";
+          if (sound) playSE(5);
         }
         break;
 
       case "OPTIONS":
         if (e.getX() > 277 && e.getX() < 421 && e.getY() > 350 && e.getY() < 382) {
           pages = "CONTACT_US";
+          if (sound) playSE(5);
         }
         if (e.getX() > 276 && e.getX() < 420 && e.getY() > 446 && e.getY() < 484) {
           pages = "home";
+          if (sound) playSE(5);
+        }
+        if (e.getX() > 299 && e.getX() < 335 && e.getY() > 284 && e.getY() < 316) {
+          if (sound == false) {
+            playmusic(0);
+            sound = true;
+          }
+        }
+        if (e.getX() > 364&& e.getX() < 393 && e.getY() > 286 && e.getY() < 316) {
+          stopmusic();
+          sound = false;
+
         }
         break;
 
       case "SINGLE":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 403 && e.getY() < 441) {
           pages = "play";
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 243) {
+          if (sound) playmusic(2);
           pages = "EASY SINGLE";
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 272 && e.getY() < 311) {
+          if (sound) playmusic(2);
           pages = "MEDIUM SINGLE";
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 330 && e.getY() < 375) {
+          if (sound) playmusic(2);
           pages = "HARD SINGLE";
+          if (sound) playSE(5);
         }
         break;
       case "DOUBLE":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 403 && e.getY() < 441) {
           pages = "play";
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 204 && e.getY() < 243) {
+          if (sound) playmusic(2);
           pages = "EASY DOUBLE";
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 272 && e.getY() < 311) {
+          if (sound) playmusic(2);
           pages = "MEDIUM DOUBLE";
+          if (sound) playSE(5);
         }
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 330 && e.getY() < 375) {
+          if (sound) playmusic(2);
           pages = "HARD DOUBLE";
+          if (sound) playSE(5);
         }
         break;
       case "CONTACT_US":
         if (e.getX() > 260 && e.getX() < 436 && e.getY() > 446 && e.getY() < 484) {
           pages = "OPTIONS";
+          if (sound) playSE(5);
         }
         break;
     }
@@ -949,4 +1071,32 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   public void mouseMoved(MouseEvent e) {
 
   }
+  public void playmusic(int i){
+
+    sou.StFile(i);
+    sou.play();
+    sou.loop();
+  }
+  public void stopmusic(){
+
+    sou.stop();
+  }
+  public void playSE(int i){
+
+    so.StFile(i);
+    so.play();
+
+  }
+  public void stoppmusic(){
+
+    so.stop();
+  }
+  public void drawtime() {
+    ren.beginRendering(700, 700);
+    ren.setColor(Color.BLUE);
+    ren.draw ("" + t , 439, 635);
+    ren.setColor(Color.WHITE);
+    ren.endRendering();
+  }
+
 }
