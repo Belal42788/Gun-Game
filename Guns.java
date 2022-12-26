@@ -55,8 +55,8 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
 
 
   //Lives
-  int hearts1 =5;
-  int hearts2 =5;
+  static int hearts1 =5;
+  static int hearts2 =5;
 
   //Pages
   static String pages = "home";
@@ -187,6 +187,7 @@ else stopmusic();
       Handle_Soldier_Collision1();
       //time
       drawtime();
+      drawlifes();
 
 
 
@@ -221,7 +222,7 @@ else stopmusic();
         Handle_Soldier_Collision1();
       //time
       drawtime();
-
+      drawlifes();
 
       } else if (pages == "HARD SINGLE") {
       k++;
@@ -252,7 +253,7 @@ else stopmusic();
         Handle_Soldier_Collision1();
       //time
       drawtime();
-
+      drawlifes();
       } else if (pages == "DOUBLE") {
         DrawBackground(5, gl);
 
@@ -296,7 +297,8 @@ else stopmusic();
       Handle_Soldier_Collision2();
       //time
       drawtime();
-
+      drawlifes();
+      drawlifes2();
       } else if (pages == "MEDIUM DOUBLE") {
       k++;
       if (k > 10) {
@@ -337,7 +339,8 @@ else stopmusic();
       Handle_Soldier_Collision2();
       //time
       drawtime();
-
+      drawlifes();
+      drawlifes2();
         } else if (pages == "HARD DOUBLE") {
       m=8;
       k++;
@@ -346,8 +349,9 @@ else stopmusic();
         t++;
       }
 
-      //time
-      drawtime();
+
+
+
       //Background
       DrawBackground(6, gl);
       //ٍSoldier1
@@ -376,9 +380,16 @@ else stopmusic();
       TO_Move_Bullets2();
       TO_Disappear_Bullets2();
 
+
+
       //Handling Collisions2
       Handle_Bullet_Collision2();
       Handle_Soldier_Collision2();
+
+      //time
+      drawtime();
+      drawlifes();
+      drawlifes2();
         } else if(pages == "PAUSE"){
       DrawBackground(24, gl);
 
@@ -731,8 +742,8 @@ else stopmusic();
             if (sound== false)stopmusic();
             if(sound)playSE(6);
             stopmusic();
-            System.out.println("GameOver For player 1");
-            JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
+          //  System.out.println("GameOver For player 1");
+            //JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
             Bullets1 = new int[Max_X][Max_Y];
             Bullets2 = new int[Max_X][Max_Y];
             Enemies = new int[Max_X][Max_Y];
@@ -744,6 +755,7 @@ else stopmusic();
             soldier2Y=40;
             hearts1=5;
             hearts2=5;
+            t=0;
 
             //System.out.println("GameOver For player 1");
             JOptionPane.showMessageDialog(null, "              GameOver \n"+ "Name: "+name+ "   \n", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
@@ -785,8 +797,8 @@ else stopmusic();
             if (sound==false)stopmusic();
             if(sound)playSE(6);
             stopmusic();
-            System.out.println("GameOver For player 2");
-            JOptionPane.showMessageDialog(null, "GameOver For player 2.", "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
+           // System.out.println("GameOver For player 2");
+           // JOptionPane.showMessageDialog(null, " GameOver For player 2", "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
             Bullets1 = new int[Max_X][Max_Y];
             Bullets2 = new int[Max_X][Max_Y];
             Enemies = new int[Max_X][Max_Y];
@@ -798,6 +810,8 @@ else stopmusic();
             soldier2Y=40;
             hearts1=5;
             hearts2=5;
+            t=0;
+
             // System.out.println("GameOver For player 2");
             JOptionPane.showMessageDialog(null, "     GameOver For player 2    \n"+"Name2: "+name1+ "   \n" , "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
             pages="home";
@@ -1094,5 +1108,19 @@ else stopmusic();
     ren.setColor(Color.WHITE);
     ren.endRendering();
   }
+  public void drawlifes() {
+    ren.beginRendering(700, 700);
+    ren.setColor(Color.BLUE);
+    ren.draw("" + hearts1, 360, 635);
+    ren.setColor(Color.WHITE);
+    ren.endRendering();
+  }
 
+  public void drawlifes2() {
+    ren.beginRendering(700, 700);
+    ren.setColor(Color.RED);
+    ren.draw("" + hearts2, 360, 600);
+    ren.setColor(Color.WHITE);
+    ren.endRendering();
+  }
 }
