@@ -77,7 +77,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
           //Background game
           "Background game\\background.png",  // 6
 
-          //Bullet
+          //Bullet2
           "Bullet.png",//7
 
           //Soldier 1
@@ -92,7 +92,10 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
           ,"Running Monster\\0_Golem_Running_007-1.png","Running Monster\\0_Golem_Running_007-1.png",//24
 
           //pause
-          "PAUSE.png"//25
+          "PAUSE.png",//25
+
+          //Bullet1
+          "B1.png"//26
   };
   TextureReader.Texture texture[] = new TextureReader.Texture[textureNames.length];
   int textures[] = new int[textureNames.length];
@@ -504,7 +507,7 @@ else stopmusic();
   //Bullets1
   void TO_Draw_One_Bullet1(GL gl, int x, int y) {
     gl.glEnable(GL.GL_BLEND);
-    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[7]);
+    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[textureNames.length-1]);
     gl.glPushMatrix();
     gl.glTranslated(X(x)  / (Max_Screen_X / 2.0) -0.84 , Y(y) / 1.4 / (Max_Screen_Y / 2.0) -0.77 , 0);
     gl.glScaled(0.02 , 0.02 , 1);
