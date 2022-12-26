@@ -6,12 +6,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GunGame extends JFrame {
-  Animator animator= new FPSAnimator(10);
+  Guns G = new Guns();
+  Animator animator= new FPSAnimator(15);
   GLCanvas glcanvas= new GLCanvas();
   Guns listener = new Guns();
 
   public static void main(String[] args) {
+
     new GunGame().animator.start();
+
   }
   public GunGame() {
     super("Gun Game");
