@@ -729,8 +729,17 @@ else stopmusic();
   void Handle_Bullet_Collision1() {
     for (int i = 0; i < Max_X -1; i++) {
       for (int j = 3; j < Max_Y -3; j++) {
-        if ((Bullets1[i][j] == 1 )&& ((Enemies[i+1][j] == 1)||(Enemies[i+1][j-1] == 1)||(Enemies[i+1][j+1] == 1)|| (Enemies[i+1][j-2] == 1)||(Enemies[i+1][j+2] == 1)|| (Enemies[i+1][j-3] == 1)||(Enemies[i+1][j+3] == 1))) {
+        if ((Bullets1[i][j] == 1 )&&((Enemies[i][j] == 1)||(Enemies[i+1][j] == 1)||(Enemies[i+1][j-1] == 1)||
+            (Enemies[i+1][j+1] == 1) || (Enemies[i+1][j-2] == 1)||(Enemies[i+1][j+2] == 1)|| (Enemies[i+1][j-3] == 1)||(Enemies[i+1][j+3] == 1) ||
+            (Enemies[i][j-1] == 1)||(Enemies[i][j+1] == 1) ||(Enemies[i][j-2] == 1)||(Enemies[i][j+2] == 1)|| (Enemies[i][j-3] == 1)||(Enemies[i][j+3] == 1))) {
           Bullets1[i][j] = 0;
+          Enemies[i][j] = 0;
+          Enemies[i][j-1] = 0;
+          Enemies[i][j-2] = 0;
+          Enemies[i][j-3] = 0;
+          Enemies[i][j+1] = 0;
+          Enemies[i][j+2] = 0;
+          Enemies[i][j+3] = 0;
           Enemies[i+1][j] = 0;
           Enemies[i+1][j-1] = 0;
           Enemies[i+1][j-2] = 0;
@@ -790,8 +799,17 @@ else stopmusic();
   void Handle_Bullet_Collision2() {
     for (int i = 0; i < Max_X -1; i++) {
       for (int j = 3; j < Max_Y -3; j++) {
-        if ((Bullets2[i][j] == 1 )&& ((Enemies[i+1][j] == 1)||(Enemies[i+1][j-1] == 1)||(Enemies[i+1][j+1] == 1)|| (Enemies[i+1][j-2] == 1)||(Enemies[i+1][j+2] == 1)|| (Enemies[i+1][j-3] == 1)||(Enemies[i+1][j+3] == 1))) {
-          Bullets1[i][j] = 0;
+        if ((Bullets2[i][j] == 1 )&&((Enemies[i][j] == 1)||(Enemies[i+1][j] == 1)||(Enemies[i+1][j-1] == 1)||
+                (Enemies[i+1][j+1] == 1) || (Enemies[i+1][j-2] == 1)||(Enemies[i+1][j+2] == 1)|| (Enemies[i+1][j-3] == 1)||(Enemies[i+1][j+3] == 1) ||
+                (Enemies[i][j-1] == 1)||(Enemies[i][j+1] == 1) ||(Enemies[i][j-2] == 1)||(Enemies[i][j+2] == 1)|| (Enemies[i][j-3] == 1)||(Enemies[i][j+3] == 1))) {
+          Bullets2[i][j] = 0;
+          Enemies[i][j] = 0;
+          Enemies[i][j-1] = 0;
+          Enemies[i][j-2] = 0;
+          Enemies[i][j-3] = 0;
+          Enemies[i][j+1] = 0;
+          Enemies[i][j+2] = 0;
+          Enemies[i][j+3] = 0;
           Enemies[i+1][j] = 0;
           Enemies[i+1][j-1] = 0;
           Enemies[i+1][j-2] = 0;
