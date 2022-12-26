@@ -416,7 +416,7 @@ if(sound)    playmusic(0);
     gl.glEnable(GL.GL_BLEND);
     gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);
     gl.glPushMatrix();
-    gl.glTranslated(soldier1X * 13 / (Max_Screen_X / 2.0) -0.95 , soldier1Y * 13/ (Max_Screen_Y / 2.0) -0.95 , 0);
+    gl.glTranslated(soldier1X * 13 / (Max_Screen_X / 2.0) -0.95 , soldier1Y * 10/ (Max_Screen_Y / 2.0) -0.75 , 0);
     gl.glScaled(0.1, 0.1 , 1);
     gl.glBegin(GL.GL_QUADS);
 
@@ -452,7 +452,7 @@ if(sound)    playmusic(0);
     gl.glEnable(GL.GL_BLEND);
     gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);
     gl.glPushMatrix();
-    gl.glTranslated(soldier2X * 13 / (Max_Screen_X / 2.0) -0.95 , soldier2Y * 13/ (Max_Screen_Y / 2.0) -0.8 , 0);
+    gl.glTranslated(soldier2X * 13 / (Max_Screen_X / 2.0) -0.95 , soldier2Y * 10/ (Max_Screen_Y / 2.0) -0.75 , 0);
     gl.glScaled(0.1, 0.1 , 1);
     gl.glBegin(GL.GL_QUADS);
 
@@ -486,7 +486,7 @@ if(sound)    playmusic(0);
     gl.glEnable(GL.GL_BLEND);
     gl.glBindTexture(GL.GL_TEXTURE_2D, textures[7]);
     gl.glPushMatrix();
-    gl.glTranslated(X(x)  / (Max_Screen_X / 2.0) -0.85 , Y(y) / (Max_Screen_Y / 2.0) -1.03 , 0);
+    gl.glTranslated(X(x)  / (Max_Screen_X / 2.0) -0.84 , Y(y) / 1.4 / (Max_Screen_Y / 2.0) -0.77 , 0);
     gl.glScaled(0.02 , 0.02 , 1);
     gl.glBegin(GL.GL_QUADS);
 
@@ -538,7 +538,7 @@ if(sound)    playmusic(0);
     gl.glEnable(GL.GL_BLEND);
     gl.glBindTexture(GL.GL_TEXTURE_2D, textures[7]);
     gl.glPushMatrix();
-    gl.glTranslated(X(x)  / (Max_Screen_X / 2.0) -0.85 , Y(y) / (Max_Screen_Y / 2.0) -0.93 , 0);
+    gl.glTranslated(X(x)  / (Max_Screen_X / 2.0) -0.84 , Y(y) / 1.4 / (Max_Screen_Y / 2.0) -0.77 , 0);
     gl.glScaled(0.02 , 0.02 , 1);
     gl.glBegin(GL.GL_QUADS);
     gl.glTexCoord2f(0.0f, 0.0f);
@@ -602,7 +602,7 @@ if(sound)    playmusic(0);
     gl.glEnable(GL.GL_BLEND);
     gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);
     gl.glPushMatrix();
-    gl.glTranslated(x * 13 / (Max_Screen_X / 2.0) -0.9 , y * 13/ (Max_Screen_Y / 2.0) -0.9 , 0);
+    gl.glTranslated(x * 13 / (Max_Screen_X / 2.0) -0.9 , y * 10/ (Max_Screen_Y / 2.0) -0.75 , 0);
 
     gl.glScaled(0.15, 0.15 , 1);
     gl.glBegin(GL.GL_QUADS);
