@@ -672,7 +672,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   }
 
   public void TO_Disappear_Enemies(){
-    for (int j = 1; j < Max_Y; j++) {
+    for (int j = 0; j < Max_Y; j++) {
       if (Enemies[0][j] == 1) {
         Enemies[0][j] = 0;
 
