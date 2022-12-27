@@ -13,29 +13,32 @@ import java.io.IOException;
 
 public class Guns implements GLEventListener, KeyListener, MouseListener, MouseMotionListener {
 
+  //Sound
   boolean sound = true;
+
   //Screen Dimensions  and  picture Dimensions
   int Max_Screen_X = 700;
   int Max_Screen_Y = 700;
   int Max_X = 50;
   int Max_Y = 50;
-  //int x =10 ;
-  //boolean xm = false;
+
+
   int m,cont ,cont2;
   String score = "0" , score2="0";
 
   //names
 
-  int s, a, a1, m1 ,b ;
+  int Salah, Eid, Abdo, Gedo, Bilal;
+
+
   TextRenderer ren = new TextRenderer(new Font("Rockwell Extra Bold", Font.BOLD, 25));
 
-
-
-
-
+//Users Names
   static String name , name1 ;
 
-  //TextRenderer ren = new TextRenderer(new Font("Rockwell Extra Bold", Font.BOLD, 25));
+
+
+
   static int t  , k ;
 
 
@@ -127,8 +130,8 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       }
     }
 
-if(sound) playmusic(0);
-else stopmusic();
+  if(sound) playmusic(0);
+    else stopmusic();
   }
   @Override
   public void display(GLAutoDrawable glAutoDrawable) {
@@ -156,21 +159,17 @@ else stopmusic();
       DrawBackground(3, gl);
 
     } else if (pages == "CONTACT_US") {
-      drawcreadits(gl);
+      TO_Draw_Credits(gl);
     } else if (pages == "SINGLE") {
       DrawBackground(5, gl);
 
     } else if (pages == "EASY SINGLE") {
       pagesBack = "EASY SINGLE";
       k++;
-      //win(t);
       if (k > 10) {
         k = 0 ;
         t++;
       }
-
-
-
       //Background
       DrawBackground(6, gl);
       m=16;
@@ -195,11 +194,9 @@ else stopmusic();
       Handle_Bullet_Collision1();
       Handle_Soldier_Collision1(151);
       //time
-      drawtime();
+      TO_Draw_Time();
       drawlifes();
       drawscore();
-
-
 
     } else if (pages == "MEDIUM SINGLE") {
       pagesBack = "MEDIUM SINGLE";
@@ -211,29 +208,26 @@ else stopmusic();
       //Background
       DrawBackground(6, gl);
 
-
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
       m=8;
 
-        //Bullet1
-        TO_Draw_Bullets1(gl);
-        TO_Move_Bullets1();
-        TO_Disappear_Bullets1();
+      //Bullet1
+      TO_Draw_Bullets1(gl);
+      TO_Move_Bullets1();
+      TO_Disappear_Bullets1();
 
+      //Enemies
+      TO_Delay_Enemies();
+      TO_Draw_Enemies(gl);
+      TO_Move_Enemies_Medium();
+      TO_Disappear_Enemies_Medium();
 
-
-        //Enemies
-        TO_Delay_Enemies();
-        TO_Draw_Enemies(gl);
-        TO_Move_EnemiesMadium();
-        TO_Disappear_EnemiesMadium();
-
-        //Handling Collisions1
-        Handle_Bullet_Collision1();
-        Handle_Soldier_Collision1(211);
+      //Handling Collisions1
+      Handle_Bullet_Collision1();
+      Handle_Soldier_Collision1(211);
       //time
-      drawtime();
+      TO_Draw_Time();
       drawlifes();
       drawscore();
 
@@ -248,26 +242,27 @@ else stopmusic();
         DrawBackground(6, gl);
         m=6;
 
-        //ٍSoldier1
-        TO_Draw_Soldier1(gl, slodier1index);
+      //ٍSoldier1
+      TO_Draw_Soldier1(gl, slodier1index);
 
-        //Bullet1
-        TO_Draw_Bullets1(gl);
-        TO_Move_Bullets1();
-        TO_Disappear_Bullets1();
+      //Bullet1
+      TO_Draw_Bullets1(gl);
+      TO_Move_Bullets1();
+      TO_Disappear_Bullets1();
 
 
-        //Enemies
-        TO_Delay_Enemies();
-        TO_Draw_Enemies(gl);
-        TO_Move_EnemiesHard();
-        TO_Disappear_EnemiesHard();
+      //Enemies
+      TO_Delay_Enemies();
+      TO_Draw_Enemies(gl);
+      TO_Move_Enemies_Hard();
+      TO_Disappear_Enemies_Hard();
 
-        //Handling Collisions1
-        Handle_Bullet_Collision1();
-        Handle_Soldier_Collision1(271);
+      //Handling Collisions1
+      Handle_Bullet_Collision1();
+      Handle_Soldier_Collision1(271);
+
       //time
-      drawtime();
+      TO_Draw_Time();
       drawlifes();
       drawscore();
       } else if (pages == "DOUBLE") {
@@ -314,7 +309,7 @@ else stopmusic();
       Handle_Bullet_Collision2();
       Handle_Soldier_Collision2(151);
       //time
-      drawtime();
+      TO_Draw_Time();
       drawlifes();
       drawlifes2();
       drawscore();
@@ -341,8 +336,8 @@ else stopmusic();
       //Enemies
       TO_Delay_Enemies();
       TO_Draw_Enemies(gl);
-      TO_Move_EnemiesMadium();
-      TO_Disappear_EnemiesMadium();
+      TO_Move_Enemies_Medium();
+      TO_Disappear_Enemies_Medium();
 
       //Handling Collisions1
       Handle_Bullet_Collision1();
@@ -360,7 +355,7 @@ else stopmusic();
       Handle_Bullet_Collision2();
       Handle_Soldier_Collision2(211);
       //time
-      drawtime();
+      TO_Draw_Time();
       drawlifes();
       drawlifes2();
       drawscore2();
@@ -374,56 +369,51 @@ else stopmusic();
         t++;
       }
 
+    //Background
+    DrawBackground(6, gl);
+    //ٍSoldier1
+    TO_Draw_Soldier1(gl, slodier1index);
+
+
+    //Bullet1
+    TO_Draw_Bullets1(gl);
+    TO_Move_Bullets1();
+    TO_Disappear_Bullets1();
+
+    //Enemies
+    TO_Delay_Enemies();
+    TO_Draw_Enemies(gl);
+    TO_Move_Enemies_Medium();
+    TO_Disappear_Enemies_Medium();
+
+    //Handling Collisions1
+    Handle_Bullet_Collision1();
+    Handle_Soldier_Collision1(271);
+
+    //ٍSoldier2
+    TO_Draw_Soldier2(gl, slodier2index);
+
+    //Bullet2
+    TO_Draw_Bullets2(gl);
+    TO_Move_Bullets2();
+    TO_Disappear_Bullets2();
 
 
 
+    //Handling Collisions2
+    Handle_Bullet_Collision2();
+    Handle_Soldier_Collision2(271);
 
-      //Background
-      DrawBackground(6, gl);
-      //ٍSoldier1
-      TO_Draw_Soldier1(gl, slodier1index);
+    //time
+    TO_Draw_Time();
+    drawlifes();
+    drawlifes2();
+    drawscore2();
+    drawscore();
 
-
-      //Bullet1
-      TO_Draw_Bullets1(gl);
-      TO_Move_Bullets1();
-      TO_Disappear_Bullets1();
-
-      //Enemies
-      TO_Delay_Enemies();
-      TO_Draw_Enemies(gl);
-      TO_Move_EnemiesMadium();
-      TO_Disappear_EnemiesMadium();
-
-      //Handling Collisions1
-      Handle_Bullet_Collision1();
-      Handle_Soldier_Collision1(271);
-
-      //ٍSoldier2
-      TO_Draw_Soldier2(gl, slodier2index);
-
-      //Bullet2
-      TO_Draw_Bullets2(gl);
-      TO_Move_Bullets2();
-      TO_Disappear_Bullets2();
-
-
-
-      //Handling Collisions2
-      Handle_Bullet_Collision2();
-      Handle_Soldier_Collision2(271);
-
-      //time
-      drawtime();
-      drawlifes();
-      drawlifes2();
-      drawscore2();
-      drawscore();
-        } else if(pages == "PAUSE"){
+     } else if(pages == "PAUSE"){
       DrawBackground(24, gl);
     }
-
-
   }
   ////////////////////////////////////////////////////////////////////////
   //Background
@@ -625,7 +615,6 @@ else stopmusic();
   public void TO_Delay_Enemies(){
     if (Delay++ %m==0) {
       TO_Generate_Enemies();
-
     }
     if(Delay ==1000)
       Delay =1;
@@ -633,7 +622,7 @@ else stopmusic();
 
   void TO_Generate_Enemies() {
     int x = 49;
-    int y = 6+ (int) (Math.random() * (Max_Y-13));
+    int y = (int) (Math.random() * (Max_Y-1));
     Enemies[x][y] = 1;
   }
 
@@ -691,7 +680,7 @@ else stopmusic();
 
     }
   }
-  public void TO_Move_EnemiesMadium(){
+  public void TO_Move_Enemies_Medium(){
     for (int i = 2; i < Max_X; i++) {
       for (int j = 0; j < Max_Y; j++) {
         if (Enemies[i][j] == 1) {
@@ -702,20 +691,19 @@ else stopmusic();
     }
   }
 
-  public void TO_Disappear_EnemiesMadium(){
+  public void TO_Disappear_Enemies_Medium(){
     for (int j = 0; j < Max_Y; j++) {
       if (Enemies[0][j] == 1) {
-        Enemies[0][j] = 0;}
-        if (Enemies[1][j] == 1) {
-          Enemies[1][j] = 0;}
-
-
+        Enemies[0][j] = 0;
       }
-
+      if (Enemies[1][j] == 1) {
+          Enemies[1][j] = 0;
+      }
     }
+  }
 
 
-    public void TO_Move_EnemiesHard(){
+    public void TO_Move_Enemies_Hard(){
       for (int i = 3; i < Max_X; i++) {
         for (int j = 0; j < Max_Y; j++) {
           if (Enemies[i][j] == 1) {
@@ -726,22 +714,17 @@ else stopmusic();
       }
     }
 
-    public void TO_Disappear_EnemiesHard() {
+    public void TO_Disappear_Enemies_Hard() {
       for (int j = 0; j < Max_Y; j++) {
         if (Enemies[0][j] == 1) {
           Enemies[0][j] = 0;}
-          if (Enemies[1][j] == 1) {
-            Enemies[1][j] = 0;}
-            if (Enemies[2][j] == 1) {
-              Enemies[2][j] = 0;
-
-            }
-
-
-          }
-
-
-        }
+        if (Enemies[1][j] == 1) {
+          Enemies[1][j] = 0;}
+        if (Enemies[2][j] == 1) {
+          Enemies[2][j] = 0;
+      }
+    }
+  }
 
   /////////////////////////////////////////////////////////////////////////////////////
   //collision1
@@ -779,11 +762,11 @@ else stopmusic();
       for (int j = 0; j < Max_Y; j++) {
         if (Enemies[i][j] == 1 && (i == soldier1X ||i == soldier1X -1||i == soldier1X -2||i == soldier1X +1||i == soldier1X +2) && (j == soldier1Y ||j == soldier1Y -1||j == soldier1Y -2||j == soldier1Y -3||j == soldier1Y -4||j == soldier1Y -5||j == soldier1Y +1||j == soldier1Y +2||j == soldier1Y +3||j == soldier1Y +4||j == soldier1Y +5)) {
           if (hearts1-1 == 0) {
+
             if (sound== false)stopmusic();
             if(sound)playSE(6);
             stopmusic();
-          //  System.out.println("GameOver For player 1");
-            //JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
+
             Bullets1 = new int[Max_X][Max_Y];
             Bullets2 = new int[Max_X][Max_Y];
             Enemies = new int[Max_X][Max_Y];
@@ -795,11 +778,10 @@ else stopmusic();
             soldier2Y=40;
             hearts1=5;
             hearts2=5;
+
             t=0;
 
-
             score2=cont2+"";
-            //System.out.println("GameOver For player 1");
             JOptionPane.showMessageDialog(null, "              GameOver \n"+ "Name: "+name+ "   \n"+"Your Score is :"+cont+"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
             cont=0;
             score=cont+"";
@@ -816,8 +798,6 @@ else stopmusic();
         if (sound== false)stopmusic();
         if(sound)playSE(6);
         stopmusic();
-        //  System.out.println("GameOver For player 1");
-        //JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
         Bullets1 = new int[Max_X][Max_Y];
         Bullets2 = new int[Max_X][Max_Y];
         Enemies = new int[Max_X][Max_Y];
@@ -829,12 +809,10 @@ else stopmusic();
         soldier2Y=40;
         hearts1=5;
         hearts2=5;
+
         t=0;
 
-
-
         score2=cont2+"";
-        //System.out.println("GameOver For player 1");
         JOptionPane.showMessageDialog(null, "             win \n"+ "Name: "+name+ "   \n"+"Your Score is :"+cont+"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
         cont=0;
         score=cont+"";
@@ -884,8 +862,7 @@ else stopmusic();
             if (sound==false)stopmusic();
             if(sound)playSE(6);
             stopmusic();
-           // System.out.println("GameOver For player 2");
-           // JOptionPane.showMessageDialog(null, " GameOver For player 2", "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
+
             Bullets1 = new int[Max_X][Max_Y];
             Bullets2 = new int[Max_X][Max_Y];
             Enemies = new int[Max_X][Max_Y];
@@ -897,11 +874,9 @@ else stopmusic();
             soldier2Y=40;
             hearts1=5;
             hearts2=5;
+
             t=0;
 
-
-
-            // System.out.println("GameOver For player 2");
             JOptionPane.showMessageDialog(null, "     GameOver For player 2    \n"+"Name2: "+name1+ "   \n"+"YOur Score is :"+  cont2+"" , "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
             pages="home";
             t=0;
@@ -918,8 +893,7 @@ else stopmusic();
         if (sound== false)stopmusic();
         if(sound)playSE(6);
         stopmusic();
-        //  System.out.println("GameOver For player 1");
-        //JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
+
         Bullets1 = new int[Max_X][Max_Y];
         Bullets2 = new int[Max_X][Max_Y];
         Enemies = new int[Max_X][Max_Y];
@@ -931,12 +905,10 @@ else stopmusic();
         soldier2Y=40;
         hearts1=5;
         hearts2=5;
+
         t=0;
 
-
-
         score2=cont2+"";
-        //System.out.println("GameOver For player 1");
         JOptionPane.showMessageDialog(null, "             win \n"+ "Name: "+name+ "   \n"+"YOur Score is :"+cont+"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
         cont=0;
         score=cont+"";
@@ -954,12 +926,6 @@ else stopmusic();
   int X(int x) { return x * Max_Screen_X / Max_X; }
   int Y(int y) { return y * Max_Screen_Y / Max_Y; }
   /////////////////////////////////////////////////////////////////////////////////////
-  @Override
-  public void reshape(GLAutoDrawable glAutoDrawable, int i, int j, int k, int l) {}
-  @Override
-  public void displayChanged(GLAutoDrawable glAutoDrawable, boolean b, boolean c) {}
-  @Override
-  public void keyTyped(KeyEvent e) {}
   @Override
   public void keyPressed(KeyEvent e) {
     if (e.getKeyCode() == KeyEvent.VK_UP) {
@@ -980,7 +946,6 @@ else stopmusic();
         playSE(1);
       else
         stoppmusic();
-
     }
 
 
@@ -998,10 +963,8 @@ else stopmusic();
       slodier2index++;
     }else if (e.getKeyCode() == KeyEvent.VK_X) {
       TO_Fire2();
-      if(sound)
-        playSE(1);
-      else
-        stoppmusic();
+      if(sound)  playSE(1);
+      else stoppmusic();
 
     }
     if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
@@ -1024,11 +987,6 @@ else stopmusic();
       }
     }
   }
-
-
-
-  @Override
-  public void keyReleased(KeyEvent e) {}
 
   @Override
   public void mouseClicked(MouseEvent e) {
@@ -1164,34 +1122,6 @@ else stopmusic();
     ren.endRendering();
   }
 
-  @Override
-  public void mousePressed(MouseEvent e) {
-  }
-
-  @Override
-  public void mouseReleased(MouseEvent e) {
-
-  }
-
-  @Override
-  public void mouseEntered(MouseEvent e) {
-
-  }
-
-  @Override
-  public void mouseExited(MouseEvent e) {
-
-  }
-
-  @Override
-  public void mouseDragged(MouseEvent e) {
-
-  }
-
-  @Override
-  public void mouseMoved(MouseEvent e) {
-
-  }
   public void playmusic(int i){
 
     sou.StFile(i);
@@ -1199,22 +1129,16 @@ else stopmusic();
     sou.loop();
   }
   public void stopmusic(){
-
     sou.stop();
-
   }
   public void playSE(int i){
-
     so.StFile(i);
     so.play();
-
   }
   public void stoppmusic(){
-
     so.stop();
-
   }
-  public void drawtime() {
+  public void TO_Draw_Time() {
     ren.beginRendering(700, 700);
     ren.setColor(Color.BLUE);
     ren.draw ("" + t , 431, 635);
@@ -1237,36 +1161,35 @@ else stopmusic();
     ren.endRendering();
   }
 
-  public void drawcreadits(GL gl) {
+  public void TO_Draw_Credits(GL gl) {
 
     DrawBackground(4, gl);
-   Drawnames(gl, 320, s+285, textureNames.length-1, 2.5f);
-    Drawnames(gl, 320, b+285, 26, 2.5f);
-    Drawnames(gl, 320, a+285, 27, 2.5f);
-    Drawnames(gl, 320, a1+285, 28, 2.5f);
-    Drawnames(gl, 320, m1+285, 29, 2.5f);
+   Drawnames(gl, 320, Salah +285, textureNames.length-1, 2.5f);
+    Drawnames(gl, 320, Bilal +285, 26, 2.5f);
+    Drawnames(gl, 320, Eid +285, 27, 2.5f);
+    Drawnames(gl, 320, Abdo +285, 28, 2.5f);
+    Drawnames(gl, 320, Gedo +285, 29, 2.5f);
 
+    Gedo += 5;
+    Abdo += 5;
+    Eid += 5;
+    Bilal += 5;
+    Salah += 5;
 
-    m1 += 5;
-    a1 += 5;
-    a += 5;
-    b += 5;
-    s += 5;
-
-    if (s == 200) {
-      s = -5;
+    if (Salah == 200) {
+      Salah = -5;
     }
-   if (b == 200) {
-      b = -5;
+   if (Bilal == 200) {
+      Bilal = -5;
    }
-  if (a == 200) {
-     a= -5;
+  if (Eid == 200) {
+     Eid = -5;
    }
-    if (a1 == 200) {
-     a1 = -5;
+    if (Abdo == 200) {
+     Abdo = -5;
    }
-    if (m1 == 200) {
-      m1 = -5;
+    if (Gedo == 200) {
+      Gedo = -5;
     }
   }
 // names
@@ -1295,6 +1218,24 @@ else stopmusic();
     gl.glDisable(GL.GL_BLEND);
   }
 
-
-
+  @Override
+  public void mousePressed(MouseEvent e) { }
+  @Override
+  public void mouseReleased(MouseEvent e) { }
+  @Override
+  public void mouseEntered(MouseEvent e) { }
+  @Override
+  public void mouseExited(MouseEvent e) { }
+  @Override
+  public void mouseDragged(MouseEvent e) { }
+  @Override
+  public void mouseMoved(MouseEvent e) { }
+  @Override
+  public void keyReleased(KeyEvent e) { }
+  @Override
+  public void reshape(GLAutoDrawable glAutoDrawable, int i, int j, int k, int l) {}
+  @Override
+  public void displayChanged(GLAutoDrawable glAutoDrawable, boolean b, boolean c) {}
+  @Override
+  public void keyTyped(KeyEvent e) {}
 }
