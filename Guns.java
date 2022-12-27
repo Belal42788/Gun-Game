@@ -78,7 +78,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
           "Background game\\background.png",  // 6
 
           //Bullet2
-          "Bullet.png",//7
+          "Balloon1.png",//7
 
           //Soldier 1
           "MAN\\Man1_right.png","MAN\\Man2_right.png","MAN\\Man3_right.png","MAN\\Man4_right.png",//  11
