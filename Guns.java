@@ -23,7 +23,8 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   int Max_Y = 50;
 
 
-  int m,cont ,cont2;
+  //Score
+  int m, ScoreCount, ScoreCont2;
   String score = "0" , score2="0";
 
   //names
@@ -39,7 +40,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
 
 
 
-  static int t  , k ;
+  static int Time, AnimatorTime;
 
 
   int Delay =1;
@@ -165,10 +166,10 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
 
     } else if (pages == "EASY SINGLE") {
       pagesBack = "EASY SINGLE";
-      k++;
-      if (k > 10) {
-        k = 0 ;
-        t++;
+      AnimatorTime++;
+      if (AnimatorTime > 10) {
+        AnimatorTime = 0 ;
+        Time++;
       }
       //Background
       DrawBackground(6, gl);
@@ -200,10 +201,10 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
 
     } else if (pages == "MEDIUM SINGLE") {
       pagesBack = "MEDIUM SINGLE";
-      k++;
-      if (k > 10) {
-        k = 0 ;
-        t++;
+      AnimatorTime++;
+      if (AnimatorTime > 10) {
+        AnimatorTime = 0 ;
+        Time++;
       }
       //Background
       DrawBackground(6, gl);
@@ -233,10 +234,10 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
 
       } else if (pages == "HARD SINGLE") {
       pagesBack = "HARD SINGLE";
-      k++;
-      if (k > 10) {
-        k = 0 ;
-        t++;
+      AnimatorTime++;
+      if (AnimatorTime > 10) {
+        AnimatorTime = 0 ;
+        Time++;
       }
       //Background
         DrawBackground(6, gl);
@@ -270,10 +271,10 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
 
       } else if (pages == "EASY DOUBLE") {
       pagesBack = "EASY DOUBLE";
-      k++;
-      if (k > 10) {
-        k = 0 ;
-        t++;
+      AnimatorTime++;
+      if (AnimatorTime > 10) {
+        AnimatorTime = 0 ;
+        Time++;
       }
         //Background
       m=16;
@@ -316,10 +317,10 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
       drawscore2();
       } else if (pages == "MEDIUM DOUBLE") {
       pagesBack = "MEDIUM DOUBLE";
-      k++;
-      if (k > 10) {
-        k = 0 ;
-        t++;
+      AnimatorTime++;
+      if (AnimatorTime > 10) {
+        AnimatorTime = 0 ;
+        Time++;
       }
       //Background
       DrawBackground(6, gl);
@@ -363,10 +364,10 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
         } else if (pages == "HARD DOUBLE") {
       pagesBack = "HARD DOUBLE";
       m=6;
-      k++;
-      if (k > 10) {
-        k = 0 ;
-        t++;
+      AnimatorTime++;
+      if (AnimatorTime > 10) {
+        AnimatorTime = 0 ;
+        Time++;
       }
 
     //Background
@@ -622,7 +623,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
 
   void TO_Generate_Enemies() {
     int x = 49;
-    int y = (int) (Math.random() * (Max_Y-1));
+    int y = (int) (Math.random() * (Max_Y-2));
     Enemies[x][y] = 1;
   }
 
@@ -630,7 +631,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
     gl.glEnable(GL.GL_BLEND);
     gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);
     gl.glPushMatrix();
-    gl.glTranslated(x * 13 / (Max_Screen_X / 2.0) -0.9 , y * 10/ (Max_Screen_Y / 2.0) -0.75 , 0);
+    gl.glTranslated(x * 13 / (Max_Screen_X / 2.0) -0.9 , y * 9/ (Max_Screen_Y / 2.0) -0.7 , 0);
 
     gl.glScaled(0.15, 0.15 , 1);
     gl.glBegin(GL.GL_QUADS);
@@ -749,8 +750,8 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
           Enemies[i+1][j+1] = 0;
           Enemies[i+1][j+2] = 0;
           Enemies[i+1][j+3] = 0;
-          cont++;
-          score=cont+"";
+          ScoreCount++;
+          score= ScoreCount +"";
           break;
         }
       }
@@ -779,50 +780,51 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
             hearts1=5;
             hearts2=5;
 
-            t=0;
+            Time =0;
 
-            score2=cont2+"";
+            score2= ScoreCont2 +"";
             if (sound== false)stopmusic();
             if(sound)playSE(6);
             stopmusic();
 
-            JOptionPane.showMessageDialog(null, "              GameOver \n"+ "Name: "+name+ "   \n"+"Your Score is :"+cont+"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
-            cont=0;
-            score=cont+"";
-            cont2=0;
+            JOptionPane.showMessageDialog(null, "              GameOver \n"+ "Name: "+name+ "   \n"+"Your Score is :"+ ScoreCount +"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
+            ScoreCount =0;
+            score= ScoreCount +"";
+            ScoreCont2 =0;
             pages="home";
-            t=0;
+            Time =0;
           } else{
             Enemies[i][j] = 0;
             System.out.println(--hearts1);
           }
         }
+        if (Time == z) {
+          Bullets1 = new int[Max_X][Max_Y];
+          Bullets2 = new int[Max_X][Max_Y];
+          Enemies = new int[Max_X][Max_Y];
+
+          //Soldiers
+          soldier1X = 2;
+          soldier1Y = 20;
+          soldier2X=2;
+          soldier2Y=40;
+          hearts1=5;
+          hearts2=5;
+
+          Time =0;
+
+          score2= ScoreCont2 +"";
+          if(sound)playSE(8);
+          JOptionPane.showMessageDialog(null, "             win \n"+ "Name: "+name+ "   \n"+"Your Score is :"+ ScoreCount +"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
+          ScoreCount =0;
+          score= ScoreCount +"";
+          ScoreCont2 =0;
+          pages="home";
+          Time =0;
+
+        }
       }
-      if (t == z) {
-                Bullets1 = new int[Max_X][Max_Y];
-        Bullets2 = new int[Max_X][Max_Y];
-        Enemies = new int[Max_X][Max_Y];
 
-        //Soldiers
-        soldier1X = 2;
-        soldier1Y = 20;
-        soldier2X=2;
-        soldier2Y=40;
-        hearts1=5;
-        hearts2=5;
-
-        t=0;
-
-        score2=cont2+"";
-        if(sound)playSE(8);
-        JOptionPane.showMessageDialog(null, "             win \n"+ "Name: "+name+ "   \n"+"Your Score is :"+cont+"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
-        cont=0;
-        score=cont+"";
-        cont2=0;
-        pages="home";
-        t=0;
-
-      }
     }
   }/////////////////////////////////////////////////////////////////////////////////////
   //collision2
@@ -847,8 +849,8 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
           Enemies[i+1][j+1] = 0;
           Enemies[i+1][j+2] = 0;
           Enemies[i+1][j+3] = 0;
-          cont2++;
-          score2=cont2+"";
+          ScoreCont2++;
+          score2= ScoreCont2 +"";
 
           break;
         }
@@ -877,49 +879,50 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
             hearts1=5;
             hearts2=5;
 
-            t=0;
+            Time =0;
             if (sound== false)stopmusic();
             if(sound)playSE(6);
             stopmusic();
-            JOptionPane.showMessageDialog(null, "     GameOver For player 2    \n"+"Name2: "+name1+ "   \n"+"YOur Score is :"+  cont2+"" , "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "     GameOver For player 2    \n"+"Name2: "+name1+ "   \n"+"YOur Score is :"+ ScoreCont2 +"" , "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
             pages="home";
-            t=0;
-            cont2=0;
+            Time =0;
+            ScoreCont2 =0;
 
-            score2=cont2+"";
+            score2= ScoreCont2 +"";
           } else{
             Enemies[i][j] = 0;
             System.out.println(--hearts2);
           }
         }
+        if (Time == z) {
+
+
+          Bullets1 = new int[Max_X][Max_Y];
+          Bullets2 = new int[Max_X][Max_Y];
+          Enemies = new int[Max_X][Max_Y];
+
+          //Soldiers
+          soldier1X = 2;
+          soldier1Y = 20;
+          soldier2X=2;
+          soldier2Y=40;
+          hearts1=5;
+          hearts2=5;
+
+          Time =0;
+
+          score2= ScoreCont2 +"";
+          if(sound)playSE(8);
+          JOptionPane.showMessageDialog(null, "             win \n"+ "Name: "+name+ "   \n"+"YOur Score is :"+ ScoreCount +"", "Win"  , JOptionPane.WARNING_MESSAGE);
+          ScoreCount =0;
+          score= ScoreCount +"";
+          ScoreCont2 =0;
+          pages="home";
+          Time =0;
+
+        }
       }
-      if (t == z) {
 
-
-        Bullets1 = new int[Max_X][Max_Y];
-        Bullets2 = new int[Max_X][Max_Y];
-        Enemies = new int[Max_X][Max_Y];
-
-        //Soldiers
-        soldier1X = 2;
-        soldier1Y = 20;
-        soldier2X=2;
-        soldier2Y=40;
-        hearts1=5;
-        hearts2=5;
-
-        t=0;
-
-        score2=cont2+"";
-        if(sound)playSE(8);
-        JOptionPane.showMessageDialog(null, "             win \n"+ "Name: "+name+ "   \n"+"YOur Score is :"+cont+"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
-        cont=0;
-        score=cont+"";
-        cont2=0;
-        pages="home";
-        t=0;
-
-      }
     }
 
 
@@ -1144,7 +1147,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   public void TO_Draw_Time() {
     ren.beginRendering(700, 700);
     ren.setColor(Color.BLUE);
-    ren.draw ("" + t , 431, 635);
+    ren.draw ("" + Time, 431, 635);
     ren.setColor(Color.WHITE);
     ren.endRendering();
   }
