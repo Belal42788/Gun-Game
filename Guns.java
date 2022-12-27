@@ -161,6 +161,7 @@ else stopmusic();
       DrawBackground(5, gl);
 
     } else if (pages == "EASY SINGLE") {
+      pagesBack = "EASY SINGLE";
       k++;
       //win(t);
       if (k > 10) {
@@ -201,6 +202,7 @@ else stopmusic();
 
 
     } else if (pages == "MEDIUM SINGLE") {
+      pagesBack = "MEDIUM SINGLE";
       k++;
       if (k > 10) {
         k = 0 ;
@@ -236,6 +238,7 @@ else stopmusic();
       drawscore();
 
       } else if (pages == "HARD SINGLE") {
+      pagesBack = "HARD SINGLE";
       k++;
       if (k > 10) {
         k = 0 ;
@@ -271,6 +274,7 @@ else stopmusic();
         DrawBackground(5, gl);
 
       } else if (pages == "EASY DOUBLE") {
+      pagesBack = "EASY DOUBLE";
       k++;
       if (k > 10) {
         k = 0 ;
@@ -316,6 +320,7 @@ else stopmusic();
       drawscore();
       drawscore2();
       } else if (pages == "MEDIUM DOUBLE") {
+      pagesBack = "MEDIUM DOUBLE";
       k++;
       if (k > 10) {
         k = 0 ;
@@ -361,6 +366,7 @@ else stopmusic();
       drawscore2();
       drawscore();
         } else if (pages == "HARD DOUBLE") {
+      pagesBack = "HARD DOUBLE";
       m=6;
       k++;
       if (k > 10) {
@@ -415,8 +421,6 @@ else stopmusic();
       drawscore();
         } else if(pages == "PAUSE"){
       DrawBackground(24, gl);
-
-
     }
 
 
@@ -773,7 +777,7 @@ else stopmusic();
   void Handle_Soldier_Collision1(int z) {
     for (int i = 0; i < Max_X; i++) {
       for (int j = 0; j < Max_Y; j++) {
-        if (Enemies[i][j] == 1 && (i == soldier1X ||i == soldier1X -1||i == soldier1X -2||i == soldier1X +1||i == soldier1X +2) && (j == soldier1Y ||j == soldier1Y -1||j == soldier1Y -2||j == soldier1Y -3||j == soldier1Y -4||j == soldier1Y -5||j == soldier1Y +1||j == soldier1Y +2)) {
+        if (Enemies[i][j] == 1 && (i == soldier1X ||i == soldier1X -1||i == soldier1X -2||i == soldier1X +1||i == soldier1X +2) && (j == soldier1Y ||j == soldier1Y -1||j == soldier1Y -2||j == soldier1Y -3||j == soldier1Y -4||j == soldier1Y -5||j == soldier1Y +1||j == soldier1Y +2||j == soldier1Y +3||j == soldier1Y +4||j == soldier1Y +5)) {
           if (hearts1-1 == 0) {
             if (sound== false)stopmusic();
             if(sound)playSE(6);
@@ -796,7 +800,7 @@ else stopmusic();
 
             score2=cont2+"";
             //System.out.println("GameOver For player 1");
-            JOptionPane.showMessageDialog(null, "              GameOver \n"+ "Name: "+name+ "   \n"+"YOur Score is :"+cont+"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "              GameOver \n"+ "Name: "+name+ "   \n"+"Your Score is :"+cont+"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
             cont=0;
             score=cont+"";
             cont2=0;
@@ -831,7 +835,7 @@ else stopmusic();
 
         score2=cont2+"";
         //System.out.println("GameOver For player 1");
-        JOptionPane.showMessageDialog(null, "             win \n"+ "Name: "+name+ "   \n"+"YOur Score is :"+cont+"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "             win \n"+ "Name: "+name+ "   \n"+"Your Score is :"+cont+"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
         cont=0;
         score=cont+"";
         cont2=0;
@@ -1001,25 +1005,7 @@ else stopmusic();
 
     }
     if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-      pages = "PAUSE";
-
-      if( pages == "EASY SINGLE"){
-        pagesBack = "EASY SINGLE";
-        pages = "PAUSE";
-      } else if( pages == "MEDIUM SINGLE"){
-        pagesBack = "MEDIUM SINGLE";
-        pages = "PAUSE";
-      }else if( pages == "HARD SINGLE"){
-        pagesBack = "HARD SINGLE";
-        pages = "PAUSE";
-      }else if( pages == "EASY DOUBLE"){
-        pagesBack = "EASY DOUBLE";
-        pages = "PAUSE";
-      } else if( pages == "MEDIUM DOUBLE"){
-        pagesBack = "MEDIUM DOUBLE";
-        pages = "PAUSE";
-      }else if( pages == "HARD DOUBLE"){
-        pagesBack = "HARD DOUBLE";
+      if(pages == "EASY SINGLE"||pages == "MEDIUM SINGLE"||pages == "HARD SINGLE"||pages == "EASY DOUBLE"||pages == "MEDIUM DOUBLE"||pages == "HARD DOUBLE"){
         pages = "PAUSE";
       } else if(pages == "PAUSE"){
         if( pagesBack == "EASY SINGLE"){
@@ -1104,8 +1090,11 @@ else stopmusic();
           }
         }
         if (e.getX() > 364&& e.getX() < 393 && e.getY() > 286 && e.getY() < 316) {
-          sound = false;
-          stopmusic();
+          if (sound == true) {
+            stopmusic();
+            stoppmusic();
+            sound = false;
+          }
         }
         break;
 
