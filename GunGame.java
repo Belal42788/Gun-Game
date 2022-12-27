@@ -19,6 +19,7 @@ public class GunGame extends JFrame {
   public GunGame() {
     super("Gun Game");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setResizable(false);
     glcanvas.addGLEventListener(listener);
     animator.add(glcanvas);
     glcanvas.addKeyListener(listener);

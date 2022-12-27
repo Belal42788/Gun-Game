@@ -23,18 +23,16 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   //boolean xm = false;
   int m,cont ,cont2;
   String score = "0" , score2="0";
+
+  //names
+
+  int s, a, a1, m1 ,b ;
   TextRenderer ren = new TextRenderer(new Font("Rockwell Extra Bold", Font.BOLD, 25));
 
 
 
 
-//  public void setX(int x) {
-//    this.x = x;
-//  }
-//
-//  public int getX() {
-//    return x;
-//  }
+
   static String name , name1 ;
 
   //TextRenderer ren = new TextRenderer(new Font("Rockwell Extra Bold", Font.BOLD, 25));
@@ -72,30 +70,33 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
   String textureNames[] = {
           //Pages
           "HOME\\Monster(Home).png","Page 2(Single vs MULTI)\\Monster(Single vs Multi).png","INSTRUCTIONS\\Monster(instructions).png","OPTIONS\\OPTIONS.png ",// 3
-          "CONTACT_US\\CONTACT_US.png","LEVELS\\Monster(levels).png",  //  5
+          "CONTACT_US\\CONTACT_US.png","LEVELS\\Monster(levels).png",  //  4
 
           //Background game
-          "Background game\\background.png",  // 6
+          "Background game\\background.png",  // 5
 
           //Bullet2
-          "Balloon1.png",//7
+          "Balloon1.png",//6
 
           //Soldier 1
-          "MAN\\Man1_right.png","MAN\\Man2_right.png","MAN\\Man3_right.png","MAN\\Man4_right.png",//  11
+          "MAN\\Man1_right.png","MAN\\Man2_right.png","MAN\\Man3_right.png","MAN\\Man4_right.png",//  10
 
           //Soldier2
-          "RedMan\\RedMan1_right-1.png","RedMan\\RedMan2_right-1.png","RedMan\\RedMan3_right-1.png","RedMan\\RedMan4_right-1.png",// 15
+          "RedMan\\RedMan1_right-1.png","RedMan\\RedMan2_right-1.png","RedMan\\RedMan3_right-1.png","RedMan\\RedMan4_right-1.png",// 14
 
           //Enemies
           "Running Monster\\0_Golem_Running_001-1.png","Running Monster\\0_Golem_Running_002-1.png","Running Monster\\0_Golem_Running_003-1.png",  //  18
           "Running Monster\\0_Golem_Running_004-1.png","Running Monster\\0_Golem_Running_005-1.png","Running Monster\\0_Golem_Running_006-1.png"  //22
-          ,"Running Monster\\0_Golem_Running_007-1.png","Running Monster\\0_Golem_Running_007-1.png",//24
+          ,"Running Monster\\0_Golem_Running_007-1.png","Running Monster\\0_Golem_Running_007-1.png",//23
 
           //pause
-          "PAUSE.png",//25
+          "PAUSE.png",//24
 
           //Bullet1
-          "B1.png"//26
+          "B1.png",//25
+
+          //names
+          "names\\belal.png","names\\eid.png","names\\ezzar.png","names\\gedo.png","names\\salah.png"//30
   };
   TextureReader.Texture texture[] = new TextureReader.Texture[textureNames.length];
   int textures[] = new int[textureNames.length];
@@ -155,8 +156,7 @@ else stopmusic();
       DrawBackground(3, gl);
 
     } else if (pages == "CONTACT_US") {
-      DrawBackground(4, gl);
-
+      drawcreadits(gl);
     } else if (pages == "SINGLE") {
       DrawBackground(5, gl);
 
@@ -517,7 +517,7 @@ else stopmusic();
   //Bullets1
   void TO_Draw_One_Bullet1(GL gl, int x, int y) {
     gl.glEnable(GL.GL_BLEND);
-    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[textureNames.length-1]);
+    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[25]);
     gl.glPushMatrix();
     gl.glTranslated(X(x)  / (Max_Screen_X / 2.0) -0.84 , Y(y) / 1.4 / (Max_Screen_Y / 2.0) -0.77 , 0);
     gl.glScaled(0.02 , 0.02 , 1);
@@ -1228,7 +1228,7 @@ else stopmusic();
   public void drawtime() {
     ren.beginRendering(700, 700);
     ren.setColor(Color.BLUE);
-    ren.draw ("" + t , 439, 635);
+    ren.draw ("" + t , 431, 635);
     ren.setColor(Color.WHITE);
     ren.endRendering();
   }
@@ -1247,4 +1247,65 @@ else stopmusic();
     ren.setColor(Color.WHITE);
     ren.endRendering();
   }
+
+  public void drawcreadits(GL gl) {
+
+    DrawBackground(4, gl);
+   Drawnames(gl, 320, s+285, textureNames.length-1, 2.5f);
+    Drawnames(gl, 320, b+285, 26, 2.5f);
+    Drawnames(gl, 320, a+285, 27, 2.5f);
+    Drawnames(gl, 320, a1+285, 28, 2.5f);
+    Drawnames(gl, 320, m1+285, 29, 2.5f);
+
+
+    m1 += 5;
+    a1 += 5;
+    a += 5;
+    b += 5;
+    s += 5;
+
+    if (s == 200) {
+      s = -5;
+    }
+   if (b == 200) {
+      b = -5;
+   }
+  if (a == 200) {
+     a= -5;
+   }
+    if (a1 == 200) {
+     a1 = -5;
+   }
+    if (m1 == 200) {
+      m1 = -5;
+    }
+  }
+// names
+  public void Drawnames(GL gl, int x, int y, int index, float scale) {
+    gl.glEnable(GL.GL_BLEND);
+    gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);
+
+    gl.glPushMatrix();
+
+    gl.glTranslated(x / (Max_Screen_X / 2.0) - 0.9, y / (Max_Screen_Y / 2.0) - 0.9, 0);
+
+    gl.glScaled(0.3 * scale, 0.3 * scale, 1);
+
+    gl.glBegin(GL.GL_QUADS);
+    gl.glTexCoord2f(0.0f, 0.0f);
+    gl.glVertex3f(-1.0f, -1.0f, -1.0f);
+    gl.glTexCoord2f(1.0f, 0.0f);
+    gl.glVertex3f(1.0f, -1.0f, -1.0f);
+    gl.glTexCoord2f(1.0f, 1.0f);
+    gl.glVertex3f(1.0f, 1.0f, -1.0f);
+    gl.glTexCoord2f(0.0f, 1.0f);
+    gl.glVertex3f(-1.0f, 1.0f, -1.0f);
+    gl.glEnd();
+    gl.glPopMatrix();
+
+    gl.glDisable(GL.GL_BLEND);
+  }
+
+
+
 }
