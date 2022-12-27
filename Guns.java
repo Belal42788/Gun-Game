@@ -162,14 +162,18 @@ else stopmusic();
 
     } else if (pages == "EASY SINGLE") {
       k++;
+      //win(t);
       if (k > 10) {
         k = 0 ;
         t++;
       }
+
+
+
       //Background
       DrawBackground(6, gl);
       m=16;
-      drawscore();
+
 
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
@@ -188,10 +192,11 @@ else stopmusic();
 
       //Handling Collisions1
       Handle_Bullet_Collision1();
-      Handle_Soldier_Collision1();
+      Handle_Soldier_Collision1(151);
       //time
       drawtime();
       drawlifes();
+      drawscore();
 
 
 
@@ -203,7 +208,7 @@ else stopmusic();
       }
       //Background
       DrawBackground(6, gl);
-      drawscore();
+
 
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
@@ -224,10 +229,11 @@ else stopmusic();
 
         //Handling Collisions1
         Handle_Bullet_Collision1();
-        Handle_Soldier_Collision1();
+        Handle_Soldier_Collision1(211);
       //time
       drawtime();
       drawlifes();
+      drawscore();
 
       } else if (pages == "HARD SINGLE") {
       k++;
@@ -246,20 +252,21 @@ else stopmusic();
         TO_Draw_Bullets1(gl);
         TO_Move_Bullets1();
         TO_Disappear_Bullets1();
-        drawscore();
+
 
         //Enemies
         TO_Delay_Enemies();
         TO_Draw_Enemies(gl);
-        TO_Move_EnemiesMadium();
-        TO_Disappear_EnemiesMadium();
+        TO_Move_EnemiesHard();
+        TO_Disappear_EnemiesHard();
 
         //Handling Collisions1
         Handle_Bullet_Collision1();
-        Handle_Soldier_Collision1();
+        Handle_Soldier_Collision1(271);
       //time
       drawtime();
       drawlifes();
+      drawscore();
       } else if (pages == "DOUBLE") {
         DrawBackground(5, gl);
 
@@ -274,8 +281,7 @@ else stopmusic();
       DrawBackground(6, gl);
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
-      drawscore();
-      drawscore2();
+
 
       //Bullet1
       TO_Draw_Bullets1(gl);
@@ -290,7 +296,7 @@ else stopmusic();
 
       //Handling Collisions1
       Handle_Bullet_Collision1();
-      Handle_Soldier_Collision1();
+      Handle_Soldier_Collision1(151);
 
       //ٍSoldier2
       TO_Draw_Soldier2(gl, slodier2index);
@@ -302,11 +308,13 @@ else stopmusic();
 
       //Handling Collisions2
       Handle_Bullet_Collision2();
-      Handle_Soldier_Collision2();
+      Handle_Soldier_Collision2(151);
       //time
       drawtime();
       drawlifes();
       drawlifes2();
+      drawscore();
+      drawscore2();
       } else if (pages == "MEDIUM DOUBLE") {
       k++;
       if (k > 10) {
@@ -318,8 +326,7 @@ else stopmusic();
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
       m=8;
-      drawscore2();
-      drawscore();
+
 
       //Bullet1
       TO_Draw_Bullets1(gl);
@@ -334,7 +341,7 @@ else stopmusic();
 
       //Handling Collisions1
       Handle_Bullet_Collision1();
-      Handle_Soldier_Collision1();
+      Handle_Soldier_Collision1(211);
 
       //ٍSoldier2
       TO_Draw_Soldier2(gl, slodier2index);
@@ -346,11 +353,13 @@ else stopmusic();
 
       //Handling Collisions2
       Handle_Bullet_Collision2();
-      Handle_Soldier_Collision2();
+      Handle_Soldier_Collision2(211);
       //time
       drawtime();
       drawlifes();
       drawlifes2();
+      drawscore2();
+      drawscore();
         } else if (pages == "HARD DOUBLE") {
       m=6;
       k++;
@@ -367,8 +376,7 @@ else stopmusic();
       DrawBackground(6, gl);
       //ٍSoldier1
       TO_Draw_Soldier1(gl, slodier1index);
-      drawscore2();
-      drawscore();
+
 
       //Bullet1
       TO_Draw_Bullets1(gl);
@@ -383,7 +391,7 @@ else stopmusic();
 
       //Handling Collisions1
       Handle_Bullet_Collision1();
-      Handle_Soldier_Collision1();
+      Handle_Soldier_Collision1(271);
 
       //ٍSoldier2
       TO_Draw_Soldier2(gl, slodier2index);
@@ -397,12 +405,14 @@ else stopmusic();
 
       //Handling Collisions2
       Handle_Bullet_Collision2();
-      Handle_Soldier_Collision2();
+      Handle_Soldier_Collision2(271);
 
       //time
       drawtime();
       drawlifes();
       drawlifes2();
+      drawscore2();
+      drawscore();
         } else if(pages == "PAUSE"){
       DrawBackground(24, gl);
 
@@ -611,8 +621,10 @@ else stopmusic();
   public void TO_Delay_Enemies(){
     if (Delay++ %m==0) {
       TO_Generate_Enemies();
+
     }
-    if(Delay ==1000) Delay =1;
+    if(Delay ==1000)
+      Delay =1;
   }
 
   void TO_Generate_Enemies() {
@@ -758,7 +770,7 @@ else stopmusic();
     }
   }
 
-  void Handle_Soldier_Collision1() {
+  void Handle_Soldier_Collision1(int z) {
     for (int i = 0; i < Max_X; i++) {
       for (int j = 0; j < Max_Y; j++) {
         if (Enemies[i][j] == 1 && (i == soldier1X ||i == soldier1X -1||i == soldier1X -2||i == soldier1X +1||i == soldier1X +2) && (j == soldier1Y ||j == soldier1Y -1||j == soldier1Y -2||j == soldier1Y -3||j == soldier1Y -4||j == soldier1Y -5||j == soldier1Y +1||j == soldier1Y +2)) {
@@ -796,6 +808,37 @@ else stopmusic();
           }
         }
       }
+      if (t == z) {
+        if (sound== false)stopmusic();
+        if(sound)playSE(6);
+        stopmusic();
+        //  System.out.println("GameOver For player 1");
+        //JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
+        Bullets1 = new int[Max_X][Max_Y];
+        Bullets2 = new int[Max_X][Max_Y];
+        Enemies = new int[Max_X][Max_Y];
+
+        //Soldiers
+        soldier1X = 2;
+        soldier1Y = 20;
+        soldier2X=2;
+        soldier2Y=40;
+        hearts1=5;
+        hearts2=5;
+        t=0;
+
+
+
+        score2=cont2+"";
+        //System.out.println("GameOver For player 1");
+        JOptionPane.showMessageDialog(null, "             win \n"+ "Name: "+name+ "   \n"+"YOur Score is :"+cont+"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
+        cont=0;
+        score=cont+"";
+        cont2=0;
+        pages="home";
+        t=0;
+
+      }
     }
   }/////////////////////////////////////////////////////////////////////////////////////
   //collision2
@@ -829,7 +872,7 @@ else stopmusic();
     }
   }
 
-  void Handle_Soldier_Collision2() {
+  void Handle_Soldier_Collision2(int z) {
     for (int i = 0; i < Max_X; i++) {
       for (int j = 0; j < Max_Y; j++) {
         if (Enemies[i][j] == 1 && (i == soldier2X ||i == soldier2X -1||i == soldier2X -2||i == soldier2X +1||i == soldier2X +2) && (j == soldier2Y ||j == soldier2Y -1||j == soldier2Y -2||j == soldier2Y -3||j == soldier2Y -4||j == soldier2Y -5||j == soldier2Y +1||j == soldier2Y +2)) {
@@ -866,6 +909,37 @@ else stopmusic();
             System.out.println(--hearts2);
           }
         }
+      }
+      if (t == z) {
+        if (sound== false)stopmusic();
+        if(sound)playSE(6);
+        stopmusic();
+        //  System.out.println("GameOver For player 1");
+        //JOptionPane.showMessageDialog(null, "GameOver For player 1.", "GameOver For player 1", JOptionPane.WARNING_MESSAGE);
+        Bullets1 = new int[Max_X][Max_Y];
+        Bullets2 = new int[Max_X][Max_Y];
+        Enemies = new int[Max_X][Max_Y];
+
+        //Soldiers
+        soldier1X = 2;
+        soldier1Y = 20;
+        soldier2X=2;
+        soldier2Y=40;
+        hearts1=5;
+        hearts2=5;
+        t=0;
+
+
+
+        score2=cont2+"";
+        //System.out.println("GameOver For player 1");
+        JOptionPane.showMessageDialog(null, "             win \n"+ "Name: "+name+ "   \n"+"YOur Score is :"+cont+"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
+        cont=0;
+        score=cont+"";
+        cont2=0;
+        pages="home";
+        t=0;
+
       }
     }
 
@@ -964,6 +1038,9 @@ else stopmusic();
       }
     }
   }
+
+
+
   @Override
   public void keyReleased(KeyEvent e) {}
 

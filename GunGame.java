@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class GunGame extends JFrame {
   Guns G = new Guns();
-  Animator animator= new FPSAnimator(15);
+  Animator animator= new FPSAnimator(11);
   GLCanvas glcanvas= new GLCanvas();
   Guns listener = new Guns();
 
