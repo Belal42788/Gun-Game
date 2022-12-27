@@ -782,6 +782,10 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
             t=0;
 
             score2=cont2+"";
+            if (sound== false)stopmusic();
+            if(sound)playSE(6);
+            stopmusic();
+
             JOptionPane.showMessageDialog(null, "              GameOver \n"+ "Name: "+name+ "   \n"+"Your Score is :"+cont+"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
             cont=0;
             score=cont+"";
@@ -795,10 +799,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
         }
       }
       if (t == z) {
-        if (sound== false)stopmusic();
-        if(sound)playSE(6);
-        stopmusic();
-        Bullets1 = new int[Max_X][Max_Y];
+                Bullets1 = new int[Max_X][Max_Y];
         Bullets2 = new int[Max_X][Max_Y];
         Enemies = new int[Max_X][Max_Y];
 
@@ -813,6 +814,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
         t=0;
 
         score2=cont2+"";
+        if(sound)playSE(8);
         JOptionPane.showMessageDialog(null, "             win \n"+ "Name: "+name+ "   \n"+"Your Score is :"+cont+"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
         cont=0;
         score=cont+"";
@@ -876,7 +878,9 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
             hearts2=5;
 
             t=0;
-
+            if (sound== false)stopmusic();
+            if(sound)playSE(6);
+            stopmusic();
             JOptionPane.showMessageDialog(null, "     GameOver For player 2    \n"+"Name2: "+name1+ "   \n"+"YOur Score is :"+  cont2+"" , "GameOver For player 2", JOptionPane.WARNING_MESSAGE);
             pages="home";
             t=0;
@@ -890,9 +894,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
         }
       }
       if (t == z) {
-        if (sound== false)stopmusic();
-        if(sound)playSE(6);
-        stopmusic();
+
 
         Bullets1 = new int[Max_X][Max_Y];
         Bullets2 = new int[Max_X][Max_Y];
@@ -909,6 +911,7 @@ public class Guns implements GLEventListener, KeyListener, MouseListener, MouseM
         t=0;
 
         score2=cont2+"";
+        if(sound)playSE(8);
         JOptionPane.showMessageDialog(null, "             win \n"+ "Name: "+name+ "   \n"+"YOur Score is :"+cont+"", "GameOver For "  , JOptionPane.WARNING_MESSAGE);
         cont=0;
         score=cont+"";

@@ -25,6 +25,7 @@ public Soundd(){
     soundURL[5]=getClass().getResource("/sound/cuttree.wav");
     soundURL[6]=getClass().getResource("/sound/gameover.wav");
     soundURL[7]=getClass().getResource("/sound/xxx.wav");
+    soundURL[8]=getClass().getResource("/sound/win.wav");
 }
 public void StFile(int i){
   
